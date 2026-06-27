@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RhythmPal — Health Intelligence That Gets Smarter With You</title>
+  <meta name="description" content="RhythmPal connects your wearables, food, sleep, and habits — then finds the patterns you'd never see yourself." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💚</text></svg>" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: #0d9488; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button { cursor: pointer; border: none; outline: none; font-family: inherit; }
+    input, textarea, select {
+      font-family: inherit;
+      background: #1e293b;
+      border: 1.5px solid #334155;
+      border-radius: 8px;
+      color: #e2e8f0;
+      padding: 10px 14px;
+      font-size: 1rem;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus { outline: none; border-color: #0d9488; }
+    input::placeholder, textarea::placeholder { color: #64748b; }
+
+    /* ===== COLORS ===== */
+    :root {
+      --teal: #0d9488;
+      --teal-dark: #0f766e;
+      --teal-light: #14b8a6;
+      --amber: #f59e0b;
+      --amber-dark: #d97706;
+      --bg: #0f172a;
+      --bg2: #1e293b;
+      --bg3: #273548;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --success: #10b981;
+      --error: #ef4444;
+    }
+
+    /* ===== LANDING PAGE ===== */
+    #landing {
+      display: block;
+      min-height: 100vh;
+    }
+
+    /* Nav */
+    .land-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .land-logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .land-logo span { color: var(--teal-light); }
+    .land-nav-actions { display: flex; gap: 12px; align-items: center; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      border: 1.5px solid var(--border);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--teal); color: var(--teal-light); }
+    .btn-primary {
+      background: var(--teal);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--teal-dark); }
+    .btn-amber {
+      background: var(--amber);
+      color: #0f172a;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      transition: background 0.2s;
+    }
+    .btn-amber:hover { background: var(--amber-dark); }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 60px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(13, 148, 136, 0.15);
+      border: 1px solid rgba(13, 148, 136, 0.35);
+      color: var(--teal-light);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: normal; color: var(--teal-light); }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .hero-note { color: var(--text-muted); font-size: 0.82rem; margin-top: 14px; }
+
+    /* Features */
+    .section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      text-align: center;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 48px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+    .feature-icon { font-size: 2.2rem; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .feature-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border-color: var(--teal);
+      background: linear-gradient(135deg, rgba(13,148,136,0.08), var(--bg2));
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--teal);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .pricing-tier { font-size: 0.85rem; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .pricing-price { font-size: 2.4rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+    .pricing-price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+    .pricing-desc { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 24px; }
+    .pricing-features { list-style: none; margin-bottom: 28px; }
+    .pricing-features li { padding: 6px 0; color: var(--text); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+    .pricing-features li::before { content: "✓"; color: var(--teal); font-weight: 700; }
+    .btn-pricing {
+      width: 100%;
+      padding: 13px;
+      border-radius: 9px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-pricing-free { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
+    .btn-pricing-free:hover { border-color: var(--teal); color: var(--teal-light); }
+    .btn-pricing-premium { background: var(--teal); color: #fff; border: none; }
+    .btn-pricing-premium:hover { background: var(--teal-dark); }
+
+    /* Footer */
+    .land-footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .land-footer a { color: var(--text-muted); }
+    .land-footer a:hover { color: var(--teal-light); }
+    .land-footer-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 12px; }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      padding: 32px 28px;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+    .modal-close:hover { background: var(--bg3); color: var(--text); }
+    .modal-title { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .modal-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; }
+    .modal-tabs { display: flex; gap: 0; margin-bottom: 24px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border); }
+    .modal-tab {
+      flex: 1;
+      padding: 9px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .modal-tab.active { background: var(--teal); color: #fff; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
+    .form-error { color: var(--error); font-size: 0.84rem; margin-top: 4px; display: none; }
+    .form-error.show { display: block; }
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      background: var(--teal);
+      color: #fff;
+      border-radius: 9px;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 4px;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover { background: var(--teal-dark); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* ===== APP UI ===== */
+    #app {
+      display: none;
+      min-height: 100vh;
+      padding-bottom: 80px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* App top nav */
+    .app-nav {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 600px;
+      z-index: 51;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+    }
+    .app-logo { font-size: 1.15rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 7px; }
+    .app-logo span { color: var(--teal-light); }
+    .app-nav-right { display: flex; align-items: center; gap: 10px; }
+    .app-user-name { font-size: 0.85rem; color: var(--text-muted); }
+    .btn-logout {
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .btn-logout:hover { border-color: var(--error); color: var(--error); }
+
+    /* App content area */
+    .app-content { padding-top: 72px; }
+
+    /* Bottom nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 600px;
+      z-index: 51;
+      background: rgba(15, 23, 42, 0.97);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: flex;
+    }
+    .nav-tab {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      padding: 10px 4px 12px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      font-weight: 600;
+      transition: color 0.2s;
+      border-top: 2px solid transparent;
+    }
+    .nav-tab.active { color: var(--teal-light); border-top-color: var(--teal); }
+    .nav-tab-icon { font-size: 1.25rem; }
+
+    /* Tab panels */
+    .tab-panel { display: none; padding: 20px 16px; }
+    .tab-panel.active { display: block; }
+
+    /* Today tab */
+    .today-date {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .snapshot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .snap-card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .snap-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; font-weight: 600; }
+    .snap-value { font-size: 1.7rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 3px; }
+    .snap-value.dimmed { color: var(--text-muted); font-size: 0.9rem; font-weight: 400; margin-top: 4px; }
+    .snap-unit { font-size: 0.78rem; color: var(--text-muted); }
+    .snap-connect {
+      font-size: 0.75rem;
+      color: var(--teal);
+      font-weight: 600;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+
+    /* Chat area */
+    .chat-section { margin-top: 8px; }
+    .chat-section-title { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; }
+    .chat-messages {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      min-height: 100px;
+      max-height: 320px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .chat-empty { color: var(--text-muted); font-size: 0.88rem; text-align: center; padding: 16px 0; }
+    .chat-msg { max-width: 85%; }
+    .chat-msg.user { align-self: flex-end; }
+    .chat-msg.assistant { align-self: flex-start; }
+    .chat-bubble {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .chat-msg.user .chat-bubble { background: var(--teal); color: #fff; border-bottom-right-radius: 4px; }
+    .chat-msg.assistant .chat-bubble { background: var(--bg3); color: var(--text); border-bottom-left-radius: 4px; }
+    .chat-input-row { display: flex; gap: 8px; }
+    .chat-input { flex: 1; border-radius: 10px; padding: 10px 14px; font-size: 0.9rem; }
+    .btn-send {
+      background: var(--teal);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-send:hover { background: var(--teal-dark); }
+    .btn-send:disabled { opacity: 0.5; }
+
+    /* Food tab */
+    .section-card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .section-card-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .btn-photo {
+      width: 100%;
+      padding: 16px;
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .btn-photo:hover { border-color: var(--teal); color: var(--teal-light); }
+    .food-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .food-form-desc { grid-column: 1 / -1; }
+    .btn-log-food {
+      width: 100%;
+      padding: 12px;
+      background: var(--teal);
+      color: #fff;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-top: 12px;
+    }
+    .btn-log-food:hover { background: var(--teal-dark); }
+    .food-list { list-style: none; }
+    .food-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .food-item:last-child { border-bottom: none; }
+    .food-item-desc { font-size: 0.9rem; color: var(--text); }
+    .food-item-cal { font-size: 0.82rem; color: var(--text-muted); background: var(--bg3); padding: 3px 8px; border-radius: 12px; }
+    .food-empty { color: var(--text-muted); font-size: 0.88rem; text-align: center; padding: 20px 0; }
+
+    /* Insights tab */
+    .insight-card {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+    .insight-type {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 8px;
+    }
+    .insight-type.pattern { color: var(--teal); }
+    .insight-type.nutrition { color: var(--amber); }
+    .insight-type.recovery { color: #8b5cf6; }
+    .insight-text { font-size: 0.93rem; color: var(--text); line-height: 1.5; }
+    .insight-coming { text-align: center; color: var(--text-muted); padding: 32px 16px; font-size: 0.9rem; }
+    .insight-coming .big-emoji { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+
+    /* Profile tab */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 16px;
+    }
+    .profile-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .profile-name { font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .profile-email { font-size: 0.85rem; color: var(--text-muted); }
+    .tier-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .tier-free { background: rgba(148,163,184,0.15); color: #94a3b8; }
+    .tier-premium { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .wearable-list { list-style: none; }
+    .wearable-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .wearable-item:last-child { border-bottom: none; }
+    .wearable-info { display: flex; align-items: center; gap: 10px; }
+    .wearable-icon { font-size: 1.4rem; }
+    .wearable-name { font-size: 0.92rem; color: var(--text); font-weight: 500; }
+    .wearable-status { font-size: 0.78rem; color: var(--text-muted); }
+    .btn-connect {
+      padding: 6px 14px;
+      background: transparent;
+      border: 1.5px solid var(--teal);
+      color: var(--teal-light);
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .btn-connect:hover { background: rgba(13,148,136,0.12); }
+
+    /* Toasts */
+    .toast-container {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      width: calc(100% - 32px);
+      max-width: 400px;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      font-size: 0.88rem;
+      color: var(--text);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: auto;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.success { border-color: var(--success); }
+    .toast.error { border-color: var(--error); }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .hero { padding: 60px 16px 40px; }
+      .section { padding: 60px 16px; }
+      .land-nav { padding: 14px 16px; }
+      .modal { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===== AUTH MODAL ===== -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title" id="modalTitle">Welcome to RhythmPal</div>
+    <div class="modal-sub" id="modalSub">Your health intelligence starts here.</div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tabSignup" onclick="switchTab('signup')">Sign Up</button>
+      <button class="modal-tab" id="tabLogin" onclick="switchTab('login')">Log In</button>
+    </div>
+
+    <!-- Signup form -->
+    <form id="signupForm" onsubmit="handleSignup(event)">
+      <div class="form-group">
+        <label for="signupName">Name (optional)</label>
+        <input type="text" id="signupName" placeholder="Your name" autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label for="signupEmail">Email</label>
+        <input type="email" id="signupEmail" placeholder="you@email.com" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="signupPassword">Password</label>
+        <input type="password" id="signupPassword" placeholder="At least 8 characters" required autocomplete="new-password" />
+      </div>
+      <div class="form-error" id="signupError"></div>
+      <button type="submit" class="btn-submit" id="signupBtn">Create Account</button>
+    </form>
+
+    <!-- Login form -->
+    <form id="loginForm" style="display:none" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@email.com" required autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Your password" required autocomplete="current-password" />
+      </div>
+      <div class="form-error" id="loginError"></div>
+      <button type="submit" class="btn-submit" id="loginBtn">Log In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== LANDING PAGE ===== -->
+<div id="landing">
+  <!-- Nav -->
+  <nav class="land-nav">
+    <div class="land-logo">💚 <span>Rhythm</span>Pal</div>
+    <div class="land-nav-actions">
+      <button class="btn-ghost" onclick="openModal('login')">Log In</button>
+      <button class="btn-primary" onclick="openModal('signup')">Start Free</button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">⚡ AI-powered health intelligence</div>
+    <h1>Health intelligence that gets<br><em>smarter with you.</em></h1>
+    <p class="hero-sub">RhythmPal connects your wearables, food, sleep, and habits — then finds the patterns you'd never see yourself.</p>
+    <div class="hero-cta">
+      <button class="btn-amber" onclick="openModal('signup')">Start Free →</button>
+      <button class="btn-ghost" onclick="openModal('login')">Already have an account</button>
+    </div>
+    <p class="hero-note">Free forever for basic use · No credit card required</p>
+  </section>
+
+  <!-- Features -->
+  <section class="section">
+    <div class="section-label">How it works</div>
+    <div class="section-title">Everything in one place,<br>patterns you'd miss on your own</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3>Connect Everything</h3>
+        <p>Wearables, food photos, sleep data — all in one place. One tap to connect Apple Health, Fitbit, Garmin, and more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>AI That Remembers</h3>
+        <p>Learns your patterns over time. Gets smarter every day. The longer you use it, the more useful it becomes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Proactive Insights</h3>
+        <p>Finds connections across your data before you notice them yourself. Low HRV after a late meal? It'll tell you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section">
+    <div class="section-label">Pricing</div>
+    <div class="section-title">Simple, transparent pricing</div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-price">$0 <span>/ forever</span></div>
+        <div class="pricing-desc">Get started, no strings attached.</div>
+        <ul class="pricing-features">
+          <li>Manual food & water logging</li>
+          <li>Basic daily summary</li>
+          <li>3 AI questions per day</li>
+          <li>7-day data history</li>
+        </ul>
+        <button class="btn-pricing btn-pricing-free" onclick="openModal('signup')">Start Free</button>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most popular</div>
+        <div class="pricing-tier">Premium</div>
+        <div class="pricing-price">$15 <span>/ month</span></div>
+        <div class="pricing-desc">Full AI power, all integrations.</div>
+        <ul class="pricing-features">
+          <li>Unlimited AI conversations</li>
+          <li>All wearable integrations</li>
+          <li>Proactive pattern insights</li>
+          <li>Monthly journey reports</li>
+          <li>Unlimited data history</li>
+        </ul>
+        <button class="btn-pricing btn-pricing-premium" onclick="openModal('signup')">Get Premium</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="land-footer">
+    <div class="land-footer-links">
+      <a href="#">rhythmpal.com</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+    <div>© 2025 RhythmPal. All rights reserved.</div>
+  </footer>
+</div>
+
+<!-- ===== APP UI ===== -->
+<div id="app">
+  <!-- Top nav -->
+  <nav class="app-nav">
+    <div class="app-logo">💚 <span>Rhythm</span>Pal</div>
+    <div class="app-nav-right">
+      <span class="app-user-name" id="appUserName"></span>
+      <button class="btn-logout" onclick="handleLogout()">Log out</button>
+    </div>
+  </nav>
+
+  <!-- Tab content -->
+  <div class="app-content">
+    <!-- TODAY TAB -->
+    <div class="tab-panel active" id="panel-today">
+      <div class="today-date" id="todayDate"></div>
+
+      <div class="snapshot-grid" id="snapshotGrid">
+        <div class="snap-card">
+          <div class="snap-label">Sleep</div>
+          <div class="snap-value dimmed">—</div>
+          <div class="snap-connect" onclick="switchTab('profile')">Connect wearable</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-label">HRV</div>
+          <div class="snap-value dimmed">—</div>
+          <div class="snap-connect" onclick="switchTab('profile')">Connect wearable</div>
+        </div>
+        <div class="snap-card">
+          <div class="snap-label">Steps</div>
+          <div class="snap-value dimmed">—</div>
+          <div class="snap-connect" onclick="switchTab('profile')">Connect wearable</div>
+        </div>
+        <div class="snap-card" id="calCard">
+          <div class="snap-label">Calories</div>
+          <div class="snap-value" id="calValue">0</div>
+          <div class="snap-unit">kcal logged</div>
+        </div>
+      </div>
+
+      <!-- Chat -->
+      <div class="chat-section">
+        <div class="chat-section-title">Ask RhythmPal</div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-empty" id="chatEmpty">Ask me anything about your health — patterns, food, sleep, recovery.</div>
+        </div>
+        <div class="chat-input-row">
+          <input class="chat-input" type="text" id="chatInput" placeholder="How's my recovery today?" />
+          <button class="btn-send" id="chatSendBtn" onclick="sendChat()">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOD TAB -->
+    <div class="tab-panel" id="panel-food">
+      <div class="section-card">
+        <div class="section-card-title">📸 Log Food</div>
+        <button class="btn-photo" onclick="showToast('Photo logging coming soon!','info')">
+          📷 Take a photo or upload
+        </button>
+        <form id="foodForm" onsubmit="handleFoodLog(event)">
+          <div class="food-form-grid">
+            <div class="food-form-desc">
+              <input type="text" id="foodDesc" placeholder="What did you eat?" required />
+            </div>
+            <input type="number" id="foodCals" placeholder="Calories" min="0" />
+            <input type="number" id="foodProtein" placeholder="Protein (g)" min="0" step="0.1" />
+            <input type="number" id="foodCarbs" placeholder="Carbs (g)" min="0" step="0.1" />
+            <input type="number" id="foodFat" placeholder="Fat (g)" min="0" step="0.1" />
+          </div>
+          <button type="submit" class="btn-log-food" id="foodLogBtn">Log Entry</button>
+        </form>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-title">🍽️ Today's Food Log</div>
+        <ul class="food-list" id="foodList">
+          <li class="food-empty" id="foodEmpty">Nothing logged yet today.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- INSIGHTS TAB -->
+    <div class="tab-panel" id="panel-insights">
+      <div class="insight-card">
+        <div class="insight-type pattern">Pattern Detected</div>
+        <div class="insight-text">Connect a wearable to start seeing patterns. RhythmPal needs at least 7 days of data to surface meaningful insights.</div>
+      </div>
+      <div class="insight-card">
+        <div class="insight-type nutrition">Nutrition</div>
+        <div class="insight-text">Start logging your meals to unlock nutrition insights. Track 3+ days to see your protein and carb trends.</div>
+      </div>
+      <div class="insight-coming">
+        <span class="big-emoji">🧠</span>
+        More insights unlock as you log more data.<br>Check back tomorrow!
+      </div>
+    </div>
+
+    <!-- PROFILE TAB -->
+    <div class="tab-panel" id="panel-profile">
+      <div class="profile-header">
+        <div class="profile-avatar" id="profileAvatar">?</div>
+        <div>
+          <div class="profile-name" id="profileName">Loading...</div>
+          <div class="profile-email" id="profileEmail"></div>
+          <span class="tier-badge tier-free" id="tierBadge">Free</span>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-title">⌚ Wearables</div>
+        <ul class="wearable-list">
+          <li class="wearable-item">
+            <div class="wearable-info">
+              <span class="wearable-icon">🍎</span>
+              <div>
+                <div class="wearable-name">Apple Health</div>
+                <div class="wearable-status">Not connected</div>
+              </div>
+            </div>
+            <button class="btn-connect" onclick="showToast('Apple Health integration coming soon!','info')">Connect</button>
+          </li>
+          <li class="wearable-item">
+            <div class="wearable-info">
+              <span class="wearable-icon">⌚</span>
+              <div>
+                <div class="wearable-name">Fitbit</div>
+                <div class="wearable-status">Not connected</div>
+              </div>
+            </div>
+            <button class="btn-connect" onclick="showToast('Fitbit integration coming soon!','info')">Connect</button>
+          </li>
+          <li class="wearable-item">
+            <div class="wearable-info">
+              <span class="wearable-icon">🏃</span>
+              <div>
+                <div class="wearable-name">Garmin</div>
+                <div class="wearable-status">Not connected</div>
+              </div>
+            </div>
+            <button class="btn-connect" onclick="showToast('Garmin integration coming soon!','info')">Connect</button>
+          </li>
+          <li class="wearable-item">
+            <div class="wearable-info">
+              <span class="wearable-icon">💍</span>
+              <div>
+                <div class="wearable-name">Oura Ring</div>
+                <div class="wearable-status">Not connected</div>
+              </div>
+            </div>
+            <button class="btn-connect" onclick="showToast('Oura integration coming soon!','info')">Connect</button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="section-card">
+        <div class="section-card-title">💎 Your Plan</div>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:16px;">Upgrade to Premium for unlimited AI, all wearables, and proactive insights.</p>
+        <button class="btn-primary" style="width:100%;padding:13px;font-size:0.95rem;font-weight:700;border-radius:9px;" onclick="showToast('Stripe billing coming soon!','info')">
+          Upgrade to Premium — $15/mo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom nav -->
+  <nav class="bottom-nav">
+    <button class="nav-tab active" id="navToday" onclick="switchTab('today')">
+      <span class="nav-tab-icon">🏠</span> Today
+    </button>
+    <button class="nav-tab" id="navFood" onclick="switchTab('food')">
+      <span class="nav-tab-icon">🍽️</span> Food
+    </button>
+    <button class="nav-tab" id="navInsights" onclick="switchTab('insights')">
+      <span class="nav-tab-icon">🧠</span> Insights
+    </button>
+    <button class="nav-tab" id="navProfile" onclick="switchTab('profile')">
+      <span class="nav-tab-icon">👤</span> Profile
+    </button>
+  </nav>
+</div>
+
+<script>
+/* ===== STATE ===== */
+const API = '';
+let authToken = localStorage.getItem('rp_token');
+let currentUser = null;
+
+/* ===== INIT ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  if (authToken) {
+    loadApp();
+  } else {
+    showLanding();
+  }
+
+  // Chat enter key
+  document.getElementById('chatInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+  });
+
+  // Set today's date
+  const now = new Date();
+  document.getElementById('todayDate').textContent = now.toLocaleDateString('en-US', {
+    weekday: 'long', month: 'long', day: 'numeric'
+  });
+});
+
+/* ===== AUTH STATE ===== */
+function showLanding() {
+  document.getElementById('landing').style.display = 'block';
+  document.getElementById('app').style.display = 'none';
+}
+
+function showApp() {
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+}
+
+async function loadApp() {
+  try {
+    const res = await apiFetch('/api/auth/me');
+    if (!res.ok) { handleLogout(); return; }
+    const data = await res.json();
+    currentUser = data.user;
+    updateProfileUI();
+    showApp();
+    loadFoodLog();
+    loadHealthSummary();
+  } catch (e) {
+    handleLogout();
+  }
+}
+
+function updateProfileUI() {
+  if (!currentUser) return;
+  const name = currentUser.name || currentUser.email.split('@')[0];
+  document.getElementById('appUserName').textContent = name;
+  document.getElementById('profileName').textContent = currentUser.name || 'No name set';
+  document.getElementById('profileEmail').textContent = currentUser.email;
+  document.getElementById('profileAvatar').textContent = name.charAt(0).toUpperCase();
+  const tierBadge = document.getElementById('tierBadge');
+  tierBadge.textContent = currentUser.tier === 'premium' ? 'Premium' : 'Free';
+  tierBadge.className = 'tier-badge ' + (currentUser.tier === 'premium' ? 'tier-premium' : 'tier-free');
+}
+
+/* ===== MODAL ===== */
+function openModal(tab) {
+  document.getElementById('authModal').classList.add('open');
+  switchTab(tab || 'signup');
+}
+
+function closeModal() {
+  document.getElementById('authModal').classList.remove('open');
+  clearFormErrors();
+}
+
+document.getElementById('authModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('authModal')) closeModal();
+});
+
+function switchTab(tab) {
+  if (tab === 'signup' || tab === 'login') {
+    // modal tab
+    document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+    document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+    document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+    clearFormErrors();
+    return;
+  }
+
+  // App tab switching
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + tab);
+  const navBtn = document.getElementById('nav' + tab.charAt(0).toUpperCase() + tab.slice(1));
+  if (panel) panel.classList.add('active');
+  if (navBtn) navBtn.classList.add('active');
+
+  if (tab === 'food') loadFoodLog();
+}
+
+function clearFormErrors() {
+  document.getElementById('signupError').classList.remove('show');
+  document.getElementById('loginError').classList.remove('show');
+}
+
+/* ===== AUTH HANDLERS ===== */
+async function handleSignup(e) {
+  e.preventDefault();
+  const btn = document.getElementById('signupBtn');
+  const errEl = document.getElementById('signupError');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+  errEl.classList.remove('show');
+
+  try {
+    const res = await fetch(`${API}/api/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: document.getElementById('signupEmail').value,
+        password: document.getElementById('signupPassword').value,
+        name: document.getElementById('signupName').value || undefined,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) { errEl.textContent = data.error; errEl.classList.add('show'); return; }
+    authToken = data.token;
+    localStorage.setItem('rp_token', authToken);
+    currentUser = data.user;
+    closeModal();
+    updateProfileUI();
+    showApp();
+    loadFoodLog();
+    loadHealthSummary();
+    showToast('Welcome to RhythmPal! 🎉', 'success');
+  } catch (err) {
+    errEl.textContent = 'Something went wrong. Please try again.';
+    errEl.classList.add('show');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Create Account';
+  }
+}
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const errEl = document.getElementById('loginError');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+  errEl.classList.remove('show');
+
+  try {
+    const res = await fetch(`${API}/api/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: document.getElementById('loginEmail').value,
+        password: document.getElementById('loginPassword').value,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) { errEl.textContent = data.error; errEl.classList.add('show'); return; }
+    authToken = data.token;
+    localStorage.setItem('rp_token', authToken);
+    currentUser = data.user;
+    closeModal();
+    updateProfileUI();
+    showApp();
+    loadFoodLog();
+    loadHealthSummary();
+    showToast('Welcome back! 👋', 'success');
+  } catch (err) {
+    errEl.textContent = 'Something went wrong. Please try again.';
+    errEl.classList.add('show');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Log In';
+  }
+}
+
+function handleLogout() {
+  authToken = null;
+  currentUser = null;
+  localStorage.removeItem('rp_token');
+  showLanding();
+  // Clear state
+  document.getElementById('chatMessages').innerHTML = '<div class="chat-empty" id="chatEmpty">Ask me anything about your health — patterns, food, sleep, recovery.</div>';
+  document.getElementById('foodList').innerHTML = '<li class="food-empty" id="foodEmpty">Nothing logged yet today.</li>';
+}
+
+/* ===== API HELPER ===== */
+function apiFetch(path, opts = {}) {
+  return fetch(API + path, {
+    ...opts,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(authToken ? { 'Authorization': 'Bearer ' + authToken } : {}),
+      ...(opts.headers || {}),
+    },
+  });
+}
+
+/* ===== HEALTH SUMMARY ===== */
+async function loadHealthSummary() {
+  try {
+    const res = await apiFetch('/api/health/summary');
+    if (!res.ok) return;
+    const data = await res.json();
+    const snap = data.snapshot;
+    if (snap && snap.calories) {
+      document.getElementById('calValue').textContent = snap.calories.consumed || 0;
+    }
+  } catch (e) { /* fail silently */ }
+}
+
+/* ===== FOOD LOG ===== */
+async function loadFoodLog() {
+  try {
+    const res = await apiFetch('/api/health/food-log');
+    if (!res.ok) return;
+    const data = await res.json();
+    renderFoodList(data.entries || []);
+    // Update calorie count
+    const total = (data.entries || []).reduce((sum, e) => sum + (e.calories || 0), 0);
+    document.getElementById('calValue').textContent = total;
+  } catch (e) { /* fail silently */ }
+}
+
+function renderFoodList(entries) {
+  const list = document.getElementById('foodList');
+  if (!entries.length) {
+    list.innerHTML = '<li class="food-empty" id="foodEmpty">Nothing logged yet today.</li>';
+    return;
+  }
+  list.innerHTML = entries.map(e => `
+    <li class="food-item">
+      <span class="food-item-desc">${escHtml(e.description)}</span>
+      ${e.calories ? `<span class="food-item-cal">${e.calories} kcal</span>` : ''}
+    </li>
+  `).join('');
+}
+
+async function handleFoodLog(e) {
+  e.preventDefault();
+  const btn = document.getElementById('foodLogBtn');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  try {
+    const res = await apiFetch('/api/health/food-log', {
+      method: 'POST',
+      body: JSON.stringify({
+        description: document.getElementById('foodDesc').value,
+        calories: parseInt(document.getElementById('foodCals').value) || null,
+        protein: parseFloat(document.getElementById('foodProtein').value) || null,
+        carbs: parseFloat(document.getElementById('foodCarbs').value) || null,
+        fat: parseFloat(document.getElementById('foodFat').value) || null,
+      }),
+    });
+    if (!res.ok) { showToast('Failed to save. Try again.', 'error'); return; }
+    document.getElementById('foodForm').reset();
+    await loadFoodLog();
+    showToast('Food logged ✓', 'success');
+  } catch (err) {
+    showToast('Failed to save. Try again.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Log Entry';
+  }
+}
+
+/* ===== CHAT ===== */
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const btn = document.getElementById('chatSendBtn');
+  const message = input.value.trim();
+  if (!message) return;
+
+  // Clear empty state
+  const empty = document.getElementById('chatEmpty');
+  if (empty) empty.remove();
+
+  input.value = '';
+  btn.disabled = true;
+
+  // Add user message
+  appendChatMessage('user', message);
+
+  // Add loading bubble
+  const loadingId = 'loading-' + Date.now();
+  appendChatMessage('assistant', '<span class="spinner"></span>', loadingId);
+
+  try {
+    const res = await apiFetch('/api/chat', {
+      method: 'POST',
+      body: JSON.stringify({ message }),
+    });
+    const data = await res.json();
+    const loadingEl = document.getElementById(loadingId);
+    if (loadingEl) {
+      loadingEl.querySelector('.chat-bubble').innerHTML = escHtml(data.reply || 'Sorry, I had trouble with that. Try again.');
+    }
+  } catch (err) {
+    const loadingEl = document.getElementById(loadingId);
+    if (loadingEl) {
+      loadingEl.querySelector('.chat-bubble').textContent = 'Connection error. Please try again.';
+    }
+  } finally {
+    btn.disabled = false;
+    input.focus();
+  }
+}
+
+function appendChatMessage(role, content, id) {
+  const container = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + role;
+  if (id) div.id = id;
+  div.innerHTML = `<div class="chat-bubble">${content}</div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+/* ===== TOASTS ===== */
+function showToast(message, type) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast ' + (type || '');
+  toast.textContent = message;
+  container.appendChild(toast);
+  requestAnimationFrame(() => { toast.classList.add('show'); });
+  setTimeout(() => {
+    toast.classList.remove('show');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+/* ===== UTILS ===== */
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+</script>
+</body>
+</html>
