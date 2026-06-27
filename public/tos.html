@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — RhythmPal</title>
+  <meta name="description" content="RhythmPal Terms of Service" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --tiffany: #0abab5;
+      --tiffany-dark: #089e99;
+      --coral: #ff6b6b;
+      --text: #1a3332;
+      --text-muted: #5a8a88;
+      --border: rgba(10,186,181,0.2);
+      --bg: #f0fffe;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+      background-color: #e8fffe;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='300'%3E%3Cpath d='M0,150 C150,80 350,220 600,150 C850,80 1050,220 1200,150 L1200,300 L0,300 Z' fill='rgba(10,186,181,0.06)'/%3E%3Cpath d='M0,180 C200,100 400,250 700,170 C900,110 1100,230 1200,170 L1200,300 L0,300 Z' fill='rgba(10,186,181,0.04)'/%3E%3C/svg%3E");
+      background-size: 1200px 300px;
+      background-repeat: repeat-x;
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    a { color: var(--tiffany); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page-nav {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .page-nav-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+    }
+    .page-nav-logo span { color: var(--tiffany); }
+    .page-nav-back {
+      background: rgba(10,186,181,0.08);
+      border: 1.5px solid var(--tiffany);
+      color: var(--tiffany);
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .page-nav-back:hover { background: rgba(10,186,181,0.16); text-decoration: none; }
+
+    .page-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .page-header {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
+      border-radius: 16px;
+      padding: 36px 36px 28px;
+      margin-bottom: 32px;
+    }
+    .page-header h1 {
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .page-header .last-updated {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .page-header .page-intro {
+      margin-top: 16px;
+      font-size: 0.97rem;
+      color: #2d5554;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    .tos-section {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .tos-section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tos-section h2 .section-num {
+      background: var(--tiffany);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .tos-section p {
+      font-size: 0.95rem;
+      color: #2d5554;
+      margin-bottom: 12px;
+    }
+    .tos-section p:last-child { margin-bottom: 0; }
+    .tos-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 12px;
+    }
+    .tos-section ul li {
+      font-size: 0.93rem;
+      color: #2d5554;
+      padding: 5px 0 5px 22px;
+      position: relative;
+    }
+    .tos-section ul li::before {
+      content: "›";
+      position: absolute;
+      left: 6px;
+      color: var(--tiffany);
+      font-weight: 700;
+    }
+    .highlight-box {
+      background: rgba(10,186,181,0.07);
+      border: 1px solid rgba(10,186,181,0.2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 12px 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .warning-box {
+      background: rgba(255,107,107,0.07);
+      border: 1px solid rgba(255,107,107,0.25);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 12px 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .page-footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .page-footer a { color: var(--text-muted); }
+    .page-footer a:hover { color: var(--tiffany); }
+    .page-footer-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 10px; flex-wrap: wrap; }
+
+    @media (max-width: 480px) {
+      .page-content { padding: 32px 16px 60px; }
+      .tos-section { padding: 20px 18px; }
+      .page-header { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="page-nav">
+  <a href="/" class="page-nav-logo">💚 <span>Rhythm</span>Pal</a>
+  <a href="/" class="page-nav-back">← Back to RhythmPal</a>
+</nav>
+
+<div class="page-content">
+  <div class="page-header">
+    <h1>📋 Terms of Service</h1>
+    <div class="last-updated">Last updated: June 27, 2026</div>
+    <p class="page-intro">These Terms of Service govern your use of RhythmPal ("the Service"). By creating an account or using RhythmPal, you agree to these terms. Please read them carefully.</p>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">1</span> Service Description</h2>
+    <p>RhythmPal is an AI-powered personal health intelligence platform that helps you track nutrition, connect wearable devices, and surface patterns in your health data.</p>
+    <p>The Service includes:</p>
+    <ul>
+      <li>Food logging and photo-based nutrition analysis</li>
+      <li>Wearable device integration (Apple Health, Garmin, Fitbit, Oura, Whoop)</li>
+      <li>AI-powered health insights and pattern detection</li>
+      <li>A conversational AI interface for health-related questions</li>
+      <li>Monthly health journey reports (Premium tier)</li>
+    </ul>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">2</span> Health Disclaimer</h2>
+    <div class="warning-box">
+      ⚠️ <strong>RhythmPal is not a medical device and does not provide medical advice.</strong> All insights, patterns, and suggestions are for informational purposes only and should not be used as a substitute for professional medical advice, diagnosis, or treatment.
+    </div>
+    <p>Always consult a qualified healthcare provider before making changes to your diet, exercise routine, or medication. Never disregard professional medical advice because of something you read in RhythmPal.</p>
+    <p>Calorie and nutrition estimates from photo analysis are approximations and may not be accurate for all foods or portion sizes.</p>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">3</span> Account &amp; Eligibility</h2>
+    <p>To use RhythmPal you must be at least 18 years of age (or the age of majority in your jurisdiction). By creating an account, you represent that you meet this requirement.</p>
+    <p>You are responsible for:</p>
+    <ul>
+      <li>Maintaining the confidentiality of your account credentials</li>
+      <li>All activity that occurs under your account</li>
+      <li>Providing accurate registration information</li>
+      <li>Notifying us immediately of any unauthorized use</li>
+    </ul>
+    <p>One account per person. You may not create accounts on behalf of others without their explicit consent.</p>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">4</span> User Data</h2>
+    <p>You retain ownership of all health data you input into RhythmPal. By using the Service, you grant RhythmPal a limited license to process your data solely for the purpose of providing the Service to you.</p>
+    <div class="highlight-box">
+      🔒 Your health data is never sold to third parties and is never used to train AI models for any party other than improving your personal RhythmPal experience.
+    </div>
+    <p>You may export or delete your data at any time. See our <a href="/privacy">Privacy Statement</a> for full details on data handling.</p>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">5</span> Subscription Terms</h2>
+    <p><strong>Free tier:</strong> Available to all users at no cost, with limited features as described on the pricing page.</p>
+    <p><strong>Premium tier:</strong> Billed monthly at $15/month. Premium subscriptions automatically renew each month unless cancelled.</p>
+    <p><strong>Cancellation:</strong> You may cancel your Premium subscription at any time from your account settings. Cancellation takes effect at the end of the current billing period — you retain Premium access until then. No partial refunds for unused time.</p>
+    <p><strong>Price changes:</strong> We will provide at least 30 days notice before any price changes. Continued use after the notice period constitutes acceptance of the new price.</p>
+    <p>Payments are processed securely through Stripe. RhythmPal does not store your payment card details.</p>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">6</span> Acceptable Use</h2>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Use the Service to harass, harm, or impersonate others</li>
+      <li>Attempt to reverse engineer, scrape, or exploit the Service</li>
+      <li>Upload content that is illegal, harmful, or violates others' rights</li>
+      <li>Use automated tools to access the Service without our permission</li>
+      <li>Share your account credentials with others</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate accounts that violate these terms.</p>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">7</span> Limitation of Liability</h2>
+    <p>RhythmPal is provided "as is" without warranties of any kind. To the maximum extent permitted by law:</p>
+    <ul>
+      <li>We do not warrant that the Service will be uninterrupted or error-free</li>
+      <li>We are not liable for any indirect, incidental, or consequential damages arising from your use of the Service</li>
+      <li>Our total liability to you shall not exceed the amount you paid us in the 12 months preceding the claim</li>
+    </ul>
+    <p>Nothing in these terms limits liability for fraud, gross negligence, or any liability that cannot be excluded by law.</p>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">8</span> Account Deletion</h2>
+    <p>You may delete your account at any time from Profile → Settings → Danger Zone. Account deletion is permanent and immediate. All your health data, food logs, insights, and chat history will be permanently erased and cannot be recovered.</p>
+    <p>If you have an active Premium subscription, cancelling your subscription before deleting your account will prevent any further charges.</p>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">9</span> Changes to These Terms</h2>
+    <p>We may update these Terms of Service from time to time. When we make material changes, we'll notify you via email and update the "Last updated" date at the top of this page. Continued use of RhythmPal after changes take effect constitutes acceptance of the updated terms.</p>
+  </div>
+
+  <div class="tos-section">
+    <h2><span class="section-num">10</span> Contact Us</h2>
+    <p>Questions about these Terms? Reach us at:</p>
+    <div class="highlight-box">
+      📧 <strong>legal@rhythmpal.com</strong><br>
+      RhythmPal Legal<br>
+      For billing issues: billing@rhythmpal.com
+    </div>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="page-footer-links">
+    <a href="/">Home</a>
+    <a href="/privacy">Privacy Statement</a>
+    <a href="mailto:legal@rhythmpal.com">Contact</a>
+  </div>
+  <div>© 2026 RhythmPal. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Statement — RhythmPal</title>
+  <meta name="description" content="RhythmPal Privacy Statement — how we collect, use, and protect your health data." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --tiffany: #0abab5;
+      --tiffany-dark: #089e99;
+      --coral: #ff6b6b;
+      --text: #1a3332;
+      --text-muted: #5a8a88;
+      --border: rgba(10,186,181,0.2);
+      --bg: #f0fffe;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+      background-color: #e8fffe;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='300'%3E%3Cpath d='M0,150 C150,80 350,220 600,150 C850,80 1050,220 1200,150 L1200,300 L0,300 Z' fill='rgba(10,186,181,0.06)'/%3E%3Cpath d='M0,180 C200,100 400,250 700,170 C900,110 1100,230 1200,170 L1200,300 L0,300 Z' fill='rgba(10,186,181,0.04)'/%3E%3C/svg%3E");
+      background-size: 1200px 300px;
+      background-repeat: repeat-x;
+      background-attachment: fixed;
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    a { color: var(--tiffany); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .page-nav {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .page-nav-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+    }
+    .page-nav-logo span { color: var(--tiffany); }
+    .page-nav-back {
+      background: rgba(10,186,181,0.08);
+      border: 1.5px solid var(--tiffany);
+      color: var(--tiffany);
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .page-nav-back:hover { background: rgba(10,186,181,0.16); text-decoration: none; }
+
+    .page-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+    .page-header {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
+      border-radius: 16px;
+      padding: 36px 36px 28px;
+      margin-bottom: 32px;
+    }
+    .page-header h1 {
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .page-header .last-updated { font-size: 0.85rem; color: var(--text-muted); }
+    .page-header .page-intro {
+      margin-top: 16px;
+      font-size: 0.97rem;
+      color: #2d5554;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+    }
+
+    .privacy-section {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
+      border-radius: 14px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+    }
+    .privacy-section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .privacy-section h2 .section-num {
+      background: var(--tiffany);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .privacy-section p {
+      font-size: 0.95rem;
+      color: #2d5554;
+      margin-bottom: 12px;
+    }
+    .privacy-section p:last-child { margin-bottom: 0; }
+    .privacy-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 12px;
+    }
+    .privacy-section ul li {
+      font-size: 0.93rem;
+      color: #2d5554;
+      padding: 5px 0 5px 22px;
+      position: relative;
+    }
+    .privacy-section ul li::before {
+      content: "›";
+      position: absolute;
+      left: 6px;
+      color: var(--tiffany);
+      font-weight: 700;
+    }
+    .highlight-box {
+      background: rgba(10,186,181,0.07);
+      border: 1px solid rgba(10,186,181,0.2);
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin: 12px 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 0.9rem;
+    }
+    .data-table th {
+      background: rgba(10,186,181,0.1);
+      color: var(--text);
+      font-weight: 700;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .data-table td {
+      padding: 10px 14px;
+      color: #2d5554;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table th:first-child, .data-table td:first-child { border-radius: 0; }
+
+    .promise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 14px 0;
+    }
+    .promise-card {
+      background: rgba(10,186,181,0.06);
+      border: 1px solid rgba(10,186,181,0.18);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+    .promise-card .promise-icon { font-size: 1.5rem; margin-bottom: 6px; }
+    .promise-card strong { display: block; margin-bottom: 4px; font-size: 0.9rem; color: var(--text); }
+
+    .page-footer {
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .page-footer a { color: var(--text-muted); }
+    .page-footer a:hover { color: var(--tiffany); }
+    .page-footer-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 10px; flex-wrap: wrap; }
+
+    @media (max-width: 480px) {
+      .page-content { padding: 32px 16px 60px; }
+      .privacy-section { padding: 20px 18px; }
+      .page-header { padding: 24px 18px; }
+      .data-table { font-size: 0.82rem; }
+      .data-table th, .data-table td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="page-nav">
+  <a href="/" class="page-nav-logo">💚 <span>Rhythm</span>Pal</a>
+  <a href="/" class="page-nav-back">← Back to RhythmPal</a>
+</nav>
+
+<div class="page-content">
+  <div class="page-header">
+    <h1>🔒 Privacy Statement</h1>
+    <div class="last-updated">Last updated: June 27, 2026</div>
+    <p class="page-intro">Your health data is deeply personal. This statement explains exactly what RhythmPal collects, how we use it, and the choices you have. We believe in radical transparency about data — no surprises, no fine print tricks.</p>
+  </div>
+
+  <!-- Privacy promises at a glance -->
+  <div class="privacy-section">
+    <h2><span class="section-num">🛡</span> Our Privacy Promises at a Glance</h2>
+    <div class="promise-grid">
+      <div class="promise-card">
+        <div class="promise-icon">🚫</div>
+        <strong>Never sold</strong>
+        Your health data is never sold to advertisers, data brokers, or any third parties.
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">🤖</div>
+        <strong>Not used for training</strong>
+        We do not use your personal health data to train AI models for any external purpose.
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">📤</div>
+        <strong>Exportable</strong>
+        You can request a full export of your data at any time.
+      </div>
+      <div class="promise-card">
+        <div class="promise-icon">🗑️</div>
+        <strong>Deletable</strong>
+        Delete your account and all data is permanently erased. No lingering copies.
+      </div>
+    </div>
+  </div>
+
+  <div class="privacy-section">
+    <h2><span class="section-num">1</span> What Data We Collect</h2>
+    <table class="data-table">
+      <tr>
+        <th>Data Type</th>
+        <th>What It Includes</th>
+        <th>Why We Collect It</th>
+      </tr>
+      <tr>
+        <td><strong>Account info</strong></td>
+        <td>Email address, display name, hashed password, account tier</td>
+        <td>To identify you and manage your account</td>
+      </tr>
+      <tr>
+        <td><strong>Food logs</strong></td>
+        <td>Meal descriptions, calories, macros, food photos (analyzed then discarded), timestamps</td>
+        <td>To provide nutrition tracking and insights</td>
+      </tr>
+      <tr>
+        <td><strong>Wearable data</strong></td>
+        <td>Sleep metrics, HRV, steps, heart rate — pulled from connected devices with your permission</td>
+        <td>To surface health patterns and correlations</td>
+      </tr>
+      <tr>
+        <td><strong>Chat messages</strong></td>
+        <td>Your questions and our AI responses within the app</td>
+        <td>To provide context-aware AI insights and conversation history</td>
+      </tr>
+      <tr>
+        <td><strong>Usage data</strong></td>
+        <td>Feature usage, session timestamps, error logs</td>
+        <td>To improve the service and diagnose issues</td>
+      </tr>
+    </table>
+    <p><strong>Food photos:</strong> When you snap a meal photo, it is sent to our AI provider for analysis and immediately discarded. We do not store your food photos on our servers.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2><span class="section-num">2</span> How We Use Your Data</h2>
+    <p>We use your data exclusively to:</p>
+    <ul>
+      <li>Provide the RhythmPal service to you — logging, insights, AI chat</li>
+      <li>Generate your health patterns, correlations, and weekly/monthly reports</li>
+      <li>Send you notifications you've opted into (daily summaries, insights alerts)</li>
+      <li>Improve the RhythmPal product based on aggregate, anonymized usage patterns</li>
+      <li>Respond to your support requests</li>
+      <li>Process payments through Stripe (we never see your full card number)</li>
+    </ul>
+    <div class="highlight-box">
+      ✅ We will never use your personal health data for advertising targeting, sell it to insurance companies, share it with employers, or use it for any purpose other than delivering RhythmPal to you.
+    </div>
+  </div>
+
+  <div class="privacy-section">
+    <h2><span class="section-num">3</span> AI &amp; Third-Party Services</h2>
+    <p>RhythmPal uses AI to analyze your health patterns and answer your questions. Here's how that works:</p>
+    <ul>
+      <li><strong>Food photo analysis:</strong> Images are sent to Anthropic's Claude API for analysis. Anthropic's API terms prohibit using API inputs for model training. Images are not stored by us after analysis.</li>
+      <li><strong>AI chat:</strong> Your messages are sent to Anthropic's Claude API with relevant context from your health data to generate responses. Your health data is treated as confidential under Anthropic's API terms.</li>
+      <li><strong>Payments:</strong> Stripe processes all payments. We do not store card details. See Stripe's privacy policy for how they handle payment data.</li>
+    </ul>
+    <p>We carefully vet all third-party services. We do not share your data with analytics companies, ad networks, or data brokers.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2><span class="section-num">4</span> Data Retention</h2>
+    <p>We retain your data for as long as your account is active. Here's our retention policy:</p>
+    <ul>
+      <li><strong>Active accounts:</strong> All data retained indefinitely (Free: 7-day rolling history; Premium: unlimited)</li>
+      <li><strong>Cancelled Premium:</strong> Account downgraded to Free tier; data retained under Free tier limits</li>
+      <li><strong>Deleted accounts:</strong> All data permanently erased within 24 hours of deletion request</li>
+      <li><strong>Anonymized analytics:</strong> Aggregate usage stats retained indefinitely (no personal identifiers)</li>
+    </ul>
+    <p>We do not keep backups of deleted account data beyond our standard 24-hour backup rotation window.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2><span class="section-num">5</span> Your Rights</h2>
+    <p>You have the following rights over your data:</p>
+    <ul>
+      <li><strong>Access:</strong> Request a complete export of all your RhythmPal data</li>
+      <li><strong>Correction:</strong> Update or correct your personal information via account settings</li>
+      <li><strong>Deletion:</strong> Delete your account and all data permanently via Profile → Settings → Danger Zone</li>
+      <li><strong>Portability:</strong> Export your data in a standard format (CSV/JSON) — contact us to request</li>
+      <li><strong>Objection:</strong> Opt out of any non-essential data processing — contact us</li>
+    </ul>
+    <p>Users in the EU/EEA have additional rights under GDPR. Users in California have rights under CCPA. Contact us to exercise any of these rights.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2><span class="section-num">6</span> Security</h2>
+    <p>We take security seriously. Our measures include:</p>
+    <ul>
+      <li>All data encrypted in transit via HTTPS/TLS</li>
+      <li>Passwords hashed with bcrypt (never stored in plain text)</li>
+      <li>Authentication via signed JWT tokens with expiry</li>
+      <li>API keys stored in environment variables, never in code</li>
+      <li>Database access restricted to application layer only</li>
+      <li>Regular dependency audits and security updates</li>
+    </ul>
+    <p>No system is 100% secure. If you discover a security vulnerability, please report it to <a href="mailto:security@rhythmpal.com">security@rhythmpal.com</a>.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2><span class="section-num">7</span> Children's Privacy</h2>
+    <p>RhythmPal is not intended for users under 18 years of age. We do not knowingly collect personal information from anyone under 18. If you believe a minor has created an account, please contact us immediately at <a href="mailto:privacy@rhythmpal.com">privacy@rhythmpal.com</a> and we will delete the account.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2><span class="section-num">8</span> Changes to This Statement</h2>
+    <p>We may update this Privacy Statement as our practices evolve. When we make material changes, we'll notify you via email and update the "Last updated" date at the top of this page.</p>
+    <p>Continuing to use RhythmPal after a privacy update constitutes acceptance of the updated statement. If you disagree with changes, you may delete your account before they take effect.</p>
+  </div>
+
+  <div class="privacy-section">
+    <h2><span class="section-num">9</span> Contact</h2>
+    <p>Questions, concerns, or data requests? We're here:</p>
+    <div class="highlight-box">
+      📧 <strong>privacy@rhythmpal.com</strong> — privacy questions, data requests, GDPR/CCPA inquiries<br><br>
+      🔒 <strong>security@rhythmpal.com</strong> — security vulnerabilities<br><br>
+      💳 <strong>billing@rhythmpal.com</strong> — subscription and billing questions
+    </div>
+    <p>We aim to respond to all privacy requests within 5 business days.</p>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <div class="page-footer-links">
+    <a href="/">Home</a>
+    <a href="/tos">Terms of Service</a>
+    <a href="mailto:privacy@rhythmpal.com">Contact</a>
+  </div>
+  <div>© 2026 RhythmPal. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

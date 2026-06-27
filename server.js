@@ -25,6 +25,14 @@ app.use('/api/health', require('./routes/health'));
 app.use('/api/food', require('./routes/food-photo'));
 app.use('/api/chat', require('./routes/chat'));
 
+// Legal pages
+app.get('/tos', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'tos.html'));
+});
+app.get('/privacy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'privacy.html'));
+});
+
 // SPA fallback — all unmatched routes serve index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

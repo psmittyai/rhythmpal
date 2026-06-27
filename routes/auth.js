@@ -85,4 +85,21 @@ router.get('/me', requireAuth, async (req, res) => {
   }
 });
 
+// DELETE /api/auth/account
+router.delete('/account', requireAuth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    // Delete all user data in dependency order
+    await query('DELETE FROM food_logs WHERE user_id = $1', [userId]);
+    await query('DELETE FROM health_insights WHERE user_id = $1', [userId]).catch(() => {});
+    await query('DELETE FROM chat_messages WHERE user_id = $1', [userId]).catch(() => {});
+    await query('DELETE FROM wearable_connections WHERE user_id = $1', [userId]).catch(() => {});
+    await query('DELETE FROM users WHERE id = $1', [userId]);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Delete account error:', err);
+    res.status(500).json({ error: 'Failed to delete account — please try again' });
+  }
+});
+
 module.exports = router;

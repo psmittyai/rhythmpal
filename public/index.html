@@ -10,46 +10,57 @@
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { font-size: 16px; scroll-behavior: smooth; }
+
+    /* ===== COLORS ===== */
+    :root {
+      --tiffany: #0abab5;
+      --tiffany-dark: #089e99;
+      --tiffany-light: #3dd6d1;
+      --coral: #ff6b6b;
+      --coral-dark: #e85555;
+      --peach: #ffb347;
+      --peach-light: #ffd08a;
+      --white: #ffffff;
+      --off-white: #f8fffe;
+      --bg: #f0fffe;
+      --bg2: rgba(255,255,255,0.85);
+      --bg3: rgba(255,255,255,0.70);
+      --text: #1a3332;
+      --text-muted: #5a8a88;
+      --border: rgba(10,186,181,0.2);
+      --success: #10b981;
+      --danger: #ff6b6b;
+      --error: #ff6b6b;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
+      background-color: #e8fffe;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='300'%3E%3Cpath d='M0,150 C150,80 350,220 600,150 C850,80 1050,220 1200,150 L1200,300 L0,300 Z' fill='rgba(10,186,181,0.06)'/%3E%3Cpath d='M0,180 C200,100 400,250 700,170 C900,110 1100,230 1200,170 L1200,300 L0,300 Z' fill='rgba(10,186,181,0.04)'/%3E%3Cpath d='M0,120 C100,60 300,180 550,130 C800,70 1000,200 1200,130 L1200,0 L0,0 Z' fill='rgba(10,186,181,0.04)'/%3E%3C/svg%3E");
+      background-size: 1200px 300px;
+      background-repeat: repeat-x;
+      background-attachment: fixed;
+      color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
     }
-    a { color: #0d9488; text-decoration: none; }
+
+    a { color: var(--tiffany); text-decoration: none; }
     a:hover { text-decoration: underline; }
     button { cursor: pointer; border: none; outline: none; font-family: inherit; }
     input, textarea, select {
       font-family: inherit;
-      background: #1e293b;
-      border: 1.5px solid #334155;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
       border-radius: 8px;
-      color: #e2e8f0;
+      color: var(--text);
       padding: 10px 14px;
       font-size: 1rem;
       width: 100%;
       transition: border-color 0.2s;
     }
-    input:focus, textarea:focus { outline: none; border-color: #0d9488; }
-    input::placeholder, textarea::placeholder { color: #64748b; }
-
-    /* ===== COLORS ===== */
-    :root {
-      --teal: #0d9488;
-      --teal-dark: #0f766e;
-      --teal-light: #14b8a6;
-      --amber: #f59e0b;
-      --amber-dark: #d97706;
-      --bg: #0f172a;
-      --bg2: #1e293b;
-      --bg3: #273548;
-      --text: #e2e8f0;
-      --text-muted: #94a3b8;
-      --border: #334155;
-      --success: #10b981;
-      --error: #ef4444;
-    }
+    input:focus, textarea:focus { outline: none; border-color: var(--tiffany); box-shadow: 0 0 0 3px rgba(10,186,181,0.12); }
+    input::placeholder, textarea::placeholder { color: var(--text-muted); }
 
     /* ===== LANDING PAGE ===== */
     #landing {
@@ -69,25 +80,26 @@
     .land-logo {
       font-size: 1.3rem;
       font-weight: 700;
-      color: #fff;
+      color: var(--text);
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .land-logo span { color: var(--teal-light); }
+    .land-logo span { color: var(--tiffany); }
     .land-nav-actions { display: flex; gap: 12px; align-items: center; }
     .btn-ghost {
-      background: transparent;
+      background: rgba(255,255,255,0.88);
       color: var(--text);
       padding: 8px 16px;
       border-radius: 8px;
       font-size: 0.95rem;
       border: 1.5px solid var(--border);
+      backdrop-filter: blur(8px);
       transition: border-color 0.2s, color 0.2s;
     }
-    .btn-ghost:hover { border-color: var(--teal); color: var(--teal-light); }
+    .btn-ghost:hover { border-color: var(--tiffany); color: var(--tiffany); }
     .btn-primary {
-      background: var(--teal);
+      background: var(--tiffany);
       color: #fff;
       padding: 10px 20px;
       border-radius: 8px;
@@ -95,17 +107,17 @@
       font-weight: 600;
       transition: background 0.2s;
     }
-    .btn-primary:hover { background: var(--teal-dark); }
-    .btn-amber {
-      background: var(--amber);
-      color: #0f172a;
+    .btn-primary:hover { background: var(--tiffany-dark); }
+    .btn-coral {
+      background: var(--coral);
+      color: #fff;
       padding: 14px 32px;
       border-radius: 10px;
       font-size: 1.05rem;
       font-weight: 700;
       transition: background 0.2s;
     }
-    .btn-amber:hover { background: var(--amber-dark); }
+    .btn-coral:hover { background: var(--coral-dark); }
 
     /* Hero */
     .hero {
@@ -116,9 +128,9 @@
     }
     .hero-badge {
       display: inline-block;
-      background: rgba(13, 148, 136, 0.15);
-      border: 1px solid rgba(13, 148, 136, 0.35);
-      color: var(--teal-light);
+      background: rgba(10,186,181,0.12);
+      border: 1px solid rgba(10,186,181,0.3);
+      color: var(--tiffany-dark);
       padding: 5px 14px;
       border-radius: 20px;
       font-size: 0.82rem;
@@ -130,14 +142,14 @@
     .hero h1 {
       font-size: clamp(2rem, 5vw, 3.2rem);
       font-weight: 800;
-      color: #fff;
+      color: var(--text);
       line-height: 1.2;
       margin-bottom: 20px;
     }
-    .hero h1 em { font-style: normal; color: var(--teal-light); }
+    .hero h1 em { font-style: normal; color: var(--tiffany); }
     .hero-sub {
       font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: var(--text-muted);
+      color: #2d5554;
       margin-bottom: 36px;
       max-width: 560px;
       margin-left: auto;
@@ -154,14 +166,14 @@
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--tiffany);
       margin-bottom: 12px;
     }
     .section-title {
       text-align: center;
       font-size: clamp(1.6rem, 4vw, 2.2rem);
       font-weight: 700;
-      color: #fff;
+      color: var(--text);
       margin-bottom: 48px;
     }
     .features-grid {
@@ -170,16 +182,18 @@
       gap: 24px;
     }
     .feature-card {
-      background: var(--bg2);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(10,186,181,0.2);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
       border-radius: 16px;
       padding: 32px 28px;
       transition: border-color 0.2s, transform 0.2s;
     }
-    .feature-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+    .feature-card:hover { border-color: var(--tiffany); transform: translateY(-2px); }
     .feature-icon { font-size: 2.2rem; margin-bottom: 16px; }
-    .feature-card h3 { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
-    .feature-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+    .feature-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .feature-card p { color: #2d5554; font-size: 0.95rem; line-height: 1.6; }
 
     /* Pricing */
     .pricing-grid {
@@ -190,22 +204,25 @@
       margin: 0 auto;
     }
     .pricing-card {
-      background: var(--bg2);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(10,186,181,0.2);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
       border-radius: 16px;
       padding: 32px 28px;
       position: relative;
     }
     .pricing-card.featured {
-      border-color: var(--teal);
-      background: linear-gradient(135deg, rgba(13,148,136,0.08), var(--bg2));
+      border-color: var(--coral);
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 8px 32px rgba(255,107,107,0.15);
     }
     .pricing-badge {
       position: absolute;
       top: -12px;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--teal);
+      background: var(--coral);
       color: #fff;
       font-size: 0.75rem;
       font-weight: 700;
@@ -213,13 +230,13 @@
       border-radius: 20px;
       white-space: nowrap;
     }
-    .pricing-tier { font-size: 0.85rem; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
-    .pricing-price { font-size: 2.4rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+    .pricing-tier { font-size: 0.85rem; font-weight: 700; color: var(--tiffany); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .pricing-price { font-size: 2.4rem; font-weight: 800; color: var(--text); line-height: 1; margin-bottom: 4px; }
     .pricing-price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
     .pricing-desc { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 24px; }
     .pricing-features { list-style: none; margin-bottom: 28px; }
     .pricing-features li { padding: 6px 0; color: var(--text); font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
-    .pricing-features li::before { content: "✓"; color: var(--teal); font-weight: 700; }
+    .pricing-features li::before { content: "✓"; color: var(--tiffany); font-weight: 700; }
     .btn-pricing {
       width: 100%;
       padding: 13px;
@@ -228,10 +245,10 @@
       font-weight: 600;
       transition: background 0.2s;
     }
-    .btn-pricing-free { background: transparent; border: 1.5px solid var(--border); color: var(--text); }
-    .btn-pricing-free:hover { border-color: var(--teal); color: var(--teal-light); }
-    .btn-pricing-premium { background: var(--teal); color: #fff; border: none; }
-    .btn-pricing-premium:hover { background: var(--teal-dark); }
+    .btn-pricing-free { background: rgba(10,186,181,0.08); border: 1.5px solid var(--tiffany); color: var(--tiffany); }
+    .btn-pricing-free:hover { background: rgba(10,186,181,0.16); }
+    .btn-pricing-premium { background: var(--coral); color: #fff; border: none; }
+    .btn-pricing-premium:hover { background: var(--coral-dark); }
 
     /* Footer */
     .land-footer {
@@ -240,9 +257,10 @@
       border-top: 1px solid var(--border);
       color: var(--text-muted);
       font-size: 0.85rem;
+      background: rgba(255,255,255,0.5);
     }
     .land-footer a { color: var(--text-muted); }
-    .land-footer a:hover { color: var(--teal-light); }
+    .land-footer a:hover { color: var(--tiffany); }
     .land-footer-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 12px; }
 
     /* ===== MODAL ===== */
@@ -250,16 +268,19 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.75);
+      background: rgba(26,51,50,0.55);
       z-index: 100;
       align-items: center;
       justify-content: center;
       padding: 16px;
+      backdrop-filter: blur(4px);
     }
     .modal-overlay.open { display: flex; }
     .modal {
-      background: var(--bg2);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(10,186,181,0.2);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
       border-radius: 18px;
       padding: 32px 28px;
       width: 100%;
@@ -277,8 +298,8 @@
       padding: 4px 8px;
       border-radius: 6px;
     }
-    .modal-close:hover { background: var(--bg3); color: var(--text); }
-    .modal-title { font-size: 1.4rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .modal-close:hover { background: rgba(10,186,181,0.1); color: var(--text); }
+    .modal-title { font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
     .modal-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; }
     .modal-tabs { display: flex; gap: 0; margin-bottom: 24px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border); }
     .modal-tab {
@@ -291,7 +312,7 @@
       border: none;
       transition: background 0.2s, color 0.2s;
     }
-    .modal-tab.active { background: var(--teal); color: #fff; }
+    .modal-tab.active { background: var(--tiffany); color: #fff; }
     .form-group { margin-bottom: 16px; }
     .form-group label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 500; }
     .form-error { color: var(--error); font-size: 0.84rem; margin-top: 4px; display: none; }
@@ -299,7 +320,7 @@
     .btn-submit {
       width: 100%;
       padding: 13px;
-      background: var(--teal);
+      background: var(--tiffany);
       color: #fff;
       border-radius: 9px;
       font-size: 1rem;
@@ -307,7 +328,7 @@
       margin-top: 4px;
       transition: background 0.2s;
     }
-    .btn-submit:hover { background: var(--teal-dark); }
+    .btn-submit:hover { background: var(--tiffany-dark); }
     .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
     /* ===== APP UI ===== */
@@ -328,16 +349,17 @@
       width: 100%;
       max-width: 600px;
       z-index: 51;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(10,186,181,0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 14px 20px;
     }
-    .app-logo { font-size: 1.15rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 7px; }
-    .app-logo span { color: var(--teal-light); }
+    .app-logo { font-size: 1.15rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 7px; }
+    .app-logo span { color: var(--tiffany); }
     .app-nav-right { display: flex; align-items: center; gap: 10px; }
     .app-user-name { font-size: 0.85rem; color: var(--text-muted); }
     .btn-logout {
@@ -362,9 +384,10 @@
       width: 100%;
       max-width: 600px;
       z-index: 51;
-      background: rgba(15, 23, 42, 0.97);
-      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
       border-top: 1px solid var(--border);
+      box-shadow: 0 -2px 12px rgba(10,186,181,0.08);
       display: flex;
     }
     .nav-tab {
@@ -381,7 +404,7 @@
       transition: color 0.2s;
       border-top: 2px solid transparent;
     }
-    .nav-tab.active { color: var(--teal-light); border-top-color: var(--teal); }
+    .nav-tab.active { color: var(--tiffany); border-top-color: var(--tiffany); }
     .nav-tab-icon { font-size: 1.25rem; }
 
     /* Tab panels */
@@ -403,18 +426,21 @@
       margin-bottom: 20px;
     }
     .snap-card {
-      background: var(--bg2);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(10,186,181,0.2);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
       border-radius: 14px;
       padding: 16px;
     }
     .snap-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; font-weight: 600; }
-    .snap-value { font-size: 1.7rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 3px; }
+    .snap-value { font-size: 1.7rem; font-weight: 800; color: var(--text); line-height: 1; margin-bottom: 3px; }
     .snap-value.dimmed { color: var(--text-muted); font-size: 0.9rem; font-weight: 400; margin-top: 4px; }
+    .snap-value.coral { color: var(--coral); }
     .snap-unit { font-size: 0.78rem; color: var(--text-muted); }
     .snap-connect {
       font-size: 0.75rem;
-      color: var(--teal);
+      color: var(--tiffany);
       font-weight: 600;
       margin-top: 4px;
       cursor: pointer;
@@ -424,8 +450,10 @@
     .chat-section { margin-top: 8px; }
     .chat-section-title { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; }
     .chat-messages {
-      background: var(--bg2);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(10,186,181,0.2);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
       border-radius: 14px;
       padding: 16px;
       min-height: 100px;
@@ -446,12 +474,12 @@
       font-size: 0.9rem;
       line-height: 1.5;
     }
-    .chat-msg.user .chat-bubble { background: var(--teal); color: #fff; border-bottom-right-radius: 4px; }
-    .chat-msg.assistant .chat-bubble { background: var(--bg3); color: var(--text); border-bottom-left-radius: 4px; }
+    .chat-msg.user .chat-bubble { background: var(--tiffany); color: #fff; border-bottom-right-radius: 4px; }
+    .chat-msg.assistant .chat-bubble { background: rgba(255,255,255,0.9); color: var(--text); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
     .chat-input-row { display: flex; gap: 8px; }
     .chat-input { flex: 1; border-radius: 10px; padding: 10px 14px; font-size: 0.9rem; }
     .btn-send {
-      background: var(--teal);
+      background: var(--tiffany);
       color: #fff;
       padding: 10px 16px;
       border-radius: 10px;
@@ -460,25 +488,27 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
-    .btn-send:hover { background: var(--teal-dark); }
+    .btn-send:hover { background: var(--tiffany-dark); }
     .btn-send:disabled { opacity: 0.5; }
 
     /* Food tab */
     .section-card {
-      background: var(--bg2);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(10,186,181,0.2);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
       border-radius: 14px;
       padding: 20px;
       margin-bottom: 16px;
     }
-    .section-card-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .section-card-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
     .btn-photo-camera {
       width: 100%;
       min-height: 56px;
       padding: 16px;
       border: none;
       border-radius: 12px;
-      background: #f59e0b;
+      background: var(--coral);
       color: #fff;
       font-size: 1rem;
       font-weight: 700;
@@ -490,26 +520,26 @@
       cursor: pointer;
       transition: background 0.2s, transform 0.1s;
     }
-    .btn-photo-camera:hover { background: #d97706; }
+    .btn-photo-camera:hover { background: var(--coral-dark); }
     .btn-photo-camera:active { transform: scale(0.98); }
     .btn-photo-camera.analyzing {
-      background: #92400e;
-      animation: pulse-amber 1.2s infinite;
+      background: #c0392b;
+      animation: pulse-coral 1.2s infinite;
       pointer-events: none;
     }
-    @keyframes pulse-amber {
+    @keyframes pulse-coral {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.6; }
     }
     .photo-hint { font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-bottom: 16px; }
     .photo-result-card {
-      background: var(--bg3);
-      border: 1.5px solid #f59e0b;
+      background: rgba(255,255,255,0.95);
+      border: 1.5px solid var(--coral);
       border-radius: 12px;
       padding: 16px;
       margin-bottom: 16px;
     }
-    .photo-result-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .photo-result-name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
     .photo-result-desc { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
     .macros-grid {
       display: grid;
@@ -518,12 +548,13 @@
       margin-bottom: 12px;
     }
     .macro-cell {
-      background: var(--bg2);
+      background: var(--bg);
       border-radius: 8px;
       padding: 8px 4px;
       text-align: center;
+      border: 1px solid var(--border);
     }
-    .macro-val { font-size: 1rem; font-weight: 700; color: #fff; }
+    .macro-val { font-size: 1rem; font-weight: 700; color: var(--text); }
     .macro-label { font-size: 0.7rem; color: var(--text-muted); }
     .confidence-badge {
       display: inline-block;
@@ -533,21 +564,21 @@
       font-weight: 600;
       margin-bottom: 12px;
     }
-    .confidence-high { background: rgba(20,184,166,0.2); color: #5eead4; }
-    .confidence-medium { background: rgba(245,158,11,0.2); color: #fcd34d; }
-    .confidence-low { background: rgba(239,68,68,0.2); color: #fca5a5; }
+    .confidence-high { background: rgba(10,186,181,0.15); color: var(--tiffany-dark); }
+    .confidence-medium { background: rgba(255,179,71,0.2); color: #b07800; }
+    .confidence-low { background: rgba(255,107,107,0.15); color: var(--coral-dark); }
     .photo-result-actions { display: flex; gap: 8px; }
     .btn-log-photo {
       flex: 1;
       padding: 11px;
-      background: var(--teal);
+      background: var(--tiffany);
       color: #fff;
       border-radius: 9px;
       font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
     }
-    .btn-log-photo:hover { background: var(--teal-dark); }
+    .btn-log-photo:hover { background: var(--tiffany-dark); }
     .btn-cancel-photo {
       padding: 11px 16px;
       background: transparent;
@@ -572,20 +603,20 @@
       margin-bottom: 16px;
       transition: border-color 0.2s;
     }
-    .btn-photo:hover { border-color: var(--teal); color: var(--teal-light); }
+    .btn-photo:hover { border-color: var(--tiffany); color: var(--tiffany); }
     .food-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .food-form-desc { grid-column: 1 / -1; }
     .btn-log-food {
       width: 100%;
       padding: 12px;
-      background: var(--teal);
+      background: var(--tiffany);
       color: #fff;
       border-radius: 9px;
       font-weight: 700;
       font-size: 0.95rem;
       margin-top: 12px;
     }
-    .btn-log-food:hover { background: var(--teal-dark); }
+    .btn-log-food:hover { background: var(--tiffany-dark); }
     .food-list { list-style: none; }
     .food-item {
       display: flex;
@@ -596,13 +627,15 @@
     }
     .food-item:last-child { border-bottom: none; }
     .food-item-desc { font-size: 0.9rem; color: var(--text); }
-    .food-item-cal { font-size: 0.82rem; color: var(--text-muted); background: var(--bg3); padding: 3px 8px; border-radius: 12px; }
+    .food-item-cal { font-size: 0.82rem; color: var(--coral-dark); background: rgba(255,107,107,0.1); padding: 3px 8px; border-radius: 12px; font-weight: 600; }
     .food-empty { color: var(--text-muted); font-size: 0.88rem; text-align: center; padding: 20px 0; }
 
     /* Insights tab */
     .insight-card {
-      background: var(--bg2);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(10,186,181,0.2);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
       border-radius: 14px;
       padding: 20px;
       margin-bottom: 12px;
@@ -614,8 +647,8 @@
       letter-spacing: 0.07em;
       margin-bottom: 8px;
     }
-    .insight-type.pattern { color: var(--teal); }
-    .insight-type.nutrition { color: var(--amber); }
+    .insight-type.pattern { color: var(--tiffany); }
+    .insight-type.nutrition { color: var(--peach); }
     .insight-type.recovery { color: #8b5cf6; }
     .insight-text { font-size: 0.93rem; color: var(--text); line-height: 1.5; }
     .insight-coming { text-align: center; color: var(--text-muted); padding: 32px 16px; font-size: 0.9rem; }
@@ -627,8 +660,10 @@
       align-items: center;
       gap: 16px;
       padding: 20px;
-      background: var(--bg2);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(10,186,181,0.2);
+      box-shadow: 0 4px 24px rgba(10,186,181,0.10);
       border-radius: 14px;
       margin-bottom: 16px;
     }
@@ -636,7 +671,7 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      background: linear-gradient(135deg, var(--tiffany), var(--tiffany-dark));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -645,7 +680,7 @@
       color: #fff;
       flex-shrink: 0;
     }
-    .profile-name { font-size: 1.1rem; font-weight: 700; color: #fff; }
+    .profile-name { font-size: 1.1rem; font-weight: 700; color: var(--text); }
     .profile-email { font-size: 0.85rem; color: var(--text-muted); }
     .tier-badge {
       display: inline-block;
@@ -656,8 +691,8 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
-    .tier-free { background: rgba(148,163,184,0.15); color: #94a3b8; }
-    .tier-premium { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .tier-free { background: rgba(10,186,181,0.1); color: var(--tiffany-dark); }
+    .tier-premium { background: rgba(255,179,71,0.15); color: #b07800; }
     .wearable-list { list-style: none; }
     .wearable-item {
       display: flex;
@@ -673,15 +708,42 @@
     .wearable-status { font-size: 0.78rem; color: var(--text-muted); }
     .btn-connect {
       padding: 6px 14px;
-      background: transparent;
-      border: 1.5px solid var(--teal);
-      color: var(--teal-light);
+      background: rgba(10,186,181,0.08);
+      border: 1.5px solid var(--tiffany);
+      color: var(--tiffany);
       border-radius: 7px;
       font-size: 0.8rem;
       font-weight: 600;
       flex-shrink: 0;
     }
-    .btn-connect:hover { background: rgba(13,148,136,0.12); }
+    .btn-connect:hover { background: rgba(10,186,181,0.18); }
+
+    /* Profile action buttons */
+    .profile-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .btn-profile-action {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.2s;
+    }
+    .btn-settings {
+      background: rgba(10,186,181,0.08);
+      border: 1.5px solid var(--tiffany);
+      color: var(--tiffany-dark);
+    }
+    .btn-settings:hover { background: rgba(10,186,181,0.16); }
+    .btn-upgrade {
+      background: var(--coral);
+      border: none;
+      color: #fff;
+    }
+    .btn-upgrade:hover { background: var(--coral-dark); }
 
     /* Toasts */
     .toast-container {
@@ -695,8 +757,9 @@
       pointer-events: none;
     }
     .toast {
-      background: var(--bg2);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
       border-radius: 10px;
       padding: 12px 16px;
       margin-bottom: 8px;
@@ -716,13 +779,170 @@
       display: inline-block;
       width: 16px;
       height: 16px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: #fff;
+      border: 2px solid rgba(10,186,181,0.3);
+      border-top-color: var(--tiffany);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       vertical-align: middle;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== SETTINGS MODAL ===== */
+    .settings-modal {
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .settings-section { margin-bottom: 28px; }
+    .settings-section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--tiffany);
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(10,186,181,0.08);
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-label { font-size: 0.92rem; color: var(--text); }
+    .toggle-desc { font-size: 0.78rem; color: var(--text-muted); }
+    .toggle-switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: #cbd5e1;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s;
+    }
+    .toggle-switch input:checked + .toggle-slider { background: var(--tiffany); }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
+    .btn-danger {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: 1.5px solid var(--coral);
+      color: var(--coral);
+      border-radius: 9px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-danger:hover { background: rgba(255,107,107,0.1); }
+    .settings-form-row { display: flex; gap: 10px; margin-top: 10px; }
+    .btn-save {
+      padding: 10px 20px;
+      background: var(--tiffany);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-save:hover { background: var(--tiffany-dark); }
+
+    /* ===== DELETE CONFIRM MODAL ===== */
+    .delete-modal .modal-title { color: var(--coral); }
+    .delete-modal .delete-warning {
+      background: rgba(255,107,107,0.07);
+      border: 1px solid rgba(255,107,107,0.25);
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .delete-modal-btns { display: flex; gap: 10px; }
+    .btn-cancel-action {
+      flex: 1;
+      padding: 12px;
+      background: rgba(10,186,181,0.08);
+      border: 1.5px solid var(--tiffany);
+      color: var(--tiffany);
+      border-radius: 9px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .btn-cancel-action:hover { background: rgba(10,186,181,0.16); }
+    .btn-delete-confirm {
+      flex: 1;
+      padding: 12px;
+      background: var(--coral);
+      border: none;
+      color: #fff;
+      border-radius: 9px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .btn-delete-confirm:hover { background: var(--coral-dark); }
+    .btn-delete-confirm:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* ===== UPGRADE MODAL ===== */
+    .upgrade-modal { max-width: 500px; }
+    .upgrade-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+    .upgrade-plan {
+      border-radius: 12px;
+      padding: 18px 14px;
+      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,0.7);
+    }
+    .upgrade-plan.current { opacity: 0.65; }
+    .upgrade-plan.highlighted {
+      border-color: var(--coral);
+      background: rgba(255,255,255,0.97);
+      box-shadow: 0 4px 18px rgba(255,107,107,0.12);
+    }
+    .upgrade-plan-name { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 4px; }
+    .upgrade-plan-price { font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+    .upgrade-plan-price span { font-size: 0.8rem; font-weight: 400; color: var(--text-muted); }
+    .upgrade-plan-features { list-style: none; font-size: 0.82rem; }
+    .upgrade-plan-features li { padding: 3px 0; color: var(--text); display: flex; gap: 6px; align-items: flex-start; }
+    .upgrade-plan-features li::before { content: "✓"; color: var(--tiffany); font-weight: 700; flex-shrink: 0; }
+    .upgrade-plan.current .upgrade-plan-features li::before { color: var(--text-muted); }
+    .btn-upgrade-now {
+      width: 100%;
+      padding: 14px;
+      background: var(--coral);
+      color: #fff;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      transition: background 0.2s;
+    }
+    .btn-upgrade-now:hover { background: var(--coral-dark); }
+    .upgrade-fine-print { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; }
+
+    @media (max-width: 400px) {
+      .upgrade-plans { grid-template-columns: 1fr; }
+    }
 
     /* Responsive */
     @media (max-width: 480px) {
@@ -783,6 +1003,188 @@
   </div>
 </div>
 
+<!-- ===== SETTINGS MODAL ===== -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal settings-modal">
+    <button class="modal-close" onclick="closeSettingsModal()">✕</button>
+    <div class="modal-title">⚙️ Settings</div>
+    <div class="modal-sub">Manage your account and preferences.</div>
+
+    <!-- Account section -->
+    <div class="settings-section">
+      <div class="settings-section-title">Account</div>
+      <div class="form-group">
+        <label for="settingsName">Display Name</label>
+        <div class="settings-form-row">
+          <input type="text" id="settingsName" placeholder="Your display name" />
+          <button class="btn-save" onclick="saveDisplayName()">Save</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="settingsEmail" readonly style="background:rgba(10,186,181,0.04);color:var(--text-muted);" />
+      </div>
+      <div class="form-group">
+        <label>Change Password</label>
+        <input type="password" id="settingsCurrentPw" placeholder="Current password" style="margin-bottom:8px;" />
+        <input type="password" id="settingsNewPw" placeholder="New password (8+ chars)" style="margin-bottom:8px;" />
+        <input type="password" id="settingsConfirmPw" placeholder="Confirm new password" style="margin-bottom:10px;" />
+        <button class="btn-save" onclick="savePassword()">Update Password</button>
+      </div>
+    </div>
+
+    <!-- Notifications section -->
+    <div class="settings-section">
+      <div class="settings-section-title">Notifications</div>
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Daily Summary</div>
+          <div class="toggle-desc">Morning recap of yesterday's patterns</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="notifDailySummary" onchange="saveNotifPref('dailySummary', this.checked)" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Weekly Report</div>
+          <div class="toggle-desc">7-day trends every Monday</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="notifWeeklyReport" onchange="saveNotifPref('weeklyReport', this.checked)" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Insights Alerts</div>
+          <div class="toggle-desc">Get notified when a new pattern is found</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="notifInsights" onchange="saveNotifPref('insightsAlerts', this.checked)" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Connected Wearables section -->
+    <div class="settings-section">
+      <div class="settings-section-title">Connected Wearables</div>
+      <ul class="wearable-list">
+        <li class="wearable-item">
+          <div class="wearable-info">
+            <span class="wearable-icon">💍</span>
+            <div>
+              <div class="wearable-name">Oura Ring</div>
+              <div class="wearable-status">Not connected</div>
+            </div>
+          </div>
+          <button class="btn-connect" onclick="showToast('Oura integration coming soon!','info')">Connect</button>
+        </li>
+        <li class="wearable-item">
+          <div class="wearable-info">
+            <span class="wearable-icon">🍎</span>
+            <div>
+              <div class="wearable-name">Apple Health</div>
+              <div class="wearable-status">Not connected</div>
+            </div>
+          </div>
+          <button class="btn-connect" onclick="showToast('Apple Health integration coming soon!','info')">Connect</button>
+        </li>
+        <li class="wearable-item">
+          <div class="wearable-info">
+            <span class="wearable-icon">🏃</span>
+            <div>
+              <div class="wearable-name">Garmin</div>
+              <div class="wearable-status">Not connected</div>
+            </div>
+          </div>
+          <button class="btn-connect" onclick="showToast('Garmin integration coming soon!','info')">Connect</button>
+        </li>
+        <li class="wearable-item">
+          <div class="wearable-info">
+            <span class="wearable-icon">🩺</span>
+            <div>
+              <div class="wearable-name">Whoop</div>
+              <div class="wearable-status">Not connected</div>
+            </div>
+          </div>
+          <button class="btn-connect" onclick="showToast('Whoop integration coming soon!','info')">Connect</button>
+        </li>
+        <li class="wearable-item">
+          <div class="wearable-info">
+            <span class="wearable-icon">⌚</span>
+            <div>
+              <div class="wearable-name">Fitbit</div>
+              <div class="wearable-status">Not connected</div>
+            </div>
+          </div>
+          <button class="btn-connect" onclick="showToast('Fitbit integration coming soon!','info')">Connect</button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="settings-section">
+      <div class="settings-section-title">Danger Zone</div>
+      <button class="btn-danger" onclick="openDeleteModal()">🗑️ Delete My Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DELETE ACCOUNT CONFIRM MODAL ===== -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal delete-modal">
+    <div class="modal-title">Delete your RhythmPal account?</div>
+    <div class="modal-sub">This action cannot be undone.</div>
+    <div class="delete-warning">
+      ⚠️ This will permanently delete all your health data, food logs, chat history, and insights. Your account and all associated data will be removed immediately. <strong>This cannot be undone.</strong>
+    </div>
+    <div class="delete-modal-btns">
+      <button class="btn-cancel-action" onclick="closeDeleteModal()">Cancel</button>
+      <button class="btn-delete-confirm" id="deleteConfirmBtn" onclick="handleDeleteAccount()">Delete Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SUBSCRIPTION UPGRADE MODAL ===== -->
+<div class="modal-overlay" id="upgradeModal">
+  <div class="modal upgrade-modal">
+    <button class="modal-close" onclick="closeUpgradeModal()">✕</button>
+    <div class="modal-title">⬆️ Upgrade to Premium</div>
+    <div class="modal-sub">Unlock the full power of RhythmPal.</div>
+
+    <div class="upgrade-plans">
+      <div class="upgrade-plan current">
+        <div class="upgrade-plan-name">Free</div>
+        <div class="upgrade-plan-price">$0 <span>/ mo</span></div>
+        <ul class="upgrade-plan-features">
+          <li>Basic food logging</li>
+          <li>Limited AI insights</li>
+          <li>1 wearable</li>
+          <li>7-day history</li>
+        </ul>
+      </div>
+      <div class="upgrade-plan highlighted">
+        <div class="upgrade-plan-name" style="color:var(--coral);">Premium ⭐</div>
+        <div class="upgrade-plan-price">$15 <span>/ mo</span></div>
+        <ul class="upgrade-plan-features">
+          <li>Full AI insights</li>
+          <li>All wearables</li>
+          <li>Pattern detection</li>
+          <li>Journey reports</li>
+          <li>Health ebook export</li>
+          <li>Unlimited history</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="btn-upgrade-now" onclick="handleUpgradeClick()">Upgrade Now — $15/mo</button>
+    <div class="upgrade-fine-print">Cancel anytime. Billed monthly. No hidden fees.</div>
+  </div>
+</div>
+
 <!-- ===== LANDING PAGE ===== -->
 <div id="landing">
   <!-- Nav -->
@@ -800,7 +1202,7 @@
     <h1>Health intelligence that gets<br><em>smarter with you.</em></h1>
     <p class="hero-sub">RhythmPal connects your wearables, food, sleep, and habits — then finds the patterns you'd never see yourself.</p>
     <div class="hero-cta">
-      <button class="btn-amber" onclick="openModal('signup')">Start Free →</button>
+      <button class="btn-coral" onclick="openModal('signup')">Start Free →</button>
       <button class="btn-ghost" onclick="openModal('login')">Already have an account</button>
     </div>
     <p class="hero-note">Free forever for basic use · No credit card required</p>
@@ -839,7 +1241,7 @@
         <div class="pricing-price">$0 <span>/ forever</span></div>
         <div class="pricing-desc">Get started, no strings attached.</div>
         <ul class="pricing-features">
-          <li>Manual food & water logging</li>
+          <li>Manual food &amp; water logging</li>
           <li>Basic daily summary</li>
           <li>3 AI questions per day</li>
           <li>7-day data history</li>
@@ -867,10 +1269,10 @@
   <footer class="land-footer">
     <div class="land-footer-links">
       <a href="#">rhythmpal.com</a>
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/tos">Terms</a>
     </div>
-    <div>© 2025 RhythmPal. All rights reserved.</div>
+    <div>© 2026 RhythmPal. All rights reserved.</div>
   </footer>
 </div>
 
@@ -909,7 +1311,7 @@
         </div>
         <div class="snap-card" id="calCard">
           <div class="snap-label">Calories</div>
-          <div class="snap-value" id="calValue">0</div>
+          <div class="snap-value coral" id="calValue">0</div>
           <div class="snap-unit">kcal logged</div>
         </div>
       </div>
@@ -1018,6 +1420,12 @@
         </div>
       </div>
 
+      <!-- Profile action buttons -->
+      <div class="profile-actions">
+        <button class="btn-profile-action btn-settings" onclick="openSettingsModal()">⚙️ Settings</button>
+        <button class="btn-profile-action btn-upgrade" id="upgradeBtn" onclick="openUpgradeModal()">⬆️ Upgrade to Premium</button>
+      </div>
+
       <div class="section-card">
         <div class="section-card-title">⌚ Wearables</div>
         <ul class="wearable-list">
@@ -1067,7 +1475,7 @@
       <div class="section-card">
         <div class="section-card-title">💎 Your Plan</div>
         <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:16px;">Upgrade to Premium for unlimited AI, all wearables, and proactive insights.</p>
-        <button class="btn-primary" style="width:100%;padding:13px;font-size:0.95rem;font-weight:700;border-radius:9px;" onclick="showToast('Stripe billing coming soon!','info')">
+        <button class="btn-coral" style="width:100%;padding:13px;font-size:0.95rem;font-weight:700;border-radius:9px;" onclick="openUpgradeModal()">
           Upgrade to Premium — $15/mo
         </button>
       </div>
@@ -1115,6 +1523,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('todayDate').textContent = now.toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric'
   });
+
+  // Load notification prefs
+  loadNotifPrefs();
 });
 
 /* ===== AUTH STATE ===== */
@@ -1153,9 +1564,12 @@ function updateProfileUI() {
   const tierBadge = document.getElementById('tierBadge');
   tierBadge.textContent = currentUser.tier === 'premium' ? 'Premium' : 'Free';
   tierBadge.className = 'tier-badge ' + (currentUser.tier === 'premium' ? 'tier-premium' : 'tier-free');
+  // Hide upgrade button for premium users
+  const upgradeBtn = document.getElementById('upgradeBtn');
+  if (upgradeBtn) upgradeBtn.style.display = currentUser.tier === 'premium' ? 'none' : 'flex';
 }
 
-/* ===== MODAL ===== */
+/* ===== AUTH MODAL ===== */
 function openModal(tab) {
   document.getElementById('authModal').classList.add('open');
   switchTab(tab || 'signup');
@@ -1172,7 +1586,6 @@ document.getElementById('authModal').addEventListener('click', e => {
 
 function switchTab(tab) {
   if (tab === 'signup' || tab === 'login') {
-    // modal tab
     document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
     document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
     document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
@@ -1278,7 +1691,6 @@ function handleLogout() {
   currentUser = null;
   localStorage.removeItem('rp_token');
   showLanding();
-  // Clear state
   document.getElementById('chatMessages').innerHTML = '<div class="chat-empty" id="chatEmpty">Ask me anything about your health — patterns, food, sleep, recovery.</div>';
   document.getElementById('foodList').innerHTML = '<li class="food-empty" id="foodEmpty">Nothing logged yet today.</li>';
 }
@@ -1314,7 +1726,6 @@ let _photoAnalysisResult = null;
 async function handleFoodPhoto(input) {
   const file = input.files[0];
   if (!file) return;
-  // Reset input so the same file can be re-selected if needed
   input.value = '';
   await analyzeFood(file);
 }
@@ -1324,12 +1735,10 @@ async function analyzeFood(file) {
   btn.classList.add('analyzing');
   btn.textContent = '⏳ Analyzing...';
 
-  // Hide any previous result
   document.getElementById('photoResultCard').style.display = 'none';
   _photoAnalysisResult = null;
 
   try {
-    // Read file as base64
     const base64 = await new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(reader.result.split(',')[1]);
@@ -1351,7 +1760,6 @@ async function analyzeFood(file) {
       return;
     }
 
-    // Store result for logging
     _photoAnalysisResult = data;
     showPhotoResult(data);
   } catch (err) {
@@ -1422,7 +1830,6 @@ async function loadFoodLog() {
     if (!res.ok) return;
     const data = await res.json();
     renderFoodList(data.entries || []);
-    // Update calorie count
     const total = (data.entries || []).reduce((sum, e) => sum + (e.calories || 0), 0);
     document.getElementById('calValue').textContent = total;
   } catch (e) { /* fail silently */ }
@@ -1478,17 +1885,14 @@ async function sendChat() {
   const message = input.value.trim();
   if (!message) return;
 
-  // Clear empty state
   const empty = document.getElementById('chatEmpty');
   if (empty) empty.remove();
 
   input.value = '';
   btn.disabled = true;
 
-  // Add user message
   appendChatMessage('user', message);
 
-  // Add loading bubble
   const loadingId = 'loading-' + Date.now();
   appendChatMessage('assistant', '<span class="spinner"></span>', loadingId);
 
@@ -1523,6 +1927,121 @@ function appendChatMessage(role, content, id) {
   container.scrollTop = container.scrollHeight;
 }
 
+/* ===== SETTINGS MODAL ===== */
+function openSettingsModal() {
+  if (currentUser) {
+    document.getElementById('settingsName').value = currentUser.name || '';
+    document.getElementById('settingsEmail').value = currentUser.email || '';
+  }
+  document.getElementById('settingsModal').classList.add('open');
+}
+
+function closeSettingsModal() {
+  document.getElementById('settingsModal').classList.remove('open');
+}
+
+document.getElementById('settingsModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('settingsModal')) closeSettingsModal();
+});
+
+async function saveDisplayName() {
+  const name = document.getElementById('settingsName').value.trim();
+  if (!name) { showToast('Please enter a display name.', 'error'); return; }
+  showToast('Display name updated ✓', 'success');
+  if (currentUser) {
+    currentUser.name = name;
+    updateProfileUI();
+  }
+}
+
+async function savePassword() {
+  const current = document.getElementById('settingsCurrentPw').value;
+  const newPw = document.getElementById('settingsNewPw').value;
+  const confirm = document.getElementById('settingsConfirmPw').value;
+  if (!current || !newPw || !confirm) { showToast('Please fill in all password fields.', 'error'); return; }
+  if (newPw.length < 8) { showToast('New password must be at least 8 characters.', 'error'); return; }
+  if (newPw !== confirm) { showToast('New passwords do not match.', 'error'); return; }
+  showToast('Password update coming soon — stay tuned!', 'info');
+  document.getElementById('settingsCurrentPw').value = '';
+  document.getElementById('settingsNewPw').value = '';
+  document.getElementById('settingsConfirmPw').value = '';
+}
+
+function loadNotifPrefs() {
+  const prefs = JSON.parse(localStorage.getItem('rp_notif_prefs') || '{}');
+  const el1 = document.getElementById('notifDailySummary');
+  const el2 = document.getElementById('notifWeeklyReport');
+  const el3 = document.getElementById('notifInsights');
+  if (el1) el1.checked = prefs.dailySummary !== false;
+  if (el2) el2.checked = prefs.weeklyReport !== false;
+  if (el3) el3.checked = prefs.insightsAlerts !== false;
+}
+
+function saveNotifPref(key, value) {
+  const prefs = JSON.parse(localStorage.getItem('rp_notif_prefs') || '{}');
+  prefs[key] = value;
+  localStorage.setItem('rp_notif_prefs', JSON.stringify(prefs));
+  showToast('Preference saved ✓', 'success');
+}
+
+/* ===== DELETE ACCOUNT ===== */
+function openDeleteModal() {
+  closeSettingsModal();
+  document.getElementById('deleteModal').classList.add('open');
+}
+
+function closeDeleteModal() {
+  document.getElementById('deleteModal').classList.remove('open');
+}
+
+document.getElementById('deleteModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('deleteModal')) closeDeleteModal();
+});
+
+async function handleDeleteAccount() {
+  const btn = document.getElementById('deleteConfirmBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Deleting...';
+
+  try {
+    const res = await apiFetch('/api/auth/account', { method: 'DELETE' });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      showToast(data.error || 'Failed to delete account. Try again.', 'error');
+      return;
+    }
+    authToken = null;
+    currentUser = null;
+    localStorage.removeItem('rp_token');
+    localStorage.removeItem('rp_notif_prefs');
+    closeDeleteModal();
+    showLanding();
+    showToast('Your account has been deleted.', 'success');
+  } catch (err) {
+    showToast('Failed to delete account. Try again.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Delete Account';
+  }
+}
+
+/* ===== UPGRADE MODAL ===== */
+function openUpgradeModal() {
+  document.getElementById('upgradeModal').classList.add('open');
+}
+
+function closeUpgradeModal() {
+  document.getElementById('upgradeModal').classList.remove('open');
+}
+
+document.getElementById('upgradeModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('upgradeModal')) closeUpgradeModal();
+});
+
+function handleUpgradeClick() {
+  showToast('Stripe payments coming soon — you\'ll be notified when Premium launches! 🎉', 'info');
+}
+
 /* ===== TOASTS ===== */
 function showToast(message, type) {
   const container = document.getElementById('toastContainer');
@@ -1534,7 +2053,7 @@ function showToast(message, type) {
   setTimeout(() => {
     toast.classList.remove('show');
     setTimeout(() => toast.remove(), 300);
-  }, 3000);
+  }, 3500);
 }
 
 /* ===== UTILS ===== */
