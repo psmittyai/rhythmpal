@@ -472,6 +472,91 @@
       margin-bottom: 16px;
     }
     .section-card-title { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .btn-photo-camera {
+      width: 100%;
+      min-height: 56px;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: #f59e0b;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-photo-camera:hover { background: #d97706; }
+    .btn-photo-camera:active { transform: scale(0.98); }
+    .btn-photo-camera.analyzing {
+      background: #92400e;
+      animation: pulse-amber 1.2s infinite;
+      pointer-events: none;
+    }
+    @keyframes pulse-amber {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    .photo-hint { font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-bottom: 16px; }
+    .photo-result-card {
+      background: var(--bg3);
+      border: 1.5px solid #f59e0b;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .photo-result-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .photo-result-desc { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 12px; }
+    .macros-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .macro-cell {
+      background: var(--bg2);
+      border-radius: 8px;
+      padding: 8px 4px;
+      text-align: center;
+    }
+    .macro-val { font-size: 1rem; font-weight: 700; color: #fff; }
+    .macro-label { font-size: 0.7rem; color: var(--text-muted); }
+    .confidence-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .confidence-high { background: rgba(20,184,166,0.2); color: #5eead4; }
+    .confidence-medium { background: rgba(245,158,11,0.2); color: #fcd34d; }
+    .confidence-low { background: rgba(239,68,68,0.2); color: #fca5a5; }
+    .photo-result-actions { display: flex; gap: 8px; }
+    .btn-log-photo {
+      flex: 1;
+      padding: 11px;
+      background: var(--teal);
+      color: #fff;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .btn-log-photo:hover { background: var(--teal-dark); }
+    .btn-cancel-photo {
+      padding: 11px 16px;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 9px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
     .btn-photo {
       width: 100%;
       padding: 16px;
@@ -846,9 +931,44 @@
     <div class="tab-panel" id="panel-food">
       <div class="section-card">
         <div class="section-card-title">📸 Log Food</div>
-        <button class="btn-photo" onclick="showToast('Photo logging coming soon!','info')">
-          📷 Take a photo or upload
+
+        <!-- Photo logging -->
+        <button class="btn-photo-camera" id="photoCameraBtn" onclick="document.getElementById('foodPhotoInput').click()">
+          📷 Snap your meal for instant nutrition analysis
         </button>
+        <p class="photo-hint">Takes a photo or pick from your gallery — AI identifies calories &amp; macros</p>
+        <input type="file" id="foodPhotoInput" accept="image/*" capture="environment" style="display:none" onchange="handleFoodPhoto(this)" />
+
+        <!-- Analysis result card (hidden until photo analyzed) -->
+        <div class="photo-result-card" id="photoResultCard" style="display:none">
+          <div class="photo-result-name" id="photoFoodName"></div>
+          <div class="photo-result-desc" id="photoFoodDesc"></div>
+          <div id="photoConfidenceBadge" class="confidence-badge"></div>
+          <div class="macros-grid">
+            <div class="macro-cell">
+              <div class="macro-val" id="photoCalories">—</div>
+              <div class="macro-label">Calories</div>
+            </div>
+            <div class="macro-cell">
+              <div class="macro-val" id="photoProtein">—</div>
+              <div class="macro-label">Protein (g)</div>
+            </div>
+            <div class="macro-cell">
+              <div class="macro-val" id="photoCarbs">—</div>
+              <div class="macro-label">Carbs (g)</div>
+            </div>
+            <div class="macro-cell">
+              <div class="macro-val" id="photoFat">—</div>
+              <div class="macro-label">Fat (g)</div>
+            </div>
+          </div>
+          <div class="photo-result-actions">
+            <button class="btn-log-photo" id="btnLogPhoto" onclick="logPhotoMeal()">✓ Log This Meal</button>
+            <button class="btn-cancel-photo" onclick="cancelPhotoResult()">✗ Cancel</button>
+          </div>
+        </div>
+
+        <!-- Manual log form -->
         <form id="foodForm" onsubmit="handleFoodLog(event)">
           <div class="food-form-grid">
             <div class="food-form-desc">
@@ -1186,6 +1306,113 @@ async function loadHealthSummary() {
       document.getElementById('calValue').textContent = snap.calories.consumed || 0;
     }
   } catch (e) { /* fail silently */ }
+}
+
+/* ===== FOOD PHOTO LOGGING ===== */
+let _photoAnalysisResult = null;
+
+async function handleFoodPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  // Reset input so the same file can be re-selected if needed
+  input.value = '';
+  await analyzeFood(file);
+}
+
+async function analyzeFood(file) {
+  const btn = document.getElementById('photoCameraBtn');
+  btn.classList.add('analyzing');
+  btn.textContent = '⏳ Analyzing...';
+
+  // Hide any previous result
+  document.getElementById('photoResultCard').style.display = 'none';
+  _photoAnalysisResult = null;
+
+  try {
+    // Read file as base64
+    const base64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+
+    const res = await apiFetch('/api/food/analyze-photo', {
+      method: 'POST',
+      body: JSON.stringify({
+        image: { data: base64, mediaType: file.type || 'image/jpeg' },
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || data.error) {
+      showToast("Couldn't identify food — try manual entry", 'error');
+      return;
+    }
+
+    // Store result for logging
+    _photoAnalysisResult = data;
+    showPhotoResult(data);
+  } catch (err) {
+    showToast("Couldn't identify food — try manual entry", 'error');
+  } finally {
+    btn.classList.remove('analyzing');
+    btn.innerHTML = '📷 Snap your meal for instant nutrition analysis';
+  }
+}
+
+function showPhotoResult(data) {
+  document.getElementById('photoFoodName').textContent = data.foodName || 'Food detected';
+  document.getElementById('photoFoodDesc').textContent = data.description || '';
+  document.getElementById('photoCalories').textContent = data.calories != null ? data.calories : '—';
+  document.getElementById('photoProtein').textContent = data.protein != null ? data.protein : '—';
+  document.getElementById('photoCarbs').textContent = data.carbs != null ? data.carbs : '—';
+  document.getElementById('photoFat').textContent = data.fat != null ? data.fat : '—';
+
+  const badge = document.getElementById('photoConfidenceBadge');
+  const conf = (data.confidence || 'low').toLowerCase();
+  badge.textContent = conf === 'high' ? '✓ High confidence' : conf === 'medium' ? '~ Medium confidence' : '⚠ Low confidence';
+  badge.className = 'confidence-badge confidence-' + conf;
+
+  document.getElementById('photoResultCard').style.display = 'block';
+}
+
+async function logPhotoMeal() {
+  if (!_photoAnalysisResult) return;
+  const btn = document.getElementById('btnLogPhoto');
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  try {
+    const d = _photoAnalysisResult;
+    const res = await apiFetch('/api/health/food-log', {
+      method: 'POST',
+      body: JSON.stringify({
+        description: d.foodName + (d.description ? ' — ' + d.description : ''),
+        calories: d.calories || null,
+        protein: d.protein || null,
+        carbs: d.carbs || null,
+        fat: d.fat || null,
+        fiber: d.fiber || null,
+        source: 'photo',
+      }),
+    });
+    if (!res.ok) { showToast('Failed to save. Try again.', 'error'); return; }
+    cancelPhotoResult();
+    await loadFoodLog();
+    showToast('Meal logged ✓', 'success');
+  } catch (err) {
+    showToast('Failed to save. Try again.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✓ Log This Meal';
+  }
+}
+
+function cancelPhotoResult() {
+  document.getElementById('photoResultCard').style.display = 'none';
+  _photoAnalysisResult = null;
 }
 
 /* ===== FOOD LOG ===== */

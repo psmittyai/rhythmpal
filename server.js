@@ -22,6 +22,7 @@ app.get('/health', (req, res) => {
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/health', require('./routes/health'));
+app.use('/api/food', require('./routes/food-photo'));
 app.use('/api/chat', require('./routes/chat'));
 
 // SPA fallback — all unmatched routes serve index.html

@@ -64,17 +64,17 @@ router.get('/summary', requireAuth, async (req, res) => {
 router.post('/food-log', requireAuth, async (req, res) => {
   try {
     const userId = req.user.id;
-    const { description, calories, protein, carbs, fat } = req.body;
+    const { description, calories, protein, carbs, fat, fiber, source } = req.body;
 
     if (!description) {
       return res.status(400).json({ error: 'Description is required' });
     }
 
     const result = await query(
-      `INSERT INTO food_logs (user_id, description, calories, protein, carbs, fat)
-       VALUES ($1, $2, $3, $4, $5, $6)
+      `INSERT INTO food_logs (user_id, description, calories, protein, carbs, fat, fiber, source)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING *`,
-      [userId, description, calories || null, protein || null, carbs || null, fat || null]
+      [userId, description, calories || null, protein || null, carbs || null, fat || null, fiber || null, source || 'manual']
     );
 
     res.status(201).json({ entry: result.rows[0] });
