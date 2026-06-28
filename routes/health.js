@@ -31,23 +31,51 @@ router.get('/summary', requireAuth, async (req, res) => {
     );
     const profile = profileResult.rows[0] || {};
 
-    // Stub wearable data (replace with real wearable integrations)
+    // Pull latest Apple Health data (last 24 hours)
+    const appleHealthResult = await query(
+      `SELECT DISTINCT ON (data_type) data_type, value, unit, start_date
+       FROM apple_health_logs
+       WHERE user_id = $1 AND start_date >= NOW() - INTERVAL '24 hours'
+       ORDER BY data_type, start_date DESC`,
+      [userId]
+    );
+
+    const appleData = {};
+    for (const row of appleHealthResult.rows) {
+      appleData[row.data_type] = { value: parseFloat(row.value), unit: row.unit, date: row.start_date };
+    }
+
+    // Helper to get apple health value by common name variants
+    const ah = (names) => {
+      for (const n of names) {
+        if (appleData[n]) return appleData[n].value;
+      }
+      return null;
+    };
+
+    const sleepHours = ah(['sleep_analysis', 'HKCategoryTypeIdentifierSleepAnalysis', 'sleepAnalysis']);
+    const hrvValue = ah(['HKQuantityTypeIdentifierHeartRateVariabilitySDNN', 'heartRateVariabilitySDNN', 'hrv']);
+    const stepCount = ah(['HKQuantityTypeIdentifierStepCount', 'stepCount', 'steps']);
+
+    // Build health snapshot with real Apple Health data where available
     const snapshot = {
       date: new Date().toISOString().split('T')[0],
       sleep: {
-        score: null,
-        hours: null,
+        score: sleepHours
+          ? Math.min(100, Math.round((sleepHours / (profile.target_sleep_hours || 8)) * 100))
+          : null,
+        hours: sleepHours,
         deep_sleep_pct: null,
-        status: 'connect_wearable',
+        status: sleepHours ? 'ok' : 'connect_wearable',
       },
       hrv: {
-        value: null,
-        status: 'connect_wearable',
+        value: hrvValue,
+        status: hrvValue ? 'ok' : 'connect_wearable',
       },
       steps: {
-        count: null,
-        goal: 10000,
-        status: 'connect_wearable',
+        count: stepCount,
+        goal: profile.target_steps || 10000,
+        status: stepCount ? 'ok' : 'connect_wearable',
       },
       calories: {
         consumed: parseInt(food.total_calories) || 0,
@@ -68,7 +96,7 @@ router.get('/summary', requireAuth, async (req, res) => {
         active_minutes: profile.target_active_minutes || 30,
       },
       profile_set: !!profile.weight_kg,
-      wearables_connected: false,
+      wearables_connected: appleHealthResult.rows.length > 0,
     };
 
     res.json({ snapshot });

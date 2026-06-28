@@ -1037,6 +1037,115 @@
     }
     .btn-connect:hover { background: rgba(255,107,107,0.18); }
 
+    /* ===== APPLE HEALTH INTEGRATION CARD ===== */
+    .apple-health-card {
+      background: rgba(10,186,181,0.05);
+      border: 1.5px solid rgba(10,186,181,0.2);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 6px;
+    }
+    .apple-health-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .apple-health-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .badge-connected {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #16a34a;
+      background: rgba(22,163,74,0.1);
+      border-radius: 20px;
+      padding: 3px 9px;
+    }
+    .badge-pending {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: rgba(148,163,184,0.15);
+      border-radius: 20px;
+      padding: 3px 9px;
+    }
+    .webhook-url-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .webhook-url-input {
+      flex: 1;
+      font-size: 0.75rem;
+      padding: 8px 10px;
+      background: rgba(0,0,0,0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-muted);
+      min-width: 0;
+      font-family: monospace;
+    }
+    .btn-copy-url {
+      padding: 8px 12px;
+      background: var(--tiffany);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-copy-url:hover { opacity: 0.85; }
+    .ah-steps-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+    .ah-steps {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .ah-steps li {
+      font-size: 0.84rem;
+      color: var(--text);
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(10,186,181,0.07);
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      line-height: 1.4;
+    }
+    .ah-steps li:last-child { border-bottom: none; }
+    .ah-step-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--tiffany);
+      background: rgba(10,186,181,0.12);
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
     /* Profile action buttons */
     .profile-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
     .btn-profile-action {
@@ -1486,16 +1595,40 @@
           </div>
           <button class="btn-connect" onclick="showToast('Oura integration coming soon!','info')">Connect</button>
         </li>
-        <li class="wearable-item">
-          <div class="wearable-info">
-            <span class="wearable-icon">🍎</span>
-            <div>
-              <div class="wearable-name">Apple Health</div>
-              <div class="wearable-status">Not connected</div>
-            </div>
+      </ul>
+    </div>
+
+    <!-- Apple Health / Oura Ring Integration Card -->
+    <div class="settings-section">
+      <div class="settings-section-title">🍎 Apple Health / Oura Ring</div>
+      <div class="apple-health-card" id="appleHealthCard">
+        <div class="apple-health-header">
+          <div class="apple-health-title">Webhook Integration</div>
+          <span class="badge-pending" id="ahConnectionBadge">⏳ Not Connected</span>
+        </div>
+        <div id="ahWebhookSection">
+          <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px;">Your personal webhook URL — paste this into Health Auto Export:</div>
+          <div class="webhook-url-row">
+            <input type="text" class="webhook-url-input" id="ahWebhookUrl" readonly placeholder="Loading..." />
+            <button class="btn-copy-url" onclick="copyWebhookUrl()">Copy</button>
           </div>
-          <button class="btn-connect" onclick="showToast('Apple Health integration coming soon!','info')">Connect</button>
-        </li>
+          <div class="ah-steps-title">Setup (2 minutes)</div>
+          <ol class="ah-steps">
+            <li><span class="ah-step-num">1</span><span>Download <strong>Health Auto Export</strong> from the App Store (free)</span></li>
+            <li><span class="ah-step-num">2</span><span>Open the app → tap <strong>+</strong> → select <strong>REST API</strong></span></li>
+            <li><span class="ah-step-num">3</span><span>Paste your personal webhook URL above</span></li>
+            <li><span class="ah-step-num">4</span><span>Select metrics: <strong>Steps, Sleep Analysis, HRV, Resting Heart Rate, Active Energy</strong></span></li>
+            <li><span class="ah-step-num">5</span><span>Set export frequency: <strong>Hourly</strong></span></li>
+            <li><span class="ah-step-num">6</span><span>Tap Save — your Apple Watch &amp; Oura data will sync automatically 🎉</span></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Remaining wearables list (coming soon) -->
+    <div class="settings-section">
+      <div class="settings-section-title">Other Wearables</div>
+      <ul class="wearable-list">
         <li class="wearable-item">
           <div class="wearable-info">
             <span class="wearable-icon">🏃</span>
@@ -2354,11 +2487,11 @@
             <div class="wearable-info">
               <span class="wearable-icon">🍎</span>
               <div>
-                <div class="wearable-name">Apple Health</div>
-                <div class="wearable-status">Not connected</div>
+                <div class="wearable-name">Apple Health / Oura</div>
+                <div class="wearable-status" id="dashAhStatus">Not connected</div>
               </div>
             </div>
-            <button class="btn-connect" onclick="showToast('Apple Health integration coming soon!','info')">Connect</button>
+            <button class="btn-connect" onclick="openSettingsModal()">Setup</button>
           </li>
           <li class="wearable-item">
             <div class="wearable-info">
@@ -3085,6 +3218,56 @@ function openSettingsModal() {
     document.getElementById('settingsEmail').value = currentUser.email || '';
   }
   document.getElementById('settingsModal').classList.add('open');
+  loadAppleHealthSetup();
+}
+
+// ===== APPLE HEALTH INTEGRATION =====
+async function loadAppleHealthSetup() {
+  const token = authToken;
+  if (!token) return;
+  try {
+    const res = await fetch('/api/health/apple-health/setup', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    const urlInput = document.getElementById('ahWebhookUrl');
+    const badge = document.getElementById('ahConnectionBadge');
+    if (urlInput) urlInput.value = data.webhookUrl || '';
+    if (badge) {
+      if (data.hasData) {
+        badge.className = 'badge-connected';
+        badge.textContent = '✓ Connected';
+      } else {
+        badge.className = 'badge-pending';
+        badge.textContent = '⏳ Not Connected';
+      }
+    }
+    // Also update dashboard status indicator
+    const dashStatus = document.getElementById('dashAhStatus');
+    if (dashStatus) {
+      if (data.hasData) {
+        dashStatus.textContent = 'Connected ✓';
+        dashStatus.style.color = '#16a34a';
+      } else if (data.connected) {
+        dashStatus.textContent = 'Webhook set up';
+      }
+    }
+  } catch (e) {
+    console.warn('Apple Health setup load failed:', e);
+  }
+}
+
+function copyWebhookUrl() {
+  const input = document.getElementById('ahWebhookUrl');
+  if (!input || !input.value) return;
+  navigator.clipboard.writeText(input.value).then(() => {
+    showToast('Webhook URL copied! ✓', 'success');
+  }).catch(() => {
+    input.select();
+    document.execCommand('copy');
+    showToast('Webhook URL copied! ✓', 'success');
+  });
 }
 
 function closeSettingsModal() {

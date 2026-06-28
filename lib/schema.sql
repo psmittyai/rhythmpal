@@ -125,3 +125,22 @@ DO $$ BEGIN
     );
   END IF;
 END $$;
+
+-- Apple Health webhook token (add to user_profiles table)
+ALTER TABLE user_profiles ADD COLUMN IF NOT EXISTS apple_health_token TEXT UNIQUE;
+
+-- Apple Health data logs
+CREATE TABLE IF NOT EXISTS apple_health_logs (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  data_type TEXT NOT NULL,
+  value NUMERIC,
+  unit TEXT,
+  source TEXT,
+  start_date TIMESTAMPTZ,
+  end_date TIMESTAMPTZ,
+  received_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_apple_health_logs_user_type_date
+  ON apple_health_logs(user_id, data_type, start_date DESC);
