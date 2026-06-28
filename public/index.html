@@ -432,7 +432,7 @@
     .tab-panel { display: none; padding: 20px 16px; }
     .tab-panel.active { display: block; }
 
-    /* Today tab */
+    /* ===== TODAY TAB — HEALTH OS DASHBOARD ===== */
     .today-date {
       font-size: 0.82rem;
       color: var(--text-muted);
@@ -440,77 +440,309 @@
       letter-spacing: 0.08em;
       margin-bottom: 16px;
     }
-    .snapshot-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 20px;
+
+    /* PAL Score bar */
+    .pal-score-bar {
+      background: linear-gradient(135deg, #1a3332 0%, #0d2625 100%);
+      border: 2px solid rgba(255,255,255,0.18);
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
-    .snap-card {
-      background: #ffffff;
-      border: 1px solid rgba(201,168,76,0.3) !important;
-      box-shadow: 0 4px 32px rgba(10,186,181,0.08), 0 1px 4px rgba(201,168,76,0.12);
-      border-radius: 14px;
-      padding: 16px;
+    .pal-score-ring {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .snap-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 6px; font-weight: 600; }
-    .snap-value { font-size: 1.7rem; font-weight: 800; color: var(--text); line-height: 1; margin-bottom: 3px; }
-    .snap-value.dimmed { color: var(--text-muted); font-size: 0.9rem; font-weight: 400; margin-top: 4px; }
-    .snap-value.coral { color: var(--coral); }
-    .snap-unit { font-size: 0.78rem; color: var(--text-muted); }
-    .snap-connect {
-      font-size: 0.75rem;
+    .pal-score-ring svg { position: absolute; top: 0; left: 0; transform: rotate(-90deg); }
+    .pal-score-num {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+    .pal-score-info { flex: 1; }
+    .pal-score-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+    .pal-score-title { font-size: 1rem; font-weight: 700; color: #ffffff; margin-bottom: 2px; }
+    .pal-score-sub { font-size: 0.78rem; color: #e2e8f0; }
+
+    /* Dashboard section header */
+    .dash-section {
+      margin-bottom: 16px;
+    }
+    .dash-section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       color: var(--tiffany);
-      font-weight: 600;
-      margin-top: 4px;
-      cursor: pointer;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(10,186,181,0.15);
     }
 
-    /* Chat area */
-    .chat-section { margin-top: 8px; }
-    .chat-section-title { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 10px; }
-    .chat-messages {
-      background: #ffffff;
-      border: 1px solid rgba(201,168,76,0.3) !important;
-      box-shadow: 0 4px 32px rgba(10,186,181,0.08), 0 1px 4px rgba(201,168,76,0.12);
-      border-radius: 14px;
-      padding: 16px;
-      min-height: 100px;
-      max-height: 320px;
-      overflow-y: auto;
-      margin-bottom: 10px;
+    /* Metric grid */
+    .metric-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 375px) { .metric-grid-3 { grid-template-columns: repeat(2, 1fr); } }
+
+    .metric-card {
+      background: #1a3332;
+      border: 2px solid rgba(255,255,255,0.18);
+      border-radius: 12px;
+      padding: 12px 10px;
+      min-height: 80px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 3px;
     }
-    .chat-empty { color: var(--text-muted); font-size: 0.88rem; text-align: center; padding: 16px 0; }
-    .chat-msg { max-width: 85%; }
-    .chat-msg.user { align-self: flex-end; }
-    .chat-msg.assistant { align-self: flex-start; }
-    .chat-bubble {
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      line-height: 1.5;
+    .metric-card.light {
+      background: #ffffff;
+      border: 1px solid rgba(201,168,76,0.25);
+      box-shadow: 0 2px 8px rgba(10,186,181,0.06);
     }
-    .chat-msg.user .chat-bubble { background: var(--tiffany); color: #fff; border-bottom-right-radius: 4px; }
-    .chat-msg.assistant .chat-bubble { background: rgba(255,255,255,0.9); color: var(--text); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
-    .chat-input-row { display: flex; gap: 8px; }
-    .chat-input { flex: 1; border-radius: 10px; padding: 10px 14px; font-size: 0.9rem; }
-    .btn-send {
-      background: var(--tiffany);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 0.9rem;
+    .metric-icon-label {
+      font-size: 0.65rem;
       font-weight: 600;
-      white-space: nowrap;
-      flex-shrink: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
-    .btn-send:hover { background: var(--tiffany-dark); }
-    .btn-send:disabled { opacity: 0.5; }
+    .metric-card.light .metric-icon-label { color: var(--text-muted); }
+    .metric-icon-label .mi { font-size: 0.85rem; }
+    .metric-value {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+    .metric-value.dimmed { color: rgba(255,255,255,0.4); font-size: 1rem; font-weight: 400; }
+    .metric-card.light .metric-value { color: var(--text); }
+    .metric-card.light .metric-value.dimmed { color: var(--text-muted); }
+    .metric-unit {
+      font-size: 0.68rem;
+      color: #e2e8f0;
+    }
+    .metric-card.light .metric-unit { color: var(--text-muted); }
+    .metric-sub {
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.55);
+      margin-top: 2px;
+    }
+    .metric-card.light .metric-sub { color: var(--text-muted); }
+    .metric-connect {
+      font-size: 0.68rem;
+      color: var(--tiffany-light);
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+    .metric-card.light .metric-connect { color: var(--tiffany); }
+    .trend-up { color: #4ade80; }
+    .trend-down { color: #f87171; }
 
-    /* Food tab */
+    /* Progress bar */
+    .progress-bar-wrap {
+      width: 100%;
+      height: 5px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .metric-card.light .progress-bar-wrap { background: rgba(10,186,181,0.12); }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--tiffany);
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+
+    /* HR Zones bar */
+    .hr-zones-bar {
+      display: flex;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 6px;
+      gap: 1px;
+    }
+    .hr-zone { height: 100%; border-radius: 2px; }
+
+    /* Water tap buttons */
+    .water-section {
+      background: #1a3332;
+      border: 2px solid rgba(255,255,255,0.18);
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+    .water-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .water-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #e2e8f0;
+    }
+    .water-count {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .water-btns {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-water {
+      flex: 1;
+      padding: 7px 4px;
+      background: rgba(10,186,181,0.2);
+      border: 1px solid rgba(10,186,181,0.4) !important;
+      border-radius: 8px;
+      color: var(--tiffany-light);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .btn-water:hover { background: rgba(10,186,181,0.35); }
+
+    /* Calorie trend chart */
+    .chart-section {
+      background: #ffffff;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 16px;
+      margin-bottom: 20px;
+    }
+    .chart-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .chart-toggle {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-chart-toggle {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: transparent;
+      border: 1px solid var(--border) !important;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+    .btn-chart-toggle.active {
+      background: var(--tiffany);
+      border-color: var(--tiffany) !important;
+      color: #fff;
+    }
+    .chart-canvas-wrap {
+      position: relative;
+      width: 100%;
+      height: 140px;
+      overflow: hidden;
+    }
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 100%;
+      width: 100%;
+    }
+    .chart-bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      gap: 3px;
+      position: relative;
+    }
+    .chart-bar {
+      width: 100%;
+      background: var(--tiffany);
+      border-radius: 3px 3px 0 0;
+      min-height: 2px;
+      transition: height 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .chart-bar:hover { background: var(--tiffany-dark); }
+    .chart-bar-label {
+      font-size: 0.58rem;
+      color: var(--text-muted);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .chart-tooltip {
+      position: absolute;
+      bottom: calc(100% + 4px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a3332;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+      pointer-events: none;
+      display: none;
+      z-index: 10;
+    }
+    .chart-bar-col:hover .chart-tooltip { display: block; }
+    .chart-empty-msg {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      padding: 20px 0 8px;
+    }
+    .chart-yaxis {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .chart-yaxis span {
+      font-size: 0.58rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== FOOD TAB ===== */
     .section-card {
       background: #ffffff;
       border: 1px solid rgba(201,168,76,0.3) !important;
@@ -648,7 +880,64 @@
     .food-item-cal { font-size: 0.82rem; color: var(--coral-dark); background: rgba(255,107,107,0.1); padding: 3px 8px; border-radius: 12px; font-weight: 600; }
     .food-empty { color: var(--text-muted); font-size: 0.88rem; text-align: center; padding: 20px 0; }
 
-    /* Insights tab */
+    /* ===== INSIGHTS+CHAT TAB ===== */
+    .insights-chat-wrap { }
+
+    /* Chat in insights tab */
+    .chat-panel {
+      background: #ffffff;
+      border: 1px solid rgba(201,168,76,0.3) !important;
+      box-shadow: 0 4px 32px rgba(10,186,181,0.08), 0 1px 4px rgba(201,168,76,0.12);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .chat-panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chat-messages {
+      min-height: 80px;
+      max-height: 40vh;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .chat-empty { color: var(--text-muted); font-size: 0.88rem; text-align: center; padding: 16px 0; }
+    .chat-msg { max-width: 85%; }
+    .chat-msg.user { align-self: flex-end; }
+    .chat-msg.assistant { align-self: flex-start; }
+    .chat-bubble {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .chat-msg.user .chat-bubble { background: var(--tiffany); color: #fff; border-bottom-right-radius: 4px; }
+    .chat-msg.assistant .chat-bubble { background: rgba(255,255,255,0.9); color: var(--text); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
+    .chat-input-row { display: flex; gap: 8px; }
+    .chat-input { flex: 1; border-radius: 10px; padding: 10px 14px; font-size: 0.9rem; }
+    .btn-send {
+      background: var(--tiffany);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-send:hover { background: var(--tiffany-dark); }
+    .btn-send:disabled { opacity: 0.5; }
+
+    /* Insight cards */
     .insight-card {
       background: #ffffff;
       border: 1px solid rgba(201,168,76,0.3) !important;
@@ -667,9 +956,18 @@
     .insight-type.pattern { color: var(--tiffany); }
     .insight-type.nutrition { color: var(--peach); }
     .insight-type.recovery { color: #8b5cf6; }
+    .insight-type.trend { color: var(--coral); }
     .insight-text { font-size: 0.93rem; color: var(--text); line-height: 1.5; }
     .insight-coming { text-align: center; color: var(--text-muted); padding: 32px 16px; font-size: 0.9rem; }
     .insight-coming .big-emoji { font-size: 2.5rem; display: block; margin-bottom: 12px; }
+    .insight-section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin: 16px 0 10px;
+    }
 
     /* Profile tab */
     .profile-header {
@@ -1469,47 +1767,289 @@
 
   <!-- Tab content -->
   <div class="app-content">
-    <!-- TODAY TAB -->
+
+    <!-- ===== TODAY TAB — HEALTH OS DASHBOARD ===== -->
     <div class="tab-panel active" id="panel-today">
       <div class="today-date" id="todayDate"></div>
 
-      <div class="snapshot-grid" id="snapshotGrid">
-        <div class="snap-card">
-          <div class="snap-label">Sleep</div>
-          <div class="snap-value dimmed">—</div>
-          <div class="snap-connect" onclick="switchTab('profile')">Connect wearable</div>
+      <!-- PAL Score Bar -->
+      <div class="pal-score-bar">
+        <div class="pal-score-ring">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="27" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="5"/>
+            <circle id="palScoreArc" cx="32" cy="32" r="27" fill="none" stroke="#0abab5" stroke-width="5"
+              stroke-dasharray="170" stroke-dashoffset="170" stroke-linecap="round"
+              style="transition: stroke-dashoffset 0.8s ease, stroke 0.5s ease;"/>
+          </svg>
+          <div class="pal-score-num" id="palScoreNum">—</div>
         </div>
-        <div class="snap-card">
-          <div class="snap-label">HRV</div>
-          <div class="snap-value dimmed">—</div>
-          <div class="snap-connect" onclick="switchTab('profile')">Connect wearable</div>
-        </div>
-        <div class="snap-card">
-          <div class="snap-label">Steps</div>
-          <div class="snap-value dimmed">—</div>
-          <div class="snap-connect" onclick="switchTab('profile')">Connect wearable</div>
-        </div>
-        <div class="snap-card" id="calCard">
-          <div class="snap-label">Calories</div>
-          <div class="snap-value coral" id="calValue">0</div>
-          <div class="snap-unit">kcal logged</div>
+        <div class="pal-score-info">
+          <div class="pal-score-label">RhythmPal Health Score</div>
+          <div class="pal-score-title" id="palScoreTitle">Connect wearable to unlock</div>
+          <div class="pal-score-sub" id="palScoreSub">Log food + connect wearable for your score</div>
         </div>
       </div>
 
-      <!-- Chat -->
-      <div class="chat-section">
-        <div class="chat-section-title">Ask RhythmPal</div>
-        <div class="chat-messages" id="chatMessages">
-          <div class="chat-empty" id="chatEmpty">Ask me anything about your health — patterns, food, sleep, recovery.</div>
+      <!-- Section 1: Recovery & Readiness -->
+      <div class="dash-section">
+        <div class="dash-section-title">💤 Recovery &amp; Readiness</div>
+        <div class="metric-grid-3">
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🔋</span> Recovery</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">/ 100</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">💓</span> HRV Today</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">ms</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">😴</span> Sleep Quality</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">/ 100</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🕐</span> Sleep Time</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">hrs</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🌊</span> Deep Sleep</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">%</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🌀</span> REM Sleep</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">%</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">❤️</span> Resting HR</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">bpm</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🌬️</span> Resp. Rate</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">br/min</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
         </div>
-        <div class="chat-input-row">
-          <input class="chat-input" type="text" id="chatInput" placeholder="How's my recovery today?" />
-          <button class="btn-send" id="chatSendBtn" onclick="sendChat()">Send</button>
+      </div>
+
+      <!-- Section 2: Activity -->
+      <div class="dash-section">
+        <div class="dash-section-title">🏃 Activity</div>
+        <div class="metric-grid-3">
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">👣</span> Steps</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">goal: 10,000</div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:0%"></div></div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">⚡</span> Active Min</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">minutes</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🏋️</span> Strain</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">/ 21</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">📍</span> Distance</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">miles</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🏔️</span> Floors</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">floors</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🔥</span> Active Cal</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">kcal</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🪑</span> Sedentary</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">hrs</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">📊</span> Move Score</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">/ 100</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Nutrition AI -->
+      <div class="dash-section">
+        <div class="dash-section-title">🥗 Nutrition AI</div>
+        <div class="metric-grid-3">
+          <div class="metric-card light" style="grid-column: span 3;">
+            <div class="metric-icon-label"><span class="mi">🔥</span> Calories</div>
+            <div style="display:flex;align-items:baseline;gap:6px;">
+              <div class="metric-value" id="dashCalConsumed">0</div>
+              <div class="metric-unit">/ <span id="dashCalBudget">2000</span> kcal</div>
+            </div>
+            <div class="progress-bar-wrap" style="background:rgba(10,186,181,0.12);height:8px;margin-top:6px;">
+              <div class="progress-bar-fill" id="dashCalProgress" style="width:0%;height:100%;"></div>
+            </div>
+          </div>
+          <div class="metric-card light">
+            <div class="metric-icon-label"><span class="mi">🥩</span> Protein</div>
+            <div class="metric-value" id="dashProtein">0</div>
+            <div class="metric-unit">g / <span id="dashProteinTarget">150</span>g</div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="dashProteinProgress" style="width:0%"></div></div>
+          </div>
+          <div class="metric-card light">
+            <div class="metric-icon-label"><span class="mi">🌾</span> Carbs</div>
+            <div class="metric-value" id="dashCarbs">0</div>
+            <div class="metric-unit">g / <span id="dashCarbsTarget">200</span>g</div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="dashCarbsProgress" style="width:0%"></div></div>
+          </div>
+          <div class="metric-card light">
+            <div class="metric-icon-label"><span class="mi">🥑</span> Fat</div>
+            <div class="metric-value" id="dashFat">0</div>
+            <div class="metric-unit">g / <span id="dashFatTarget">65</span>g</div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="dashFatProgress" style="width:0%"></div></div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🌿</span> Fiber</div>
+            <div class="metric-value dimmed" id="dashFiber">—</div>
+            <div class="metric-unit">g</div>
+            <div class="metric-sub">goal: 25g+</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🍽️</span> Food Quality</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">AI score</div>
+            <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🕑</span> Last Meal</div>
+            <div class="metric-value dimmed" id="dashLastMeal">—</div>
+            <div class="metric-unit" id="dashLastMealUnit">hrs ago</div>
+          </div>
+        </div>
+
+        <!-- Water logging -->
+        <div class="water-section">
+          <div class="water-header">
+            <div class="water-label">💧 Water Intake</div>
+            <div class="water-count"><span id="waterCount">0</span> / 8 cups</div>
+          </div>
+          <div class="water-btns">
+            <button class="btn-water" onclick="logWater(1)">+1 cup</button>
+            <button class="btn-water" onclick="logWater(2)">+2 cups</button>
+            <button class="btn-water" onclick="logWater(4)">+4 cups</button>
+            <button class="btn-water" onclick="logWaterCustom()">Custom</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Cardiovascular -->
+      <div class="dash-section">
+        <div class="dash-section-title">❤️ Cardiovascular</div>
+        <div class="metric-grid-3">
+          <div class="metric-card" style="grid-column: span 3;">
+            <div class="metric-icon-label"><span class="mi">📉</span> Heart Rate Zones</div>
+            <div class="hr-zones-bar" id="hrZonesBar">
+              <div class="hr-zone" style="flex:4;background:rgba(148,163,184,0.4);border-radius:3px;" title="Rest"></div>
+              <div class="hr-zone" style="flex:0;background:#0abab5;" title="Fat Burn"></div>
+              <div class="hr-zone" style="flex:0;background:#ffb347;" title="Cardio"></div>
+              <div class="hr-zone" style="flex:0;background:#ff6b6b;" title="Peak"></div>
+            </div>
+            <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">
+              <span style="font-size:0.62rem;color:#e2e8f0;">⬜ Rest</span>
+              <span style="font-size:0.62rem;color:#0abab5;">🟦 Fat Burn</span>
+              <span style="font-size:0.62rem;color:#ffb347;">🟧 Cardio</span>
+              <span style="font-size:0.62rem;color:#ff6b6b;">🟥 Peak</span>
+            </div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable to see zones</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🫁</span> VO₂ Max</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">mL/kg/min</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🩸</span> SpO₂</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">%</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">🔋</span> Body Battery</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">/ 100</div>
+            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: Body Composition -->
+      <div class="dash-section">
+        <div class="dash-section-title">⚖️ Body Composition</div>
+        <div class="metric-grid-3">
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">⚖️</span> Weight</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">lbs</div>
+            <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">📏</span> BMI</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit"></div>
+            <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-label"><span class="mi">📉</span> Body Fat</div>
+            <div class="metric-value dimmed">—</div>
+            <div class="metric-unit">%</div>
+            <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calorie Trend Chart -->
+      <div class="chart-section">
+        <div class="chart-title">📈 Calorie Trend</div>
+        <div class="chart-toggle">
+          <button class="btn-chart-toggle active" id="chartToggleDay" onclick="setChartRange('day')">Daily</button>
+          <button class="btn-chart-toggle" id="chartToggleWeek" onclick="setChartRange('week')">Weekly</button>
+          <button class="btn-chart-toggle" id="chartToggleMonth" onclick="setChartRange('month')">Monthly</button>
+          <button class="btn-chart-toggle" id="chartToggleYtd" onclick="setChartRange('ytd')">YTD</button>
+          <button class="btn-chart-toggle" id="chartToggleAll" onclick="setChartRange('all')">All Time</button>
+        </div>
+        <div class="chart-canvas-wrap" id="chartWrap">
+          <div class="chart-bars" id="calorieBars"></div>
         </div>
       </div>
     </div>
 
-    <!-- FOOD TAB -->
+    <!-- ===== FOOD TAB ===== -->
     <div class="tab-panel" id="panel-food">
       <div class="section-card">
         <div class="section-card-title">📸 Log Food</div>
@@ -1573,23 +2113,50 @@
       </div>
     </div>
 
-    <!-- INSIGHTS TAB -->
+    <!-- ===== INSIGHTS + CHAT TAB ===== -->
     <div class="tab-panel" id="panel-insights">
-      <div class="insight-card">
-        <div class="insight-type pattern">Pattern Detected</div>
-        <div class="insight-text">Connect a wearable to start seeing patterns. RhythmPal needs at least 7 days of data to surface meaningful insights.</div>
-      </div>
-      <div class="insight-card">
-        <div class="insight-type nutrition">Nutrition</div>
-        <div class="insight-text">Start logging your meals to unlock nutrition insights. Track 3+ days to see your protein and carb trends.</div>
-      </div>
-      <div class="insight-coming">
-        <span class="big-emoji">🧠</span>
-        More insights unlock as you log more data.<br>Check back tomorrow!
+      <div class="insights-chat-wrap">
+
+        <!-- AI Chat at top -->
+        <div class="chat-panel">
+          <div class="chat-panel-title">💬 Ask RhythmPal</div>
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-empty" id="chatEmpty">Ask me anything about your health — patterns, food, sleep, recovery.</div>
+          </div>
+          <div class="chat-input-row">
+            <input class="chat-input" type="text" id="chatInput" placeholder="How's my recovery today?" />
+            <button class="btn-send" id="chatSendBtn" onclick="sendChat()">Send</button>
+          </div>
+        </div>
+
+        <!-- AI Insight Cards below -->
+        <div class="insight-section-label">AI Insights</div>
+
+        <div class="insight-card">
+          <div class="insight-type pattern">🔍 Pattern Detected</div>
+          <div class="insight-text">Connect a wearable to start seeing patterns. RhythmPal needs at least 7 days of data to surface meaningful insights.</div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-type nutrition">🥗 Nutrition</div>
+          <div class="insight-text">Start logging your meals to unlock nutrition insights. Track 3+ days to see your protein and carb trends.</div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-type recovery">💜 Recovery Insight</div>
+          <div class="insight-text">Connect a wearable to see your daily recovery score and HRV trend. Patterns unlock after 7 days of data.</div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-type trend">📈 Weekly Trend</div>
+          <div class="insight-text">Log food and connect a wearable for 7 days to see your weekly performance trend — energy, sleep, and activity in one view.</div>
+        </div>
+
+        <div class="insight-coming">
+          <span class="big-emoji">🧠</span>
+          More insights unlock as you log more data.<br>Check back tomorrow!
+        </div>
       </div>
     </div>
 
-    <!-- PROFILE TAB -->
+    <!-- ===== PROFILE TAB ===== -->
     <div class="tab-panel" id="panel-profile">
       <div class="profile-header">
         <div class="profile-avatar" id="profileAvatar">?</div>
@@ -1671,7 +2238,7 @@
       <span class="nav-tab-icon">🍽️</span> Food
     </button>
     <button class="nav-tab" id="navInsights" onclick="switchTab('insights')">
-      <span class="nav-tab-icon">🧠</span> Insights
+      <span class="nav-tab-icon">💬</span> Insights
     </button>
     <button class="nav-tab" id="navProfile" onclick="switchTab('profile')">
       <span class="nav-tab-icon">👤</span> Profile
@@ -1684,9 +2251,11 @@
 const API = '';
 let authToken = localStorage.getItem('rp_token');
 let currentUser = null;
+let chartRange = 'day';
+let allFoodEntries = [];
 
 /* ===== INIT ===== */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function() {
   if (authToken) {
     loadApp();
   } else {
@@ -1694,18 +2263,21 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Chat enter key
-  document.getElementById('chatInput').addEventListener('keydown', e => {
+  document.getElementById('chatInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
   });
 
   // Set today's date
-  const now = new Date();
+  var now = new Date();
   document.getElementById('todayDate').textContent = now.toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', day: 'numeric'
   });
 
   // Load notification prefs
   loadNotifPrefs();
+
+  // Load water from localStorage
+  loadWaterCount();
 });
 
 /* ===== AUTH STATE ===== */
@@ -1721,9 +2293,9 @@ function showApp() {
 
 async function loadApp() {
   try {
-    const res = await apiFetch('/api/auth/me');
+    var res = await apiFetch('/api/auth/me');
     if (!res.ok) { handleLogout(); return; }
-    const data = await res.json();
+    var data = await res.json();
     currentUser = data.user;
     updateProfileUI();
     showApp();
@@ -1736,16 +2308,15 @@ async function loadApp() {
 
 function updateProfileUI() {
   if (!currentUser) return;
-  const name = currentUser.name || currentUser.email.split('@')[0];
+  var name = currentUser.name || currentUser.email.split('@')[0];
   document.getElementById('appUserName').textContent = name;
   document.getElementById('profileName').textContent = currentUser.name || 'No name set';
   document.getElementById('profileEmail').textContent = currentUser.email;
   document.getElementById('profileAvatar').textContent = name.charAt(0).toUpperCase();
-  const tierBadge = document.getElementById('tierBadge');
+  var tierBadge = document.getElementById('tierBadge');
   tierBadge.textContent = currentUser.tier === 'premium' ? 'Premium' : 'Free';
   tierBadge.className = 'tier-badge ' + (currentUser.tier === 'premium' ? 'tier-premium' : 'tier-free');
-  // Hide upgrade button for premium users
-  const upgradeBtn = document.getElementById('upgradeBtn');
+  var upgradeBtn = document.getElementById('upgradeBtn');
   if (upgradeBtn) upgradeBtn.style.display = currentUser.tier === 'premium' ? 'none' : 'flex';
 }
 
@@ -1760,7 +2331,7 @@ function closeModal() {
   clearFormErrors();
 }
 
-document.getElementById('authModal').addEventListener('click', e => {
+document.getElementById('authModal').addEventListener('click', function(e) {
   if (e.target === document.getElementById('authModal')) closeModal();
 });
 
@@ -1775,14 +2346,15 @@ function switchTab(tab) {
   }
 
   // App tab switching
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  const panel = document.getElementById('panel-' + tab);
-  const navBtn = document.getElementById('nav' + tab.charAt(0).toUpperCase() + tab.slice(1));
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+  var panel = document.getElementById('panel-' + tab);
+  var navBtn = document.getElementById('nav' + tab.charAt(0).toUpperCase() + tab.slice(1));
   if (panel) panel.classList.add('active');
   if (navBtn) navBtn.classList.add('active');
 
   if (tab === 'food') loadFoodLog();
+  if (tab === 'today') renderCalorieChart();
 }
 
 function clearFormErrors() {
@@ -1793,23 +2365,22 @@ function clearFormErrors() {
 /* ===== AUTH HANDLERS ===== */
 async function handleSignup(e) {
   e.preventDefault();
-  const btn = document.getElementById('signupBtn');
-  const errEl = document.getElementById('signupError');
+  var btn = document.getElementById('signupBtn');
+  var errEl = document.getElementById('signupError');
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>';
   errEl.classList.remove('show');
 
   try {
-    const res = await fetch(`${API}/api/auth/register`, {
+    var res = await fetch(API + '/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: document.getElementById('signupEmail').value,
         password: document.getElementById('signupPassword').value,
-        name: document.getElementById('signupName').value || undefined,
-      }),
+        name: document.getElementById('signupName').value || undefined,      }),
     });
-    const data = await res.json();
+    var data = await res.json();
     if (!res.ok) { errEl.textContent = data.error; errEl.classList.add('show'); return; }
     authToken = data.token;
     localStorage.setItem('rp_token', authToken);
@@ -1831,14 +2402,14 @@ async function handleSignup(e) {
 
 async function handleLogin(e) {
   e.preventDefault();
-  const btn = document.getElementById('loginBtn');
-  const errEl = document.getElementById('loginError');
+  var btn = document.getElementById('loginBtn');
+  var errEl = document.getElementById('loginError');
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>';
   errEl.classList.remove('show');
 
   try {
-    const res = await fetch(`${API}/api/auth/login`, {
+    var res = await fetch(API + '/api/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1846,7 +2417,7 @@ async function handleLogin(e) {
         password: document.getElementById('loginPassword').value,
       }),
     });
-    const data = await res.json();
+    var data = await res.json();
     if (!res.ok) { errEl.textContent = data.error; errEl.classList.add('show'); return; }
     authToken = data.token;
     localStorage.setItem('rp_token', authToken);
@@ -1876,42 +2447,252 @@ function handleLogout() {
 }
 
 /* ===== API HELPER ===== */
-function apiFetch(path, opts = {}) {
-  return fetch(API + path, {
-    ...opts,
-    headers: {
+function apiFetch(path, opts) {
+  if (!opts) opts = {};
+  return fetch(API + path, Object.assign({}, opts, {
+    headers: Object.assign({
       'Content-Type': 'application/json',
-      ...(authToken ? { 'Authorization': 'Bearer ' + authToken } : {}),
-      ...(opts.headers || {}),
-    },
-  });
+    }, authToken ? { 'Authorization': 'Bearer ' + authToken } : {}, opts.headers || {}),
+  }));
 }
 
 /* ===== HEALTH SUMMARY ===== */
 async function loadHealthSummary() {
   try {
-    const res = await apiFetch('/api/health/summary');
+    var res = await apiFetch('/api/health/summary');
     if (!res.ok) return;
-    const data = await res.json();
-    const snap = data.snapshot;
+    var data = await res.json();
+    var snap = data.snapshot;
     if (snap && snap.calories) {
-      document.getElementById('calValue').textContent = snap.calories.consumed || 0;
+      updateNutritionDash({ calories: snap.calories.consumed || 0 });
     }
   } catch (e) { /* fail silently */ }
 }
 
+/* ===== NUTRITION DASHBOARD UPDATE ===== */
+function updateNutritionDash(totals) {
+  var cals = totals.calories || 0;
+  var protein = totals.protein || 0;
+  var carbs = totals.carbs || 0;
+  var fat = totals.fat || 0;
+  var fiber = totals.fiber || null;
+
+  var calBudget = 2000;
+  var proteinTarget = 150;
+  var carbsTarget = 200;
+  var fatTarget = 65;
+
+  document.getElementById('dashCalConsumed').textContent = cals;
+  document.getElementById('dashCalProgress').style.width = Math.min(100, Math.round(cals / calBudget * 100)) + '%';
+
+  document.getElementById('dashProtein').textContent = Math.round(protein);
+  document.getElementById('dashProteinProgress').style.width = Math.min(100, Math.round(protein / proteinTarget * 100)) + '%';
+
+  document.getElementById('dashCarbs').textContent = Math.round(carbs);
+  document.getElementById('dashCarbsProgress').style.width = Math.min(100, Math.round(carbs / carbsTarget * 100)) + '%';
+
+  document.getElementById('dashFat').textContent = Math.round(fat);
+  document.getElementById('dashFatProgress').style.width = Math.min(100, Math.round(fat / fatTarget * 100)) + '%';
+
+  if (fiber !== null && fiber > 0) {
+    document.getElementById('dashFiber').textContent = Math.round(fiber) + 'g';
+    document.getElementById('dashFiber').classList.remove('dimmed');
+  }
+
+  // PAL score based on calories logged (simple signal)
+  if (cals > 0) {
+    var score = Math.min(100, Math.round(40 + (Math.min(cals, calBudget) / calBudget) * 30));
+    updatePalScore(score);
+  }
+}
+
+/* ===== PAL SCORE ===== */
+function updatePalScore(score) {
+  var num = document.getElementById('palScoreNum');
+  var arc = document.getElementById('palScoreArc');
+  var title = document.getElementById('palScoreTitle');
+  var sub = document.getElementById('palScoreSub');
+
+  num.textContent = score;
+  var circumference = 170;
+  var offset = circumference - (score / 100) * circumference;
+  arc.style.strokeDashoffset = offset;
+
+  if (score >= 80) {
+    arc.style.stroke = '#4ade80';
+    title.textContent = 'Great shape today';
+    sub.textContent = 'Nutrition on track — connect wearable for full score';
+  } else if (score >= 50) {
+    arc.style.stroke = '#ffb347';
+    title.textContent = 'Making progress';
+    sub.textContent = 'Keep logging food + connect wearable to improve score';
+  } else {
+    arc.style.stroke = '#ff6b6b';
+    title.textContent = 'Getting started';
+    sub.textContent = 'Log meals and connect a wearable to build your score';
+  }
+}
+
+/* ===== WATER LOGGING ===== */
+function loadWaterCount() {
+  var today = new Date().toDateString();
+  var stored = JSON.parse(localStorage.getItem('rp_water') || '{"date":"","count":0}');
+  if (stored.date !== today) {
+    localStorage.setItem('rp_water', JSON.stringify({ date: today, count: 0 }));
+    document.getElementById('waterCount').textContent = '0';
+  } else {
+    document.getElementById('waterCount').textContent = stored.count;
+  }
+}
+
+function logWater(cups) {
+  var today = new Date().toDateString();
+  var stored = JSON.parse(localStorage.getItem('rp_water') || '{"date":"","count":0}');
+  if (stored.date !== today) stored = { date: today, count: 0 };
+  stored.count = Math.min(20, stored.count + cups);
+  localStorage.setItem('rp_water', JSON.stringify(stored));
+  document.getElementById('waterCount').textContent = stored.count;
+  showToast('+' + cups + ' cup' + (cups > 1 ? 's' : '') + ' logged 💧', 'success');
+}
+
+function logWaterCustom() {
+  var val = prompt('How many cups?');
+  var cups = parseInt(val);
+  if (cups && cups > 0) logWater(cups);
+}
+
+/* ===== CALORIE TREND CHART ===== */
+function setChartRange(range) {
+  chartRange = range;
+  document.querySelectorAll('.btn-chart-toggle').forEach(function(b) { b.classList.remove('active'); });
+  var btnMap = { day: 'chartToggleDay', week: 'chartToggleWeek', month: 'chartToggleMonth', ytd: 'chartToggleYtd', all: 'chartToggleAll' };
+  var btn = document.getElementById(btnMap[range]);
+  if (btn) btn.classList.add('active');
+  renderCalorieChart();
+}
+
+function renderCalorieChart() {
+  var container = document.getElementById('calorieBars');
+  if (!container) return;
+
+  var buckets = aggregateFoodByRange(allFoodEntries, chartRange);
+
+  if (!buckets.length) {
+    container.innerHTML = '<div class="chart-empty-msg" style="width:100%;">Log food to see your calorie trend 📊</div>';
+    return;
+  }
+
+  var maxVal = Math.max.apply(null, buckets.map(function(b) { return b.value; }));
+  if (maxVal === 0) maxVal = 1;
+  var chartHeight = 120;
+
+  container.innerHTML = buckets.map(function(b) {
+    var pct = (b.value / maxVal) * chartHeight;
+    var barH = Math.max(2, Math.round(pct));
+    var color = b.value === 0 ? 'rgba(10,186,181,0.2)' : '#0abab5';
+    return '<div class="chart-bar-col">' +
+      '<div class="chart-tooltip">' + b.label + ': ' + b.value + ' kcal</div>' +
+      '<div class="chart-bar" style="height:' + barH + 'px;background:' + color + ';"></div>' +
+      '<div class="chart-bar-label">' + b.shortLabel + '</div>' +
+      '</div>';
+  }).join('');
+}
+
+function aggregateFoodByRange(entries, range) {
+  var now = new Date();
+  var buckets = [];
+
+  if (range === 'day') {
+    // Last 7 days
+    for (var i = 6; i >= 0; i--) {
+      var d = new Date(now);
+      d.setDate(d.getDate() - i);
+      var dateStr = d.toDateString();
+      var dayEntries = entries.filter(function(e) {
+        return new Date(e.created_at || e.logged_at || '').toDateString() === dateStr;
+      });
+      var total = dayEntries.reduce(function(s, e) { return s + (e.calories || 0); }, 0);
+      var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      buckets.push({ label: dateStr, shortLabel: days[d.getDay()], value: total });
+    }
+  } else if (range === 'week') {
+    // Last 8 weeks
+    for (var i = 7; i >= 0; i--) {
+      var weekStart = new Date(now);
+      weekStart.setDate(weekStart.getDate() - (i * 7) - weekStart.getDay());
+      var weekEnd = new Date(weekStart);
+      weekEnd.setDate(weekEnd.getDate() + 6);
+      var weekEntries = entries.filter(function(e) {
+        var d2 = new Date(e.created_at || e.logged_at || '');
+        return d2 >= weekStart && d2 <= weekEnd;
+      });
+      var total2 = weekEntries.reduce(function(s, e) { return s + (e.calories || 0); }, 0);
+      var mo = weekStart.getMonth() + 1;
+      var dy = weekStart.getDate();
+      buckets.push({ label: 'Week of ' + mo + '/' + dy, shortLabel: mo + '/' + dy, value: total2 });
+    }
+  } else if (range === 'month') {
+    // Last 6 months
+    for (var i = 5; i >= 0; i--) {
+      var m = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      var mEnd = new Date(m.getFullYear(), m.getMonth() + 1, 0);
+      var mEntries = entries.filter(function(e) {
+        var d3 = new Date(e.created_at || e.logged_at || '');
+        return d3 >= m && d3 <= mEnd;
+      });
+      var mTotal = mEntries.reduce(function(s, e) { return s + (e.calories || 0); }, 0);
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      buckets.push({ label: months[m.getMonth()] + ' ' + m.getFullYear(), shortLabel: months[m.getMonth()], value: mTotal });
+    }
+  } else if (range === 'ytd') {
+    // Monthly buckets this year
+    var curMonth = now.getMonth();
+    for (var i = 0; i <= curMonth; i++) {
+      var ym = new Date(now.getFullYear(), i, 1);
+      var ymEnd = new Date(now.getFullYear(), i + 1, 0);
+      var ymEntries = entries.filter(function(e) {
+        var d4 = new Date(e.created_at || e.logged_at || '');
+        return d4 >= ym && d4 <= ymEnd;
+      });
+      var ymTotal = ymEntries.reduce(function(s, e) { return s + (e.calories || 0); }, 0);
+      var mons = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      buckets.push({ label: mons[i] + ' ' + now.getFullYear(), shortLabel: mons[i], value: ymTotal });
+    }
+  } else {
+    // All time — monthly buckets
+    if (!entries.length) return [];
+    var earliest = new Date(entries.reduce(function(min, e) {
+      var t = new Date(e.created_at || e.logged_at || now).getTime();
+      return t < min ? t : min;
+    }, now.getTime()));
+    var cur = new Date(earliest.getFullYear(), earliest.getMonth(), 1);
+    while (cur <= now) {
+      var allEnd = new Date(cur.getFullYear(), cur.getMonth() + 1, 0);
+      var allEntries2 = entries.filter(function(e) {
+        var d5 = new Date(e.created_at || e.logged_at || '');
+        return d5 >= cur && d5 <= allEnd;
+      });
+      var allTotal = allEntries2.reduce(function(s, e) { return s + (e.calories || 0); }, 0);
+      var allMons = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      buckets.push({ label: allMons[cur.getMonth()] + ' ' + cur.getFullYear(), shortLabel: allMons[cur.getMonth()], value: allTotal });
+      cur = new Date(cur.getFullYear(), cur.getMonth() + 1, 1);
+    }
+  }
+  return buckets;
+}
+
 /* ===== FOOD PHOTO LOGGING ===== */
-let _photoAnalysisResult = null;
+var _photoAnalysisResult = null;
 
 async function handleFoodPhoto(input) {
-  const file = input.files[0];
+  var file = input.files[0];
   if (!file) return;
   input.value = '';
   await analyzeFood(file);
 }
 
 async function analyzeFood(file) {
-  const btn = document.getElementById('photoCameraBtn');
+  var btn = document.getElementById('photoCameraBtn');
   btn.classList.add('analyzing');
   btn.textContent = '⏳ Analyzing...';
 
@@ -1919,21 +2700,21 @@ async function analyzeFood(file) {
   _photoAnalysisResult = null;
 
   try {
-    const base64 = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result.split(',')[1]);
+    var base64 = await new Promise(function(resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function() { resolve(reader.result.split(',')[1]); };
       reader.onerror = reject;
       reader.readAsDataURL(file);
     });
 
-    const res = await apiFetch('/api/food/analyze-photo', {
+    var res = await apiFetch('/api/food/analyze-photo', {
       method: 'POST',
       body: JSON.stringify({
         image: { data: base64, mediaType: file.type || 'image/jpeg' },
       }),
     });
 
-    const data = await res.json();
+    var data = await res.json();
 
     if (!res.ok || data.error) {
       showToast("Couldn't identify food — try manual entry", 'error');
@@ -1958,8 +2739,8 @@ function showPhotoResult(data) {
   document.getElementById('photoCarbs').textContent = data.carbs != null ? data.carbs : '—';
   document.getElementById('photoFat').textContent = data.fat != null ? data.fat : '—';
 
-  const badge = document.getElementById('photoConfidenceBadge');
-  const conf = (data.confidence || 'low').toLowerCase();
+  var badge = document.getElementById('photoConfidenceBadge');
+  var conf = (data.confidence || 'low').toLowerCase();
   badge.textContent = conf === 'high' ? '✓ High confidence' : conf === 'medium' ? '~ Medium confidence' : '⚠ Low confidence';
   badge.className = 'confidence-badge confidence-' + conf;
 
@@ -1968,13 +2749,13 @@ function showPhotoResult(data) {
 
 async function logPhotoMeal() {
   if (!_photoAnalysisResult) return;
-  const btn = document.getElementById('btnLogPhoto');
+  var btn = document.getElementById('btnLogPhoto');
   btn.disabled = true;
   btn.textContent = 'Saving...';
 
   try {
-    const d = _photoAnalysisResult;
-    const res = await apiFetch('/api/health/food-log', {
+    var d = _photoAnalysisResult;
+    var res = await apiFetch('/api/health/food-log', {
       method: 'POST',
       body: JSON.stringify({
         description: d.foodName + (d.description ? ' — ' + d.description : ''),
@@ -2006,37 +2787,61 @@ function cancelPhotoResult() {
 /* ===== FOOD LOG ===== */
 async function loadFoodLog() {
   try {
-    const res = await apiFetch('/api/health/food-log');
+    var res = await apiFetch('/api/health/food-log');
     if (!res.ok) return;
-    const data = await res.json();
-    renderFoodList(data.entries || []);
-    const total = (data.entries || []).reduce((sum, e) => sum + (e.calories || 0), 0);
-    document.getElementById('calValue').textContent = total;
+    var data = await res.json();
+    var entries = data.entries || [];
+    allFoodEntries = entries;
+    renderFoodList(entries);
+
+    // Compute totals
+    var totals = entries.reduce(function(acc, e) {
+      acc.calories += e.calories || 0;
+      acc.protein += e.protein || 0;
+      acc.carbs += e.carbs || 0;
+      acc.fat += e.fat || 0;
+      acc.fiber += e.fiber || 0;
+      return acc;
+    }, { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0 });
+
+    updateNutritionDash(totals);
+    renderCalorieChart();
+
+    // Last meal timing
+    if (entries.length > 0) {
+      var lastEntry = entries[entries.length - 1];
+      var lastTime = new Date(lastEntry.created_at || lastEntry.logged_at || '');
+      var hoursAgo = Math.round((Date.now() - lastTime.getTime()) / 3600000);
+      if (!isNaN(hoursAgo) && hoursAgo >= 0 && hoursAgo < 24) {
+        document.getElementById('dashLastMeal').textContent = hoursAgo;
+        document.getElementById('dashLastMeal').classList.remove('dimmed');
+      }
+    }
   } catch (e) { /* fail silently */ }
 }
 
 function renderFoodList(entries) {
-  const list = document.getElementById('foodList');
+  var list = document.getElementById('foodList');
   if (!entries.length) {
     list.innerHTML = '<li class="food-empty" id="foodEmpty">Nothing logged yet today.</li>';
     return;
   }
-  list.innerHTML = entries.map(e => `
-    <li class="food-item">
-      <span class="food-item-desc">${escHtml(e.description)}</span>
-      ${e.calories ? `<span class="food-item-cal">${e.calories} kcal</span>` : ''}
-    </li>
-  `).join('');
+  list.innerHTML = entries.map(function(e) {
+    return '<li class="food-item">' +
+      '<span class="food-item-desc">' + escHtml(e.description) + '</span>' +
+      (e.calories ? '<span class="food-item-cal">' + e.calories + ' kcal</span>' : '') +
+      '</li>';
+  }).join('');
 }
 
 async function handleFoodLog(e) {
   e.preventDefault();
-  const btn = document.getElementById('foodLogBtn');
+  var btn = document.getElementById('foodLogBtn');
   btn.disabled = true;
   btn.textContent = 'Saving...';
 
   try {
-    const res = await apiFetch('/api/health/food-log', {
+    var res = await apiFetch('/api/health/food-log', {
       method: 'POST',
       body: JSON.stringify({
         description: document.getElementById('foodDesc').value,
@@ -2060,12 +2865,12 @@ async function handleFoodLog(e) {
 
 /* ===== CHAT ===== */
 async function sendChat() {
-  const input = document.getElementById('chatInput');
-  const btn = document.getElementById('chatSendBtn');
-  const message = input.value.trim();
+  var input = document.getElementById('chatInput');
+  var btn = document.getElementById('chatSendBtn');
+  var message = input.value.trim();
   if (!message) return;
 
-  const empty = document.getElementById('chatEmpty');
+  var empty = document.getElementById('chatEmpty');
   if (empty) empty.remove();
 
   input.value = '';
@@ -2073,23 +2878,23 @@ async function sendChat() {
 
   appendChatMessage('user', message);
 
-  const loadingId = 'loading-' + Date.now();
+  var loadingId = 'loading-' + Date.now();
   appendChatMessage('assistant', '<span class="spinner"></span>', loadingId);
 
   try {
-    const res = await apiFetch('/api/chat', {
+    var res = await apiFetch('/api/chat', {
       method: 'POST',
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ message: message }),
     });
-    const data = await res.json();
-    const loadingEl = document.getElementById(loadingId);
+    var data = await res.json();
+    var loadingEl = document.getElementById(loadingId);
     if (loadingEl) {
       loadingEl.querySelector('.chat-bubble').innerHTML = escHtml(data.reply || 'Sorry, I had trouble with that. Try again.');
     }
   } catch (err) {
-    const loadingEl = document.getElementById(loadingId);
-    if (loadingEl) {
-      loadingEl.querySelector('.chat-bubble').textContent = 'Connection error. Please try again.';
+    var loadingEl2 = document.getElementById(loadingId);
+    if (loadingEl2) {
+      loadingEl2.querySelector('.chat-bubble').textContent = 'Connection error. Please try again.';
     }
   } finally {
     btn.disabled = false;
@@ -2098,11 +2903,11 @@ async function sendChat() {
 }
 
 function appendChatMessage(role, content, id) {
-  const container = document.getElementById('chatMessages');
-  const div = document.createElement('div');
+  var container = document.getElementById('chatMessages');
+  var div = document.createElement('div');
   div.className = 'chat-msg ' + role;
   if (id) div.id = id;
-  div.innerHTML = `<div class="chat-bubble">${content}</div>`;
+  div.innerHTML = '<div class="chat-bubble">' + content + '</div>';
   container.appendChild(div);
   container.scrollTop = container.scrollHeight;
 }
@@ -2120,12 +2925,12 @@ function closeSettingsModal() {
   document.getElementById('settingsModal').classList.remove('open');
 }
 
-document.getElementById('settingsModal').addEventListener('click', e => {
+document.getElementById('settingsModal').addEventListener('click', function(e) {
   if (e.target === document.getElementById('settingsModal')) closeSettingsModal();
 });
 
 async function saveDisplayName() {
-  const name = document.getElementById('settingsName').value.trim();
+  var name = document.getElementById('settingsName').value.trim();
   if (!name) { showToast('Please enter a display name.', 'error'); return; }
   showToast('Display name updated ✓', 'success');
   if (currentUser) {
@@ -2135,9 +2940,9 @@ async function saveDisplayName() {
 }
 
 async function savePassword() {
-  const current = document.getElementById('settingsCurrentPw').value;
-  const newPw = document.getElementById('settingsNewPw').value;
-  const confirm = document.getElementById('settingsConfirmPw').value;
+  var current = document.getElementById('settingsCurrentPw').value;
+  var newPw = document.getElementById('settingsNewPw').value;
+  var confirm = document.getElementById('settingsConfirmPw').value;
   if (!current || !newPw || !confirm) { showToast('Please fill in all password fields.', 'error'); return; }
   if (newPw.length < 8) { showToast('New password must be at least 8 characters.', 'error'); return; }
   if (newPw !== confirm) { showToast('New passwords do not match.', 'error'); return; }
@@ -2148,17 +2953,17 @@ async function savePassword() {
 }
 
 function loadNotifPrefs() {
-  const prefs = JSON.parse(localStorage.getItem('rp_notif_prefs') || '{}');
-  const el1 = document.getElementById('notifDailySummary');
-  const el2 = document.getElementById('notifWeeklyReport');
-  const el3 = document.getElementById('notifInsights');
+  var prefs = JSON.parse(localStorage.getItem('rp_notif_prefs') || '{}');
+  var el1 = document.getElementById('notifDailySummary');
+  var el2 = document.getElementById('notifWeeklyReport');
+  var el3 = document.getElementById('notifInsights');
   if (el1) el1.checked = prefs.dailySummary !== false;
   if (el2) el2.checked = prefs.weeklyReport !== false;
   if (el3) el3.checked = prefs.insightsAlerts !== false;
 }
 
 function saveNotifPref(key, value) {
-  const prefs = JSON.parse(localStorage.getItem('rp_notif_prefs') || '{}');
+  var prefs = JSON.parse(localStorage.getItem('rp_notif_prefs') || '{}');
   prefs[key] = value;
   localStorage.setItem('rp_notif_prefs', JSON.stringify(prefs));
   showToast('Preference saved ✓', 'success');
@@ -2174,19 +2979,19 @@ function closeDeleteModal() {
   document.getElementById('deleteModal').classList.remove('open');
 }
 
-document.getElementById('deleteModal').addEventListener('click', e => {
+document.getElementById('deleteModal').addEventListener('click', function(e) {
   if (e.target === document.getElementById('deleteModal')) closeDeleteModal();
 });
 
 async function handleDeleteAccount() {
-  const btn = document.getElementById('deleteConfirmBtn');
+  var btn = document.getElementById('deleteConfirmBtn');
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Deleting...';
 
   try {
-    const res = await apiFetch('/api/auth/account', { method: 'DELETE' });
+    var res = await apiFetch('/api/auth/account', { method: 'DELETE' });
     if (!res.ok) {
-      const data = await res.json().catch(() => ({}));
+      var data = await res.json().catch(function() { return {}; });
       showToast(data.error || 'Failed to delete account. Try again.', 'error');
       return;
     }
@@ -2214,7 +3019,7 @@ function closeUpgradeModal() {
   document.getElementById('upgradeModal').classList.remove('open');
 }
 
-document.getElementById('upgradeModal').addEventListener('click', e => {
+document.getElementById('upgradeModal').addEventListener('click', function(e) {
   if (e.target === document.getElementById('upgradeModal')) closeUpgradeModal();
 });
 
@@ -2224,15 +3029,15 @@ function handleUpgradeClick() {
 
 /* ===== TOASTS ===== */
 function showToast(message, type) {
-  const container = document.getElementById('toastContainer');
-  const toast = document.createElement('div');
+  var container = document.getElementById('toastContainer');
+  var toast = document.createElement('div');
   toast.className = 'toast ' + (type || '');
   toast.textContent = message;
   container.appendChild(toast);
-  requestAnimationFrame(() => { toast.classList.add('show'); });
-  setTimeout(() => {
+  requestAnimationFrame(function() { toast.classList.add('show'); });
+  setTimeout(function() {
     toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 300);
+    setTimeout(function() { toast.remove(); }, 300);
   }, 3500);
 }
 
