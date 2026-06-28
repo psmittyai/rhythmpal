@@ -382,13 +382,13 @@
     .app-user-name { font-size: 0.85rem; color: var(--text-muted); }
     .btn-logout {
       background: transparent;
-      color: var(--text-muted);
+      color: var(--coral);
       font-size: 0.82rem;
       padding: 5px 10px;
       border-radius: 6px;
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--coral);
     }
-    .btn-logout:hover { border-color: var(--error); color: var(--error); }
+    .btn-logout:hover { background: rgba(255,107,107,0.08); }
 
     /* App content area */
     .app-content { padding-top: 72px; }
@@ -826,14 +826,14 @@
     .btn-log-photo {
       flex: 1;
       padding: 11px;
-      background: var(--tiffany);
+      background: var(--coral);
       color: #fff;
       border-radius: 9px;
       font-weight: 700;
       font-size: 0.9rem;
       cursor: pointer;
     }
-    .btn-log-photo:hover { background: var(--tiffany-dark); }
+    .btn-log-photo:hover { background: var(--coral-dark); }
     .btn-cancel-photo {
       padding: 11px 16px;
       background: transparent;
@@ -864,14 +864,14 @@
     .btn-log-food {
       width: 100%;
       padding: 12px;
-      background: var(--tiffany);
+      background: var(--coral);
       color: #fff;
       border-radius: 9px;
       font-weight: 700;
       font-size: 0.95rem;
       margin-top: 12px;
     }
-    .btn-log-food:hover { background: var(--tiffany-dark); }
+    .btn-log-food:hover { background: var(--coral-dark); }
     .food-list { list-style: none; }
     .food-item {
       display: flex;
@@ -930,7 +930,7 @@
     .chat-input-row { display: flex; gap: 8px; }
     .chat-input { flex: 1; border-radius: 10px; padding: 10px 14px; font-size: 0.9rem; }
     .btn-send {
-      background: var(--tiffany);
+      background: var(--coral);
       color: #fff;
       padding: 10px 16px;
       border-radius: 10px;
@@ -939,7 +939,7 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
-    .btn-send:hover { background: var(--tiffany-dark); }
+    .btn-send:hover { background: var(--coral-dark); }
     .btn-send:disabled { opacity: 0.5; }
 
     /* Insight cards */
@@ -1027,15 +1027,15 @@
     .wearable-status { font-size: 0.78rem; color: var(--text-muted); }
     .btn-connect {
       padding: 6px 14px;
-      background: rgba(10,186,181,0.08);
-      border: 1.5px solid var(--tiffany);
-      color: var(--tiffany);
+      background: rgba(255,107,107,0.08);
+      border: 1.5px solid var(--coral);
+      color: var(--coral);
       border-radius: 7px;
       font-size: 0.8rem;
       font-weight: 600;
       flex-shrink: 0;
     }
-    .btn-connect:hover { background: rgba(10,186,181,0.18); }
+    .btn-connect:hover { background: rgba(255,107,107,0.18); }
 
     /* Profile action buttons */
     .profile-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
@@ -1052,11 +1052,11 @@
       transition: background 0.2s;
     }
     .btn-settings {
-      background: rgba(10,186,181,0.08);
-      border: 1.5px solid var(--tiffany);
-      color: var(--tiffany-dark);
+      background: rgba(255,107,107,0.07);
+      border: 1.5px solid var(--coral);
+      color: var(--coral);
     }
-    .btn-settings:hover { background: rgba(10,186,181,0.16); }
+    .btn-settings:hover { background: rgba(255,107,107,0.15); }
     .btn-upgrade {
       background: var(--coral);
       border: none;
@@ -1338,8 +1338,8 @@
     .profile-field { display: flex; flex-direction: column; gap: 4px; }
     .profile-label { font-size: 0.72rem; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 0.06em; }
     .profile-input, .profile-select { font-size: 0.9rem; padding: 9px 10px; border: 1.5px solid rgba(10,186,181,0.45); border-radius: 8px; background: #fff; color: #1a3332; width: 100%; }
-    .btn-save-profile { width: 100%; padding: 13px; background: #0abab5; color: #fff; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; margin-top: 8px; cursor: pointer; }
-    .btn-save-profile:active { background: #089e99; }
+    .btn-save-profile { width: 100%; padding: 13px; background: var(--coral); color: #fff; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; margin-top: 8px; cursor: pointer; }
+    .btn-save-profile:active { background: var(--coral-dark); }
     .targets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .target-chip { background: #f0fffe; border: 1.5px solid rgba(10,186,181,0.45); border-radius: 10px; padding: 10px 8px; text-align: center; }
     .target-chip-label { display: block; font-size: 0.65rem; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }

@@ -48,6 +48,27 @@ CREATE TABLE IF NOT EXISTS chat_messages (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS user_profiles (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+  sex VARCHAR(10),
+  age INTEGER,
+  height_cm NUMERIC,
+  weight_kg NUMERIC,
+  activity_level VARCHAR(20) DEFAULT 'moderate',
+  goal VARCHAR(30) DEFAULT 'maintain',
+  target_calories INTEGER,
+  target_protein INTEGER,
+  target_carbs INTEGER,
+  target_fat INTEGER,
+  target_fiber INTEGER,
+  target_water INTEGER DEFAULT 8,
+  target_steps INTEGER DEFAULT 10000,
+  target_sleep_hours NUMERIC DEFAULT 8,
+  target_active_minutes INTEGER DEFAULT 30,
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS wearable_connections (
   id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id),
