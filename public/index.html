@@ -484,10 +484,11 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--tiffany);
-      margin-bottom: 10px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid rgba(10,186,181,0.15);
+      color: #5a8a88;
+      padding: 16px 0 8px 0;
+      border: none;
+      background: none;
+      margin-bottom: 8px;
     }
 
     /* Metric grid */
@@ -499,60 +500,61 @@
     @media (max-width: 375px) { .metric-grid-3 { grid-template-columns: repeat(2, 1fr); } }
 
     .metric-card {
-      background: #1a3332;
-      border: 2px solid rgba(255,255,255,0.18);
+      background: #ffffff;
+      border: 1.5px solid rgba(10,186,181,0.2);
       border-radius: 12px;
       padding: 12px 10px;
       min-height: 80px;
       display: flex;
       flex-direction: column;
       gap: 3px;
+      box-shadow: 0 1px 6px rgba(10,186,181,0.05);
     }
     .metric-card.light {
       background: #ffffff;
-      border: 1px solid rgba(201,168,76,0.25);
-      box-shadow: 0 2px 8px rgba(10,186,181,0.06);
+      border: 1.5px solid rgba(10,186,181,0.2);
+      box-shadow: 0 1px 6px rgba(10,186,181,0.05);
     }
     .metric-icon-label {
       font-size: 0.65rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: #e2e8f0;
+      color: #5a8a88;
       display: flex;
       align-items: center;
       gap: 4px;
     }
-    .metric-card.light .metric-icon-label { color: var(--text-muted); }
+    .metric-card.light .metric-icon-label { color: #5a8a88; }
     .metric-icon-label .mi { font-size: 0.85rem; }
     .metric-value {
       font-size: 1.4rem;
       font-weight: 800;
-      color: #ffffff;
+      color: #1a3332;
       line-height: 1.1;
     }
-    .metric-value.dimmed { color: rgba(255,255,255,0.4); font-size: 1rem; font-weight: 400; }
-    .metric-card.light .metric-value { color: var(--text); }
-    .metric-card.light .metric-value.dimmed { color: var(--text-muted); }
+    .metric-value.dimmed { color: #5a8a88; font-size: 1rem; font-weight: 400; }
+    .metric-card.light .metric-value { color: #1a3332; }
+    .metric-card.light .metric-value.dimmed { color: #5a8a88; }
     .metric-unit {
       font-size: 0.68rem;
-      color: #e2e8f0;
+      color: #5a8a88;
     }
-    .metric-card.light .metric-unit { color: var(--text-muted); }
+    .metric-card.light .metric-unit { color: #5a8a88; }
     .metric-sub {
       font-size: 0.68rem;
-      color: rgba(255,255,255,0.55);
+      color: #5a8a88;
       margin-top: 2px;
     }
-    .metric-card.light .metric-sub { color: var(--text-muted); }
+    .metric-card.light .metric-sub { color: #5a8a88; }
     .metric-connect {
       font-size: 0.68rem;
-      color: var(--tiffany-light);
+      color: #0abab5;
       font-weight: 600;
       cursor: pointer;
       margin-top: 2px;
     }
-    .metric-card.light .metric-connect { color: var(--tiffany); }
+    .metric-card.light .metric-connect { color: #0abab5; }
     .trend-up { color: #4ade80; }
     .trend-down { color: #f87171; }
 
@@ -587,11 +589,12 @@
 
     /* Water tap buttons */
     .water-section {
-      background: #1a3332;
-      border: 2px solid rgba(255,255,255,0.18);
+      background: #ffffff;
+      border: 1.5px solid rgba(10,186,181,0.2);
       border-radius: 12px;
       padding: 12px;
       margin-top: 8px;
+      box-shadow: 0 1px 6px rgba(10,186,181,0.05);
     }
     .water-header {
       display: flex;
@@ -604,12 +607,12 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: #e2e8f0;
+      color: #5a8a88;
     }
     .water-count {
       font-size: 0.85rem;
       font-weight: 700;
-      color: #ffffff;
+      color: #1a3332;
     }
     .water-btns {
       display: flex;
@@ -1790,6 +1793,37 @@
         </div>
       </div>
 
+      <!-- Calorie Trend Chart -->
+      <div class="chart-section" style="margin-top:12px;margin-bottom:12px;">
+        <div class="chart-title">📈 Calorie Trend</div>
+        <div class="chart-toggle">
+          <button class="btn-chart-toggle active" id="chartToggleDay" onclick="setChartRange('day')">Daily</button>
+          <button class="btn-chart-toggle" id="chartToggleWeek" onclick="setChartRange('week')">Weekly</button>
+          <button class="btn-chart-toggle" id="chartToggleMonth" onclick="setChartRange('month')">Monthly</button>
+          <button class="btn-chart-toggle" id="chartToggleYtd" onclick="setChartRange('ytd')">YTD</button>
+          <button class="btn-chart-toggle" id="chartToggleAll" onclick="setChartRange('all')">All Time</button>
+        </div>
+        <div class="chart-canvas-wrap" id="chartWrap">
+          <div class="chart-bars" id="calorieBars"></div>
+        </div>
+      </div>
+
+      <!-- Key Signals Strip -->
+      <div style="display:flex;gap:8px;padding:0 0 12px 0;">
+        <div style="background:#f0fffe;border:1px solid rgba(10,186,181,0.25);border-radius:20px;padding:6px 14px;font-size:0.82rem;color:#1a3332;flex:1;text-align:center;">
+          <span style="font-size:0.7rem;color:#5a8a88;display:block;">Recovery</span>
+          —
+        </div>
+        <div style="background:#f0fffe;border:1px solid rgba(10,186,181,0.25);border-radius:20px;padding:6px 14px;font-size:0.82rem;color:#1a3332;flex:1;text-align:center;">
+          <span style="font-size:0.7rem;color:#5a8a88;display:block;">Sleep</span>
+          —
+        </div>
+        <div style="background:#f0fffe;border:1px solid rgba(10,186,181,0.25);border-radius:20px;padding:6px 14px;font-size:0.82rem;color:#1a3332;flex:1;text-align:center;">
+          <span style="font-size:0.7rem;color:#5a8a88;display:block;">Activity</span>
+          —
+        </div>
+      </div>
+
       <!-- Section 1: Recovery & Readiness -->
       <div class="dash-section">
         <div class="dash-section-title">💤 Recovery &amp; Readiness</div>
@@ -1980,7 +2014,7 @@
               <div class="hr-zone" style="flex:0;background:#ff6b6b;" title="Peak"></div>
             </div>
             <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">
-              <span style="font-size:0.62rem;color:#e2e8f0;">⬜ Rest</span>
+              <span style="font-size:0.62rem;color:#5a8a88;">⬜ Rest</span>
               <span style="font-size:0.62rem;color:#0abab5;">🟦 Fat Burn</span>
               <span style="font-size:0.62rem;color:#ffb347;">🟧 Cardio</span>
               <span style="font-size:0.62rem;color:#ff6b6b;">🟥 Peak</span>
@@ -2033,20 +2067,6 @@
         </div>
       </div>
 
-      <!-- Calorie Trend Chart -->
-      <div class="chart-section">
-        <div class="chart-title">📈 Calorie Trend</div>
-        <div class="chart-toggle">
-          <button class="btn-chart-toggle active" id="chartToggleDay" onclick="setChartRange('day')">Daily</button>
-          <button class="btn-chart-toggle" id="chartToggleWeek" onclick="setChartRange('week')">Weekly</button>
-          <button class="btn-chart-toggle" id="chartToggleMonth" onclick="setChartRange('month')">Monthly</button>
-          <button class="btn-chart-toggle" id="chartToggleYtd" onclick="setChartRange('ytd')">YTD</button>
-          <button class="btn-chart-toggle" id="chartToggleAll" onclick="setChartRange('all')">All Time</button>
-        </div>
-        <div class="chart-canvas-wrap" id="chartWrap">
-          <div class="chart-bars" id="calorieBars"></div>
-        </div>
-      </div>
     </div>
 
     <!-- ===== FOOD TAB ===== -->
