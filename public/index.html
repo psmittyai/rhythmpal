@@ -443,11 +443,11 @@
 
     /* PAL Score bar */
     .pal-score-bar {
-      background: linear-gradient(135deg, #1a3332 0%, #0d2625 100%);
+      background: linear-gradient(135deg, #0d2b29 0%, #1a4a47 100%);
       border: 2px solid rgba(255,255,255,0.18);
       border-radius: 16px;
-      padding: 18px 20px;
-      margin-bottom: 16px;
+      padding: 14px 18px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 16px;
@@ -471,21 +471,21 @@
       z-index: 1;
     }
     .pal-score-info { flex: 1; }
-    .pal-score-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
-    .pal-score-title { font-size: 1rem; font-weight: 700; color: #ffffff; margin-bottom: 2px; }
-    .pal-score-sub { font-size: 0.78rem; color: #e2e8f0; }
+    .pal-score-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+    .pal-score-title { font-size: 0.85rem; font-weight: 700; color: #ffffff; margin-bottom: 1px; }
+    .pal-score-sub { font-size: 0.72rem; color: #a0d4d2; }
 
     /* Dashboard section header */
     .dash-section {
       margin-bottom: 16px;
     }
     .dash-section-title {
-      font-size: 0.72rem;
-      font-weight: 700;
+      font-size: 0.75rem;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: #5a8a88;
-      padding: 16px 0 8px 0;
+      color: #1a5c59;
+      padding: 18px 0 8px 0;
       border: none;
       background: none;
       margin-bottom: 8px;
@@ -501,9 +501,9 @@
 
     .metric-card {
       background: #ffffff;
-      border: 1.5px solid rgba(10,186,181,0.2);
+      border: 1.5px solid rgba(10,186,181,0.45);
       border-radius: 12px;
-      padding: 12px 10px;
+      padding: 14px 12px;
       min-height: 80px;
       display: flex;
       flex-direction: column;
@@ -512,35 +512,37 @@
     }
     .metric-card.light {
       background: #ffffff;
-      border: 1.5px solid rgba(10,186,181,0.2);
+      border: 1.5px solid rgba(10,186,181,0.45);
       box-shadow: 0 1px 6px rgba(10,186,181,0.05);
     }
     .metric-icon-label {
-      font-size: 0.65rem;
-      font-weight: 600;
+      font-size: 0.68rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #5a8a88;
+      letter-spacing: 0.07em;
+      color: #2d6e6b;
       display: flex;
       align-items: center;
       gap: 4px;
+      margin-bottom: 4px;
     }
-    .metric-card.light .metric-icon-label { color: #5a8a88; }
+    .metric-card.light .metric-icon-label { color: #2d6e6b; }
     .metric-icon-label .mi { font-size: 0.85rem; }
     .metric-value {
       font-size: 1.4rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #1a3332;
-      line-height: 1.1;
+      line-height: 1.2;
     }
-    .metric-value.dimmed { color: #5a8a88; font-size: 1rem; font-weight: 400; }
+    .metric-value.dimmed { color: #9ab8b6; font-size: 1rem; font-weight: 400; }
     .metric-card.light .metric-value { color: #1a3332; }
-    .metric-card.light .metric-value.dimmed { color: #5a8a88; }
+    .metric-card.light .metric-value.dimmed { color: #9ab8b6; }
     .metric-unit {
-      font-size: 0.68rem;
-      color: #5a8a88;
+      font-size: 0.75rem;
+      color: #4a7a78;
+      margin-top: 2px;
     }
-    .metric-card.light .metric-unit { color: #5a8a88; }
+    .metric-card.light .metric-unit { color: #4a7a78; }
     .metric-sub {
       font-size: 0.68rem;
       color: #5a8a88;
@@ -548,11 +550,11 @@
     }
     .metric-card.light .metric-sub { color: #5a8a88; }
     .metric-connect {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       color: #0abab5;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 2px;
+      margin-top: 6px;
     }
     .metric-card.light .metric-connect { color: #0abab5; }
     .trend-up { color: #4ade80; }
@@ -590,7 +592,7 @@
     /* Water tap buttons */
     .water-section {
       background: #ffffff;
-      border: 1.5px solid rgba(10,186,181,0.2);
+      border: 1.5px solid rgba(10,186,181,0.45);
       border-radius: 12px;
       padding: 12px;
       margin-top: 8px;
@@ -1788,8 +1790,8 @@
         </div>
         <div class="pal-score-info">
           <div class="pal-score-label">RhythmPal Health Score</div>
-          <div class="pal-score-title" id="palScoreTitle">Connect wearable to unlock</div>
-          <div class="pal-score-sub" id="palScoreSub">Log food + connect wearable for your score</div>
+          <div class="pal-score-title" id="palScoreTitle">RhythmPal Health Score</div>
+          <div class="pal-score-sub" id="palScoreSub">Logs food daily to build your score</div>
         </div>
       </div>
 
@@ -1810,24 +1812,24 @@
 
       <!-- Key Signals Strip -->
       <div style="display:flex;gap:8px;padding:0 0 12px 0;">
-        <div style="background:#f0fffe;border:1px solid rgba(10,186,181,0.25);border-radius:20px;padding:6px 14px;font-size:0.82rem;color:#1a3332;flex:1;text-align:center;">
-          <span style="font-size:0.7rem;color:#5a8a88;display:block;">Recovery</span>
-          —
+        <div style="background:#f0fffe;border:1.5px solid rgba(10,186,181,0.45);border-radius:20px;padding:8px 10px;flex:1;text-align:center;">
+          <span style="font-size:0.68rem;color:#2d6e6b;display:block;font-weight:700;">Recovery</span>
+          <span style="font-size:1rem;color:#1a3332;font-weight:700;">—</span>
         </div>
-        <div style="background:#f0fffe;border:1px solid rgba(10,186,181,0.25);border-radius:20px;padding:6px 14px;font-size:0.82rem;color:#1a3332;flex:1;text-align:center;">
-          <span style="font-size:0.7rem;color:#5a8a88;display:block;">Sleep</span>
-          —
+        <div style="background:#f0fffe;border:1.5px solid rgba(10,186,181,0.45);border-radius:20px;padding:8px 10px;flex:1;text-align:center;">
+          <span style="font-size:0.68rem;color:#2d6e6b;display:block;font-weight:700;">Sleep</span>
+          <span style="font-size:1rem;color:#1a3332;font-weight:700;">—</span>
         </div>
-        <div style="background:#f0fffe;border:1px solid rgba(10,186,181,0.25);border-radius:20px;padding:6px 14px;font-size:0.82rem;color:#1a3332;flex:1;text-align:center;">
-          <span style="font-size:0.7rem;color:#5a8a88;display:block;">Activity</span>
-          —
+        <div style="background:#f0fffe;border:1.5px solid rgba(10,186,181,0.45);border-radius:20px;padding:8px 10px;flex:1;text-align:center;">
+          <span style="font-size:0.68rem;color:#2d6e6b;display:block;font-weight:700;">Activity</span>
+          <span style="font-size:1rem;color:#1a3332;font-weight:700;">—</span>
         </div>
       </div>
 
       <!-- Section 1: Recovery & Readiness -->
       <div class="dash-section">
         <div class="dash-section-title">💤 Recovery &amp; Readiness</div>
-        <div class="metric-grid-3">
+        <div class="metric-grid-3" style="grid-template-columns: repeat(2, 1fr)">
           <div class="metric-card">
             <div class="metric-icon-label"><span class="mi">🔋</span> Recovery</div>
             <div class="metric-value dimmed">—</div>
@@ -1882,7 +1884,7 @@
       <!-- Section 2: Activity -->
       <div class="dash-section">
         <div class="dash-section-title">🏃 Activity</div>
-        <div class="metric-grid-3">
+        <div class="metric-grid-3" style="grid-template-columns: repeat(2, 1fr)">
           <div class="metric-card">
             <div class="metric-icon-label"><span class="mi">👣</span> Steps</div>
             <div class="metric-value dimmed">—</div>
