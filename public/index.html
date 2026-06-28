@@ -425,7 +425,7 @@
       border-right: none !important;
       border-bottom: none !important;
     }
-    .nav-tab.active { color: var(--tiffany); border-top-color: var(--tiffany); }
+    .nav-tab.active { color: var(--coral); border-top-color: var(--coral); }
     .nav-tab-icon { font-size: 1.25rem; }
 
     /* Tab panels */
@@ -444,7 +444,7 @@
     /* PAL Score bar */
     .pal-score-bar {
       background: #ffffff;
-      border: 1.5px solid rgba(10,186,181,0.45);
+      border: 1px solid rgba(201,168,76,0.3);
       border-radius: 16px;
       padding: 14px 18px;
       margin-bottom: 12px;
@@ -471,7 +471,7 @@
       z-index: 1;
     }
     .pal-score-info { flex: 1; }
-    .pal-score-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #2d6e6b; margin-bottom: 4px; }
+    .pal-score-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--coral); margin-bottom: 4px; }
     .pal-score-title { font-size: 0.85rem; font-weight: 700; color: #1a3332; margin-bottom: 1px; }
     .pal-score-sub { font-size: 0.72rem; color: #5a8a88; }
 
@@ -484,7 +484,7 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: #1a5c59;
+      color: var(--coral);
       padding: 18px 0 8px 0;
       border: none;
       background: none;
@@ -501,32 +501,32 @@
 
     .metric-card {
       background: #ffffff;
-      border: 1.5px solid rgba(10,186,181,0.45);
+      border: 1px solid rgba(201,168,76,0.3);
       border-radius: 12px;
       padding: 14px 12px;
       min-height: 80px;
       display: flex;
       flex-direction: column;
       gap: 3px;
-      box-shadow: 0 1px 6px rgba(10,186,181,0.05);
+      box-shadow: 0 4px 16px rgba(10,186,181,0.07), 0 1px 4px rgba(201,168,76,0.1);
     }
     .metric-card.light {
       background: #ffffff;
-      border: 1.5px solid rgba(10,186,181,0.45);
-      box-shadow: 0 1px 6px rgba(10,186,181,0.05);
+      border: 1px solid rgba(201,168,76,0.3);
+      box-shadow: 0 4px 16px rgba(10,186,181,0.07), 0 1px 4px rgba(201,168,76,0.1);
     }
     .metric-icon-label {
       font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.07em;
-      color: #2d6e6b;
+      color: var(--coral);
       display: flex;
       align-items: center;
       gap: 4px;
       margin-bottom: 4px;
     }
-    .metric-card.light .metric-icon-label { color: #2d6e6b; }
+    .metric-card.light .metric-icon-label { color: var(--coral); }
     .metric-icon-label .mi { font-size: 0.85rem; }
     .metric-value {
       font-size: 1.4rem;
@@ -551,12 +551,12 @@
     .metric-card.light .metric-sub { color: #5a8a88; }
     .metric-connect {
       font-size: 0.72rem;
-      color: #0abab5;
+      color: var(--coral);
       font-weight: 600;
       cursor: pointer;
       margin-top: 6px;
     }
-    .metric-card.light .metric-connect { color: #0abab5; }
+    .metric-card.light .metric-connect { color: var(--coral); }
     .trend-up { color: #4ade80; }
     .trend-down { color: #f87171; }
 
@@ -592,7 +592,7 @@
     /* Water tap buttons */
     .water-section {
       background: #ffffff;
-      border: 1.5px solid rgba(10,186,181,0.45);
+      border: 1px solid rgba(201,168,76,0.3);
       border-radius: 12px;
       padding: 12px;
       margin-top: 8px;
@@ -623,15 +623,15 @@
     .btn-water {
       flex: 1;
       padding: 7px 4px;
-      background: rgba(10,186,181,0.2);
-      border: 1px solid rgba(10,186,181,0.4) !important;
+      background: rgba(255,107,107,0.1);
+      border: 1px solid rgba(255,107,107,0.35) !important;
       border-radius: 8px;
-      color: var(--tiffany-light);
+      color: var(--coral);
       font-size: 0.75rem;
       font-weight: 700;
       text-align: center;
     }
-    .btn-water:hover { background: rgba(10,186,181,0.35); }
+    .btn-water:hover { background: rgba(255,107,107,0.2); }
 
     /* Calorie trend chart */
     .chart-section {
@@ -665,8 +665,8 @@
       transition: all 0.15s;
     }
     .btn-chart-toggle.active {
-      background: var(--tiffany);
-      border-color: var(--tiffany) !important;
+      background: var(--coral);
+      border-color: var(--coral) !important;
       color: #fff;
     }
     .chart-canvas-wrap {
@@ -694,14 +694,14 @@
     }
     .chart-bar {
       width: 100%;
-      background: var(--tiffany);
+      background: var(--coral);
       border-radius: 3px 3px 0 0;
       min-height: 2px;
       transition: height 0.4s ease;
       cursor: pointer;
       position: relative;
     }
-    .chart-bar:hover { background: var(--tiffany-dark); }
+    .chart-bar:hover { background: var(--coral-dark); }
     .chart-bar-label {
       font-size: 0.58rem;
       color: var(--text-muted);
@@ -1314,11 +1314,11 @@
     /* ===== GOAL PROGRESS BARS ===== */
     .goal-row { margin-bottom: 14px; }
     .goal-row-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-    .goal-label { font-size: 0.8rem; font-weight: 700; color: #2d6e6b; }
+    .goal-label { font-size: 0.8rem; font-weight: 700; color: var(--coral); }
     .goal-numbers { font-size: 0.78rem; color: #1a3332; font-weight: 600; }
     .goal-bar-track { height: 7px; background: rgba(10,186,181,0.12); border-radius: 4px; overflow: hidden; }
     .goal-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
-    .goal-bar-fill.tiffany { background: #0abab5; }
+    .goal-bar-fill.tiffany { background: var(--coral); }
     .goal-bar-fill.coral { background: #ff6b6b; }
     .goal-bar-fill.peach { background: #ffb347; }
     .goal-bar-fill.gold { background: #c9a84c; }
@@ -1328,7 +1328,7 @@
     /* ===== COLLAPSIBLE SECTIONS ===== */
     .collapsible-section { margin-bottom: 4px; }
     .section-toggle { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 6px 0; cursor: pointer; }
-    .toggle-icon { font-size: 0.75rem; color: #5a8a88; transition: transform 0.2s; }
+    .toggle-icon { font-size: 0.75rem; color: var(--coral); transition: transform 0.2s; }
     .section-body { overflow: hidden; transition: max-height 0.3s ease; max-height: 0; }
     .section-body.expanded { max-height: 800px; }
     .section-body.collapsed { max-height: 0; }
@@ -1336,13 +1336,13 @@
     /* ===== PROFILE FORM ===== */
     .profile-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
     .profile-field { display: flex; flex-direction: column; gap: 4px; }
-    .profile-label { font-size: 0.72rem; font-weight: 700; color: #2d6e6b; text-transform: uppercase; letter-spacing: 0.06em; }
+    .profile-label { font-size: 0.72rem; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 0.06em; }
     .profile-input, .profile-select { font-size: 0.9rem; padding: 9px 10px; border: 1.5px solid rgba(10,186,181,0.45); border-radius: 8px; background: #fff; color: #1a3332; width: 100%; }
     .btn-save-profile { width: 100%; padding: 13px; background: #0abab5; color: #fff; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; margin-top: 8px; cursor: pointer; }
     .btn-save-profile:active { background: #089e99; }
     .targets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .target-chip { background: #f0fffe; border: 1.5px solid rgba(10,186,181,0.45); border-radius: 10px; padding: 10px 8px; text-align: center; }
-    .target-chip-label { display: block; font-size: 0.65rem; font-weight: 700; color: #2d6e6b; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .target-chip-label { display: block; font-size: 0.65rem; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
     .target-chip-val { font-size: 1rem; font-weight: 700; color: #1a3332; }
     .profile-calc-note { background: #f0fffe; border: 1.5px solid rgba(10,186,181,0.3); border-radius: 8px; padding: 10px 12px; margin: 8px 0; font-size: 0.82rem; color: #1a3332; }
 
