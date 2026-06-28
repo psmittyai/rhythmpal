@@ -1131,6 +1131,38 @@
       line-height: 1.4;
     }
     .ah-steps li:last-child { border-bottom: none; }
+    .ah-platform-tabs {
+      display: flex;
+      gap: 8px;
+      margin: 14px 0 4px;
+    }
+    .ah-tab {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .ah-tab.active {
+      background: var(--tiffany);
+      border-color: var(--tiffany);
+      color: #fff;
+    }
+    .ah-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: rgba(10,186,181,0.07);
+      border-left: 3px solid var(--tiffany);
+      border-radius: 0 6px 6px 0;
+      padding: 8px 10px;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
     .ah-step-num {
       font-size: 0.72rem;
       font-weight: 700;
@@ -1598,29 +1630,55 @@
       </ul>
     </div>
 
-    <!-- Apple Health / Oura Ring Integration Card -->
+    <!-- Apple Health / Android Health Connect Integration Card -->
     <div class="settings-section">
-      <div class="settings-section-title">🍎 Apple Health / Oura Ring</div>
+      <div class="settings-section-title">📱 Connect Your Wearable</div>
       <div class="apple-health-card" id="appleHealthCard">
         <div class="apple-health-header">
-          <div class="apple-health-title">Webhook Integration</div>
+          <div class="apple-health-title">Oura Ring &amp; Wearable Sync</div>
           <span class="badge-pending" id="ahConnectionBadge">⏳ Not Connected</span>
         </div>
         <div id="ahWebhookSection">
-          <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:10px;">Your personal webhook URL — paste this into Health Auto Export:</div>
+          <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Your personal webhook URL — paste this into Health Auto Export on your phone:</div>
           <div class="webhook-url-row">
             <input type="text" class="webhook-url-input" id="ahWebhookUrl" readonly placeholder="Loading..." />
             <button class="btn-copy-url" onclick="copyWebhookUrl()">Copy</button>
           </div>
-          <div class="ah-steps-title">Setup (2 minutes)</div>
-          <ol class="ah-steps">
-            <li><span class="ah-step-num">1</span><span>Download <strong>Health Auto Export</strong> from the App Store (free)</span></li>
-            <li><span class="ah-step-num">2</span><span>Open the app → tap <strong>+</strong> → select <strong>REST API</strong></span></li>
-            <li><span class="ah-step-num">3</span><span>Paste your personal webhook URL above</span></li>
-            <li><span class="ah-step-num">4</span><span>Select metrics: <strong>Steps, Sleep Analysis, HRV, Resting Heart Rate, Active Energy</strong></span></li>
-            <li><span class="ah-step-num">5</span><span>Set export frequency: <strong>Hourly</strong></span></li>
-            <li><span class="ah-step-num">6</span><span>Tap Save — your Apple Watch &amp; Oura data will sync automatically 🎉</span></li>
-          </ol>
+
+          <!-- Platform tabs -->
+          <div class="ah-platform-tabs">
+            <button class="ah-tab active" onclick="showPlatformTab('ios', this)">🍎 iPhone / iOS</button>
+            <button class="ah-tab" onclick="showPlatformTab('android', this)">🤖 Android</button>
+          </div>
+
+          <!-- iOS Instructions -->
+          <div id="ah-tab-ios">
+            <div class="ah-steps-title">Setup (2 minutes)</div>
+            <ol class="ah-steps">
+              <li><span class="ah-step-num">1</span><span>Download <strong>Health Auto Export</strong> from the App Store (free)</span></li>
+              <li><span class="ah-step-num">2</span><span>Open the app → tap <strong>+</strong> → select <strong>REST API</strong></span></li>
+              <li><span class="ah-step-num">3</span><span>Paste your personal webhook URL above</span></li>
+              <li><span class="ah-step-num">4</span><span>Select metrics: <strong>Steps, Sleep Analysis, HRV, Resting Heart Rate, Active Energy</strong></span></li>
+              <li><span class="ah-step-num">5</span><span>Set export frequency: <strong>Hourly</strong></span></li>
+              <li><span class="ah-step-num">6</span><span>Tap Save — your Oura &amp; Apple Watch data syncs automatically 🎉</span></li>
+            </ol>
+            <div class="ah-note">💍 <strong>Oura users:</strong> Make sure the Oura app is installed and Apple Health sync is enabled in Oura app → Settings → Connections → Apple Health.</div>
+          </div>
+
+          <!-- Android Instructions -->
+          <div id="ah-tab-android" style="display:none;">
+            <div class="ah-steps-title">Setup (2 minutes)</div>
+            <ol class="ah-steps">
+              <li><span class="ah-step-num">1</span><span>Download <strong>Health Auto Export - FHIR</strong> from the Google Play Store (free)</span></li>
+              <li><span class="ah-step-num">2</span><span>Open the app → tap <strong>+</strong> → select <strong>REST API</strong></span></li>
+              <li><span class="ah-step-num">3</span><span>Paste your personal webhook URL above</span></li>
+              <li><span class="ah-step-num">4</span><span>Select metrics: <strong>Steps, Sleep, HRV, Resting Heart Rate, Active Calories</strong></span></li>
+              <li><span class="ah-step-num">5</span><span>Set export frequency: <strong>Hourly</strong></span></li>
+              <li><span class="ah-step-num">6</span><span>Tap Save — your Oura &amp; Samsung/Pixel data syncs automatically 🎉</span></li>
+            </ol>
+            <div class="ah-note">💍 <strong>Oura users:</strong> Make sure the Oura app is installed and Health Connect sync is enabled in Oura app → Settings → Connections → Health Connect.</div>
+            <div class="ah-note" style="margin-top:8px;">📌 <strong>Health Connect</strong> must be installed on your Android device. Most Android 14+ devices have it built in. Search "Health Connect" on the Play Store if needed.</div>
+          </div>
         </div>
       </div>
     </div>
@@ -3256,6 +3314,13 @@ async function loadAppleHealthSetup() {
   } catch (e) {
     console.warn('Apple Health setup load failed:', e);
   }
+}
+
+function showPlatformTab(platform, btn) {
+  document.getElementById('ah-tab-ios').style.display = platform === 'ios' ? '' : 'none';
+  document.getElementById('ah-tab-android').style.display = platform === 'android' ? '' : 'none';
+  document.querySelectorAll('.ah-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
 function copyWebhookUrl() {
