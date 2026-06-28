@@ -1310,6 +1310,51 @@
       color: #4a7a78;
       line-height: 1.4;
     }
+
+    /* ===== GOAL PROGRESS BARS ===== */
+    .goal-row { margin-bottom: 14px; }
+    .goal-row-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+    .goal-label { font-size: 0.8rem; font-weight: 700; color: #2d6e6b; }
+    .goal-numbers { font-size: 0.78rem; color: #1a3332; font-weight: 600; }
+    .goal-bar-track { height: 7px; background: rgba(10,186,181,0.12); border-radius: 4px; overflow: hidden; }
+    .goal-bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+    .goal-bar-fill.tiffany { background: #0abab5; }
+    .goal-bar-fill.coral { background: #ff6b6b; }
+    .goal-bar-fill.peach { background: #ffb347; }
+    .goal-bar-fill.gold { background: #c9a84c; }
+    .goal-remaining { font-size: 0.72rem; color: #5a8a88; margin-top: 3px; }
+    .goal-progress-list { padding: 0 2px; }
+
+    /* ===== COLLAPSIBLE SECTIONS ===== */
+    .collapsible-section { margin-bottom: 4px; }
+    .section-toggle { display: flex; justify-content: space-between; align-items: center; padding: 12px 0 6px 0; cursor: pointer; }
+    .toggle-icon { font-size: 0.75rem; color: #5a8a88; transition: transform 0.2s; }
+    .section-body { overflow: hidden; transition: max-height 0.3s ease; max-height: 0; }
+    .section-body.expanded { max-height: 800px; }
+    .section-body.collapsed { max-height: 0; }
+
+    /* ===== PROFILE FORM ===== */
+    .profile-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .profile-field { display: flex; flex-direction: column; gap: 4px; }
+    .profile-label { font-size: 0.72rem; font-weight: 700; color: #2d6e6b; text-transform: uppercase; letter-spacing: 0.06em; }
+    .profile-input, .profile-select { font-size: 0.9rem; padding: 9px 10px; border: 1.5px solid rgba(10,186,181,0.45); border-radius: 8px; background: #fff; color: #1a3332; width: 100%; }
+    .btn-save-profile { width: 100%; padding: 13px; background: #0abab5; color: #fff; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 700; margin-top: 8px; cursor: pointer; }
+    .btn-save-profile:active { background: #089e99; }
+    .targets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .target-chip { background: #f0fffe; border: 1.5px solid rgba(10,186,181,0.45); border-radius: 10px; padding: 10px 8px; text-align: center; }
+    .target-chip-label { display: block; font-size: 0.65rem; font-weight: 700; color: #2d6e6b; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+    .target-chip-val { font-size: 1rem; font-weight: 700; color: #1a3332; }
+    .profile-calc-note { background: #f0fffe; border: 1.5px solid rgba(10,186,181,0.3); border-radius: 8px; padding: 10px 12px; margin: 8px 0; font-size: 0.82rem; color: #1a3332; }
+
+    /* ===== WATER IN FOOD TAB ===== */
+    .water-count-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 0.9rem; color: #1a3332; }
+    .water-count-label { color: #5a8a88; }
+    .water-count-value { font-size: 1.3rem; font-weight: 700; color: #0abab5; }
+    .water-btn-row { display: flex; gap: 8px; }
+    .water-btn { flex: 1; padding: 9px 4px; background: rgba(10,186,181,0.15); border: 1.5px solid rgba(10,186,181,0.4) !important; border-radius: 8px; color: #0abab5; font-size: 0.85rem; font-weight: 700; cursor: pointer; }
+    .water-btn:hover { background: rgba(10,186,181,0.28); }
+    .water-btn-reset { background: rgba(255,107,107,0.1); border-color: rgba(255,107,107,0.35) !important; color: #e85555; }
+    .water-btn-reset:hover { background: rgba(255,107,107,0.2); }
   </style>
 </head>
 <body>
@@ -1827,244 +1872,265 @@
       </div>
 
       <!-- Section 1: Recovery & Readiness -->
-      <div class="dash-section">
-        <div class="dash-section-title">💤 Recovery &amp; Readiness</div>
-        <div class="metric-grid-3" style="grid-template-columns: repeat(2, 1fr)">
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🔋</span> Recovery</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">/ 100</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">💓</span> HRV Today</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">ms</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">😴</span> Sleep Quality</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">/ 100</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🕐</span> Sleep Time</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">hrs</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🌊</span> Deep Sleep</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">%</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🌀</span> REM Sleep</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">%</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">❤️</span> Resting HR</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">bpm</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🌬️</span> Resp. Rate</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">br/min</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+      <div class="collapsible-section" id="sectionRecovery">
+        <div class="section-toggle" onclick="toggleSection('sectionRecovery')">
+          <span class="dash-section-title" style="padding:0; margin:0;">💤 Recovery &amp; Readiness</span>
+          <span class="toggle-icon" id="sectionRecovery-icon">▼</span>
+        </div>
+        <div class="section-body collapsed" id="sectionRecovery-body">
+          <div class="metric-grid-3">
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🔋</span> Recovery</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">/ 100</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">💓</span> HRV Today</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">ms</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">😴</span> Sleep Quality</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">/ 100</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🕐</span> Sleep Time</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">hrs</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🌊</span> Deep Sleep</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">%</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🌀</span> REM Sleep</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">%</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">❤️</span> Resting HR</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">bpm</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🌬️</span> Resp. Rate</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">br/min</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label">😴 Sleep Debt</div>
+              <div class="metric-value dimmed" id="sleepDebt">—</div>
+              <div class="metric-unit">hrs owed</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Section 2: Activity -->
-      <div class="dash-section">
-        <div class="dash-section-title">🏃 Activity</div>
-        <div class="metric-grid-3" style="grid-template-columns: repeat(2, 1fr)">
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">👣</span> Steps</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">goal: 10,000</div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:0%"></div></div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">⚡</span> Active Min</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">minutes</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🏋️</span> Strain</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">/ 21</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">📍</span> Distance</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">miles</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🏔️</span> Floors</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">floors</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🔥</span> Active Cal</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">kcal</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🪑</span> Sedentary</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">hrs</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">📊</span> Move Score</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">/ 100</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+      <div class="collapsible-section" id="sectionActivity">
+        <div class="section-toggle" onclick="toggleSection('sectionActivity')">
+          <span class="dash-section-title" style="padding:0; margin:0;">🏃 Activity</span>
+          <span class="toggle-icon" id="sectionActivity-icon">▼</span>
+        </div>
+        <div class="section-body collapsed" id="sectionActivity-body">
+          <div class="metric-grid-3">
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">👣</span> Steps</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">goal: 10,000</div>
+              <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:0%"></div></div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">⚡</span> Active Min</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">minutes</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🏋️</span> Strain</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">/ 21</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">📍</span> Distance</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">miles</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🏔️</span> Floors</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">floors</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🔥</span> Active Cal</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">kcal</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🪑</span> Sedentary</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">hrs</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">📊</span> Move Score</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">/ 100</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Section 3: Nutrition AI -->
+      <!-- Section 3: Nutrition Goals -->
       <div class="dash-section">
-        <div class="dash-section-title">🥗 Nutrition AI</div>
-        <div class="metric-grid-3">
-          <div class="metric-card light" style="grid-column: span 3;">
-            <div class="metric-icon-label"><span class="mi">🔥</span> Calories</div>
-            <div style="display:flex;align-items:baseline;gap:6px;">
-              <div class="metric-value" id="dashCalConsumed">0</div>
-              <div class="metric-unit">/ <span id="dashCalBudget">2000</span> kcal</div>
+        <div class="dash-section-title">🥗 Nutrition — Today</div>
+        <div class="goal-progress-list" id="goalProgressList">
+          <!-- Calories -->
+          <div class="goal-row">
+            <div class="goal-row-top">
+              <span class="goal-label">Calories</span>
+              <span class="goal-numbers" id="goalCalText">— / — kcal</span>
             </div>
-            <div class="progress-bar-wrap" style="background:rgba(10,186,181,0.12);height:8px;margin-top:6px;">
-              <div class="progress-bar-fill" id="dashCalProgress" style="width:0%;height:100%;"></div>
+            <div class="goal-bar-track"><div class="goal-bar-fill tiffany" id="goalCalBar" style="width:0%"></div></div>
+            <div class="goal-remaining" id="goalCalRemain"></div>
+          </div>
+          <!-- Protein -->
+          <div class="goal-row">
+            <div class="goal-row-top">
+              <span class="goal-label">Protein</span>
+              <span class="goal-numbers" id="goalProtText">— / — g</span>
             </div>
+            <div class="goal-bar-track"><div class="goal-bar-fill coral" id="goalProtBar" style="width:0%"></div></div>
+            <div class="goal-remaining" id="goalProtRemain"></div>
           </div>
-          <div class="metric-card light">
-            <div class="metric-icon-label"><span class="mi">🥩</span> Protein</div>
-            <div class="metric-value" id="dashProtein">0</div>
-            <div class="metric-unit">g / <span id="dashProteinTarget">150</span>g</div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="dashProteinProgress" style="width:0%"></div></div>
+          <!-- Carbs -->
+          <div class="goal-row">
+            <div class="goal-row-top">
+              <span class="goal-label">Carbs</span>
+              <span class="goal-numbers" id="goalCarbText">— / — g</span>
+            </div>
+            <div class="goal-bar-track"><div class="goal-bar-fill peach" id="goalCarbBar" style="width:0%"></div></div>
+            <div class="goal-remaining" id="goalCarbRemain"></div>
           </div>
-          <div class="metric-card light">
-            <div class="metric-icon-label"><span class="mi">🌾</span> Carbs</div>
-            <div class="metric-value" id="dashCarbs">0</div>
-            <div class="metric-unit">g / <span id="dashCarbsTarget">200</span>g</div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="dashCarbsProgress" style="width:0%"></div></div>
+          <!-- Fat -->
+          <div class="goal-row">
+            <div class="goal-row-top">
+              <span class="goal-label">Fat</span>
+              <span class="goal-numbers" id="goalFatText">— / — g</span>
+            </div>
+            <div class="goal-bar-track"><div class="goal-bar-fill gold" id="goalFatBar" style="width:0%"></div></div>
+            <div class="goal-remaining" id="goalFatRemain"></div>
           </div>
-          <div class="metric-card light">
-            <div class="metric-icon-label"><span class="mi">🥑</span> Fat</div>
-            <div class="metric-value" id="dashFat">0</div>
-            <div class="metric-unit">g / <span id="dashFatTarget">65</span>g</div>
-            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="dashFatProgress" style="width:0%"></div></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🌿</span> Fiber</div>
-            <div class="metric-value dimmed" id="dashFiber">—</div>
-            <div class="metric-unit">g</div>
-            <div class="metric-sub">goal: 25g+</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🍽️</span> Food Quality</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">AI score</div>
-            <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🕑</span> Last Meal</div>
-            <div class="metric-value dimmed" id="dashLastMeal">—</div>
-            <div class="metric-unit" id="dashLastMealUnit">hrs ago</div>
+          <!-- Set up profile CTA if no targets -->
+          <div id="goalSetupCta" style="display:none; text-align:center; padding:8px 0;">
+            <span style="font-size:0.82rem; color:#5a8a88;">Set your goals in </span>
+            <span style="font-size:0.82rem; color:#0abab5; cursor:pointer;" onclick="switchTab('profile')">Profile →</span>
           </div>
         </div>
-
-        <!-- Water logging -->
-        <div class="water-section">
-          <div class="water-header">
-            <div class="water-label">💧 Water Intake</div>
-            <div class="water-count"><span id="waterCount">0</span> / 8 cups</div>
-          </div>
-          <div class="water-btns">
-            <button class="btn-water" onclick="logWater(1)">+1 cup</button>
-            <button class="btn-water" onclick="logWater(2)">+2 cups</button>
-            <button class="btn-water" onclick="logWater(4)">+4 cups</button>
-            <button class="btn-water" onclick="logWaterCustom()">Custom</button>
-          </div>
+        <!-- hidden macro totals for goal bar reading -->
+        <div id="macroTotals" style="display:none;">
+          <span id="dashCalConsumed">0</span>
+          <span id="dashProtein">0</span>
+          <span id="dashCarbs">0</span>
+          <span id="dashFat">0</span>
+          <span id="dashFiber">0</span>
+          <span id="dashLastMeal"></span>
+          <span id="dashLastMealUnit"></span>
+          <span id="todayProtein"></span>
+          <span id="todayCarbs"></span>
+          <span id="todayFat"></span>
         </div>
       </div>
 
       <!-- Section 4: Cardiovascular -->
-      <div class="dash-section">
-        <div class="dash-section-title">❤️ Cardiovascular</div>
-        <div class="metric-grid-3">
-          <div class="metric-card" style="grid-column: span 3;">
-            <div class="metric-icon-label"><span class="mi">📉</span> Heart Rate Zones</div>
-            <div class="hr-zones-bar" id="hrZonesBar">
-              <div class="hr-zone" style="flex:4;background:rgba(148,163,184,0.4);border-radius:3px;" title="Rest"></div>
-              <div class="hr-zone" style="flex:0;background:#0abab5;" title="Fat Burn"></div>
-              <div class="hr-zone" style="flex:0;background:#ffb347;" title="Cardio"></div>
-              <div class="hr-zone" style="flex:0;background:#ff6b6b;" title="Peak"></div>
+      <div class="collapsible-section" id="sectionCardio">
+        <div class="section-toggle" onclick="toggleSection('sectionCardio')">
+          <span class="dash-section-title" style="padding:0; margin:0;">❤️ Cardiovascular</span>
+          <span class="toggle-icon" id="sectionCardio-icon">▼</span>
+        </div>
+        <div class="section-body collapsed" id="sectionCardio-body">
+          <div class="metric-grid-3">
+            <div class="metric-card" style="grid-column: span 3;">
+              <div class="metric-icon-label"><span class="mi">📉</span> Heart Rate Zones</div>
+              <div class="hr-zones-bar" id="hrZonesBar">
+                <div class="hr-zone" style="flex:4;background:rgba(148,163,184,0.4);border-radius:3px;" title="Rest"></div>
+                <div class="hr-zone" style="flex:0;background:#0abab5;" title="Fat Burn"></div>
+                <div class="hr-zone" style="flex:0;background:#ffb347;" title="Cardio"></div>
+                <div class="hr-zone" style="flex:0;background:#ff6b6b;" title="Peak"></div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">
+                <span style="font-size:0.62rem;color:#5a8a88;">⬜ Rest</span>
+                <span style="font-size:0.62rem;color:#0abab5;">🟦 Fat Burn</span>
+                <span style="font-size:0.62rem;color:#ffb347;">🟧 Cardio</span>
+                <span style="font-size:0.62rem;color:#ff6b6b;">🟥 Peak</span>
+              </div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable to see zones</div>
             </div>
-            <div style="display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;">
-              <span style="font-size:0.62rem;color:#5a8a88;">⬜ Rest</span>
-              <span style="font-size:0.62rem;color:#0abab5;">🟦 Fat Burn</span>
-              <span style="font-size:0.62rem;color:#ffb347;">🟧 Cardio</span>
-              <span style="font-size:0.62rem;color:#ff6b6b;">🟥 Peak</span>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🫁</span> VO₂ Max</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">mL/kg/min</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
             </div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable to see zones</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🫁</span> VO₂ Max</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">mL/kg/min</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🩸</span> SpO₂</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">%</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">🔋</span> Body Battery</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">/ 100</div>
-            <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🩸</span> SpO₂</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">%</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">🔋</span> Body Battery</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">/ 100</div>
+              <div class="metric-connect" onclick="switchTab('profile')">Connect wearable</div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Section 5: Body Composition -->
-      <div class="dash-section">
-        <div class="dash-section-title">⚖️ Body Composition</div>
-        <div class="metric-grid-3">
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">⚖️</span> Weight</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">lbs</div>
-            <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">📏</span> BMI</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit"></div>
-            <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-icon-label"><span class="mi">📉</span> Body Fat</div>
-            <div class="metric-value dimmed">—</div>
-            <div class="metric-unit">%</div>
-            <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
+      <div class="collapsible-section" id="sectionBody">
+        <div class="section-toggle" onclick="toggleSection('sectionBody')">
+          <span class="dash-section-title" style="padding:0; margin:0;">⚖️ Body Composition</span>
+          <span class="toggle-icon" id="sectionBody-icon">▼</span>
+        </div>
+        <div class="section-body collapsed" id="sectionBody-body">
+          <div class="metric-grid-3">
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">⚖️</span> Weight</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">lbs</div>
+              <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">📏</span> BMI</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit"></div>
+              <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-icon-label"><span class="mi">📉</span> Body Fat</div>
+              <div class="metric-value dimmed">—</div>
+              <div class="metric-unit">%</div>
+              <div class="metric-connect" onclick="switchTab('food')">Log to track</div>
+            </div>
           </div>
         </div>
       </div>
@@ -2133,6 +2199,21 @@
           <li class="food-empty" id="foodEmpty">Nothing logged yet today.</li>
         </ul>
       </div>
+
+      <div class="section-card">
+        <div class="section-card-title">💧 Water Intake</div>
+        <div class="water-count-row">
+          <span class="water-count-label">Today:</span>
+          <span class="water-count-value" id="waterCount">0</span>
+          <span class="water-count-label">/ <span id="waterTarget">8</span> cups</span>
+        </div>
+        <div class="water-btn-row">
+          <button class="water-btn" onclick="addWater(1)">+1</button>
+          <button class="water-btn" onclick="addWater(2)">+2</button>
+          <button class="water-btn" onclick="addWater(4)">+4</button>
+          <button class="water-btn water-btn-reset" onclick="resetWater()">Reset</button>
+        </div>
+      </div>
     </div>
 
     <!-- ===== INSIGHTS + CHAT TAB ===== -->
@@ -2193,6 +2274,77 @@
       <div class="profile-actions">
         <button class="btn-profile-action btn-settings" onclick="openSettingsModal()">⚙️ Settings</button>
         <button class="btn-profile-action btn-upgrade" id="upgradeBtn" onclick="openUpgradeModal()">⬆️ Upgrade to Premium</button>
+      </div>
+
+      <!-- Profile setup form -->
+      <div class="section-card" id="profileSetupCard">
+        <div class="section-card-title">👤 Your Profile</div>
+        <form id="profileForm" onsubmit="saveProfile(event)">
+          <div class="profile-field-row">
+            <div class="profile-field">
+              <label class="profile-label">Sex</label>
+              <select id="profSex" class="profile-select">
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+            <div class="profile-field">
+              <label class="profile-label">Age</label>
+              <input type="number" id="profAge" placeholder="35" min="13" max="120" class="profile-input" />
+            </div>
+          </div>
+          <div class="profile-field-row">
+            <div class="profile-field">
+              <label class="profile-label">Height</label>
+              <div style="display:flex; gap:4px;">
+                <input type="number" id="profHeightFt" placeholder="5" min="3" max="8" class="profile-input" style="width:50%;" />
+                <input type="number" id="profHeightIn" placeholder="10" min="0" max="11" class="profile-input" style="width:50%;" />
+              </div>
+              <div style="font-size:0.68rem; color:#5a8a88; margin-top:2px;">ft &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in</div>
+            </div>
+            <div class="profile-field">
+              <label class="profile-label">Weight (lbs)</label>
+              <input type="number" id="profWeightLbs" placeholder="175" min="50" max="600" class="profile-input" />
+            </div>
+          </div>
+          <div class="profile-field-row">
+            <div class="profile-field">
+              <label class="profile-label">Activity Level</label>
+              <select id="profActivity" class="profile-select">
+                <option value="sedentary">Sedentary (desk job)</option>
+                <option value="light">Light (1-3x/wk)</option>
+                <option value="moderate" selected>Moderate (3-5x/wk)</option>
+                <option value="active">Active (6-7x/wk)</option>
+                <option value="very_active">Very Active (athlete)</option>
+              </select>
+            </div>
+            <div class="profile-field">
+              <label class="profile-label">Goal</label>
+              <select id="profGoal" class="profile-select">
+                <option value="lose">Lose Weight</option>
+                <option value="maintain" selected>Maintain</option>
+                <option value="gain">Gain Muscle</option>
+                <option value="performance">Performance</option>
+              </select>
+            </div>
+          </div>
+          <div class="profile-calc-note" id="profileCalcNote" style="display:none;">
+            <div class="calc-result" id="calcResult"></div>
+          </div>
+          <button type="submit" class="btn-save-profile" id="saveProfileBtn">Save Profile &amp; Calculate Targets</button>
+        </form>
+        <div id="profileSavedTargets" style="display:none; margin-top:16px;">
+          <div class="dash-section-title" style="padding-top:0;">📊 Your Daily Targets</div>
+          <div class="targets-grid">
+            <div class="target-chip"><span class="target-chip-label">Calories</span><span class="target-chip-val" id="tCalories">—</span></div>
+            <div class="target-chip"><span class="target-chip-label">Protein</span><span class="target-chip-val" id="tProtein">—g</span></div>
+            <div class="target-chip"><span class="target-chip-label">Carbs</span><span class="target-chip-val" id="tCarbs">—g</span></div>
+            <div class="target-chip"><span class="target-chip-label">Fat</span><span class="target-chip-val" id="tFat">—g</span></div>
+            <div class="target-chip"><span class="target-chip-label">Steps</span><span class="target-chip-val" id="tSteps">—</span></div>
+            <div class="target-chip"><span class="target-chip-label">Sleep</span><span class="target-chip-val" id="tSleep">—h</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="section-card">
@@ -2298,8 +2450,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // Load notification prefs
   loadNotifPrefs();
 
-  // Load water from localStorage
-  loadWaterCount();
 });
 
 /* ===== AUTH STATE ===== */
@@ -2323,6 +2473,8 @@ async function loadApp() {
     showApp();
     loadFoodLog();
     loadHealthSummary();
+    loadProfile();
+    setWaterCount(getWaterCount());
   } catch (e) {
     handleLogout();
   }
@@ -2497,35 +2649,25 @@ function updateNutritionDash(totals) {
   var protein = totals.protein || 0;
   var carbs = totals.carbs || 0;
   var fat = totals.fat || 0;
-  var fiber = totals.fiber || null;
 
-  var calBudget = 2000;
-  var proteinTarget = 150;
-  var carbsTarget = 200;
-  var fatTarget = 65;
-
-  document.getElementById('dashCalConsumed').textContent = cals;
-  document.getElementById('dashCalProgress').style.width = Math.min(100, Math.round(cals / calBudget * 100)) + '%';
-
-  document.getElementById('dashProtein').textContent = Math.round(protein);
-  document.getElementById('dashProteinProgress').style.width = Math.min(100, Math.round(protein / proteinTarget * 100)) + '%';
-
-  document.getElementById('dashCarbs').textContent = Math.round(carbs);
-  document.getElementById('dashCarbsProgress').style.width = Math.min(100, Math.round(carbs / carbsTarget * 100)) + '%';
-
-  document.getElementById('dashFat').textContent = Math.round(fat);
-  document.getElementById('dashFatProgress').style.width = Math.min(100, Math.round(fat / fatTarget * 100)) + '%';
-
-  if (fiber !== null && fiber > 0) {
-    document.getElementById('dashFiber').textContent = Math.round(fiber) + 'g';
-    document.getElementById('dashFiber').classList.remove('dimmed');
-  }
+  // Store in hidden spans
+  var c = document.getElementById('dashCalConsumed');
+  var p = document.getElementById('dashProtein');
+  var cb = document.getElementById('dashCarbs');
+  var ft = document.getElementById('dashFat');
+  if (c) c.textContent = cals;
+  if (p) p.textContent = Math.round(protein);
+  if (cb) cb.textContent = Math.round(carbs);
+  if (ft) ft.textContent = Math.round(fat);
 
   // PAL score based on calories logged (simple signal)
+  var calBudget = (userProfile && userProfile.target_calories) ? userProfile.target_calories : 2000;
   if (cals > 0) {
     var score = Math.min(100, Math.round(40 + (Math.min(cals, calBudget) / calBudget) * 30));
     updatePalScore(score);
   }
+
+  updateGoalBars();
 }
 
 /* ===== PAL SCORE ===== */
@@ -2555,33 +2697,21 @@ function updatePalScore(score) {
   }
 }
 
-/* ===== WATER LOGGING ===== */
-function loadWaterCount() {
-  var today = new Date().toDateString();
-  var stored = JSON.parse(localStorage.getItem('rp_water') || '{"date":"","count":0}');
-  if (stored.date !== today) {
-    localStorage.setItem('rp_water', JSON.stringify({ date: today, count: 0 }));
-    document.getElementById('waterCount').textContent = '0';
-  } else {
-    document.getElementById('waterCount').textContent = stored.count;
-  }
+/* ===== WATER (Food tab) ===== */
+function getWaterCount() {
+  var key = 'rp_water_' + new Date().toDateString();
+  return parseInt(localStorage.getItem(key) || '0');
 }
-
-function logWater(cups) {
-  var today = new Date().toDateString();
-  var stored = JSON.parse(localStorage.getItem('rp_water') || '{"date":"","count":0}');
-  if (stored.date !== today) stored = { date: today, count: 0 };
-  stored.count = Math.min(20, stored.count + cups);
-  localStorage.setItem('rp_water', JSON.stringify(stored));
-  document.getElementById('waterCount').textContent = stored.count;
-  showToast('+' + cups + ' cup' + (cups > 1 ? 's' : '') + ' logged 💧', 'success');
+function setWaterCount(n) {
+  var key = 'rp_water_' + new Date().toDateString();
+  localStorage.setItem(key, n);
+  var el = document.getElementById('waterCount');
+  if (el) el.textContent = n;
+  var tgt = document.getElementById('waterTarget');
+  if (tgt && userProfile) tgt.textContent = userProfile.target_water || 8;
 }
-
-function logWaterCustom() {
-  var val = prompt('How many cups?');
-  var cups = parseInt(val);
-  if (cups && cups > 0) logWater(cups);
-}
+function addWater(n) { setWaterCount(Math.min(20, getWaterCount() + n)); }
+function resetWater() { setWaterCount(0); }
 
 /* ===== CALORIE TREND CHART ===== */
 function setChartRange(range) {
@@ -2829,14 +2959,28 @@ async function loadFoodLog() {
     updateNutritionDash(totals);
     renderCalorieChart();
 
+    // Update macro totals for goal bars
+    var totProtein = (entries).reduce(function(s,e) { return s + (parseFloat(e.protein)||0); }, 0);
+    var totCarbs = (entries).reduce(function(s,e) { return s + (parseFloat(e.carbs)||0); }, 0);
+    var totFat = (entries).reduce(function(s,e) { return s + (parseFloat(e.fat)||0); }, 0);
+    var tpEl = document.getElementById('todayProtein');
+    var tcEl = document.getElementById('todayCarbs');
+    var tfEl = document.getElementById('todayFat');
+    if (tpEl) tpEl.textContent = totProtein.toFixed(1);
+    if (tcEl) tcEl.textContent = totCarbs.toFixed(1);
+    if (tfEl) tfEl.textContent = totFat.toFixed(1);
+    updateGoalBars();
+    // Update water target from profile
+    setWaterCount(getWaterCount());
+
     // Last meal timing
     if (entries.length > 0) {
       var lastEntry = entries[entries.length - 1];
       var lastTime = new Date(lastEntry.created_at || lastEntry.logged_at || '');
       var hoursAgo = Math.round((Date.now() - lastTime.getTime()) / 3600000);
       if (!isNaN(hoursAgo) && hoursAgo >= 0 && hoursAgo < 24) {
-        document.getElementById('dashLastMeal').textContent = hoursAgo;
-        document.getElementById('dashLastMeal').classList.remove('dimmed');
+        var lmEl = document.getElementById('dashLastMeal');
+        if (lmEl) lmEl.textContent = hoursAgo;
       }
     }
   } catch (e) { /* fail silently */ }
@@ -3063,6 +3207,136 @@ function showToast(message, type) {
   }, 3500);
 }
 
+
+/* ===== PROFILE ===== */
+var userProfile = null;
+
+async function loadProfile() {
+  try {
+    var res = await apiFetch('/api/auth/profile');
+    if (!res.ok) return;
+    var data = await res.json();
+    userProfile = data.profile;
+    if (userProfile) {
+      populateProfileForm(userProfile);
+      showSavedTargets(userProfile);
+    }
+  } catch (e) {}
+}
+
+function populateProfileForm(p) {
+  var sexEl = document.getElementById('profSex');
+  var ageEl = document.getElementById('profAge');
+  var ftEl = document.getElementById('profHeightFt');
+  var inEl = document.getElementById('profHeightIn');
+  var lbsEl = document.getElementById('profWeightLbs');
+  var actEl = document.getElementById('profActivity');
+  var goalEl = document.getElementById('profGoal');
+  if (sexEl && p.sex) sexEl.value = p.sex;
+  if (ageEl && p.age) ageEl.value = p.age;
+  if (ftEl && inEl && p.height_cm) {
+    var totalIn = p.height_cm / 2.54;
+    ftEl.value = Math.floor(totalIn / 12);
+    inEl.value = Math.round(totalIn % 12);
+  }
+  if (lbsEl && p.weight_kg) lbsEl.value = Math.round(p.weight_kg * 2.20462);
+  if (actEl && p.activity_level) actEl.value = p.activity_level;
+  if (goalEl && p.goal) goalEl.value = p.goal;
+}
+
+function showSavedTargets(p) {
+  var el = document.getElementById('profileSavedTargets');
+  if (!el) return;
+  el.style.display = 'block';
+  if (p.target_calories) document.getElementById('tCalories').textContent = p.target_calories;
+  if (p.target_protein) document.getElementById('tProtein').textContent = p.target_protein + 'g';
+  if (p.target_carbs) document.getElementById('tCarbs').textContent = p.target_carbs + 'g';
+  if (p.target_fat) document.getElementById('tFat').textContent = p.target_fat + 'g';
+  if (p.target_steps) document.getElementById('tSteps').textContent = (p.target_steps||10000).toLocaleString();
+  if (p.target_sleep_hours) document.getElementById('tSleep').textContent = p.target_sleep_hours + 'h';
+}
+
+async function saveProfile(e) {
+  e.preventDefault();
+  var btn = document.getElementById('saveProfileBtn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  try {
+    var ft = parseFloat(document.getElementById('profHeightFt').value) || 0;
+    var inch = parseFloat(document.getElementById('profHeightIn').value) || 0;
+    var height_cm = ((ft * 12) + inch) * 2.54 || null;
+    var lbs = parseFloat(document.getElementById('profWeightLbs').value) || null;
+    var weight_kg = lbs ? lbs / 2.20462 : null;
+    var payload = {
+      sex: document.getElementById('profSex').value || null,
+      age: parseInt(document.getElementById('profAge').value) || null,
+      height_cm: height_cm,
+      weight_kg: weight_kg,
+      activity_level: document.getElementById('profActivity').value,
+      goal: document.getElementById('profGoal').value,
+    };
+    var res = await apiFetch('/api/auth/profile', { method: 'POST', body: JSON.stringify(payload) });
+    var data = await res.json();
+    if (!res.ok) { showToast(data.error || 'Save failed', 'error'); return; }
+    userProfile = data.profile;
+    showSavedTargets(userProfile);
+    updateGoalBars();
+    showToast('Profile saved — targets calculated ✓', 'success');
+  } catch (err) {
+    showToast('Save failed — try again', 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Save Profile & Calculate Targets';
+  }
+}
+
+/* ===== GOAL PROGRESS BARS ===== */
+function updateGoalBars() {
+  if (!userProfile || !userProfile.target_calories) {
+    var cta = document.getElementById('goalSetupCta');
+    if (cta) cta.style.display = 'block';
+    return;
+  }
+  var cta = document.getElementById('goalSetupCta');
+  if (cta) cta.style.display = 'none';
+
+  var cal = parseInt(document.getElementById('dashCalConsumed') ? document.getElementById('dashCalConsumed').textContent : 0) || 0;
+  var prot = parseFloat(document.getElementById('todayProtein') ? document.getElementById('todayProtein').textContent : 0) || 0;
+  var carb = parseFloat(document.getElementById('todayCarbs') ? document.getElementById('todayCarbs').textContent : 0) || 0;
+  var fat = parseFloat(document.getElementById('todayFat') ? document.getElementById('todayFat').textContent : 0) || 0;
+
+  setGoalBar('goalCal', cal, userProfile.target_calories, 'kcal');
+  setGoalBar('goalProt', prot, userProfile.target_protein, 'g');
+  setGoalBar('goalCarb', carb, userProfile.target_carbs, 'g');
+  setGoalBar('goalFat', fat, userProfile.target_fat, 'g');
+}
+
+function setGoalBar(prefix, current, target, unit) {
+  var textEl = document.getElementById(prefix + 'Text');
+  var barEl = document.getElementById(prefix + 'Bar');
+  var remainEl = document.getElementById(prefix + 'Remain');
+  if (!textEl || !barEl || !remainEl) return;
+  if (!target) { textEl.textContent = current + ' ' + unit + ' logged'; return; }
+  var pct = Math.min(100, Math.round((current / target) * 100));
+  var remaining = target - current;
+  textEl.textContent = current + ' / ' + target + ' ' + unit;
+  barEl.style.width = pct + '%';
+  if (remaining > 0) {
+    remainEl.textContent = remaining + ' ' + unit + ' to go';
+    remainEl.style.color = '#5a8a88';
+  } else {
+    remainEl.textContent = 'Goal hit! ' + Math.abs(remaining) + ' ' + unit + ' over';
+    remainEl.style.color = '#10b981';
+  }
+}
+
+/* ===== COLLAPSIBLE SECTIONS ===== */
+function toggleSection(id) {
+  var body = document.getElementById(id + '-body');
+  var icon = document.getElementById(id + '-icon');
+  var isExpanded = body.classList.contains('expanded');
+  body.classList.toggle('expanded', !isExpanded);
+  body.classList.toggle('collapsed', isExpanded);
+  if (icon) icon.style.transform = isExpanded ? '' : 'rotate(180deg)';
+}
 /* ===== UTILS ===== */
 function escHtml(str) {
   return String(str)

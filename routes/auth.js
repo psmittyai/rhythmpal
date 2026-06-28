@@ -85,6 +85,79 @@ router.get('/me', requireAuth, async (req, res) => {
   }
 });
 
+// GET /api/auth/profile — get user profile + targets
+router.get('/profile', requireAuth, async (req, res) => {
+  try {
+    const result = await query(
+      'SELECT * FROM user_profiles WHERE user_id = $1',
+      [req.user.id]
+    );
+    res.json({ profile: result.rows[0] || null });
+  } catch (err) {
+    console.error('Profile fetch error:', err);
+    res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+});
+
+// POST /api/auth/profile — save/update profile + auto-calculate targets
+router.post('/profile', requireAuth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { sex, age, height_cm, weight_kg, activity_level, goal,
+            target_calories, target_protein, target_carbs, target_fat,
+            target_fiber, target_water, target_steps, target_sleep_hours, target_active_minutes } = req.body;
+
+    // Auto-calculate targets if not manually set (Mifflin-St Jeor + ISSN macros)
+    let calcCalories = target_calories;
+    let calcProtein = target_protein;
+    let calcCarbs = target_carbs;
+    let calcFat = target_fat;
+
+    if (!calcCalories && weight_kg && height_cm && age && sex) {
+      let bmr;
+      if (sex === 'male') {
+        bmr = 10 * weight_kg + 6.25 * height_cm - 5 * age + 5;
+      } else {
+        bmr = 10 * weight_kg + 6.25 * height_cm - 5 * age - 161;
+      }
+      const activityMultipliers = { sedentary: 1.2, light: 1.375, moderate: 1.55, active: 1.725, very_active: 1.9 };
+      const tdee = bmr * (activityMultipliers[activity_level] || 1.55);
+      if (goal === 'lose') calcCalories = Math.round(tdee - 500);
+      else if (goal === 'gain') calcCalories = Math.round(tdee + 300);
+      else calcCalories = Math.round(tdee);
+      calcProtein = calcProtein || Math.round(weight_kg * 1.8);
+      calcFat = calcFat || Math.round(calcCalories * 0.25 / 9);
+      calcCarbs = calcCarbs || Math.round((calcCalories - calcProtein * 4 - calcFat * 9) / 4);
+    }
+
+    const result = await query(
+      `INSERT INTO user_profiles (user_id, sex, age, height_cm, weight_kg, activity_level, goal,
+        target_calories, target_protein, target_carbs, target_fat, target_fiber,
+        target_water, target_steps, target_sleep_hours, target_active_minutes, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,NOW())
+       ON CONFLICT (user_id) DO UPDATE SET
+        sex=EXCLUDED.sex, age=EXCLUDED.age, height_cm=EXCLUDED.height_cm, weight_kg=EXCLUDED.weight_kg,
+        activity_level=EXCLUDED.activity_level, goal=EXCLUDED.goal,
+        target_calories=EXCLUDED.target_calories, target_protein=EXCLUDED.target_protein,
+        target_carbs=EXCLUDED.target_carbs, target_fat=EXCLUDED.target_fat,
+        target_fiber=EXCLUDED.target_fiber, target_water=EXCLUDED.target_water,
+        target_steps=EXCLUDED.target_steps, target_sleep_hours=EXCLUDED.target_sleep_hours,
+        target_active_minutes=EXCLUDED.target_active_minutes, updated_at=NOW()
+       RETURNING *`,
+      [userId, sex||null, age||null, height_cm||null, weight_kg||null,
+       activity_level||'moderate', goal||'maintain',
+       calcCalories||null, calcProtein||null, calcCarbs||null, calcFat||null,
+       target_fiber||25, target_water||8, target_steps||10000,
+       target_sleep_hours||8, target_active_minutes||30]
+    );
+
+    res.json({ profile: result.rows[0] });
+  } catch (err) {
+    console.error('Profile save error:', err);
+    res.status(500).json({ error: 'Failed to save profile' });
+  }
+});
+
 // DELETE /api/auth/account
 router.delete('/account', requireAuth, async (req, res) => {
   try {

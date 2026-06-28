@@ -8,19 +8,19 @@ const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const SYSTEM_PROMPT = `You are RhythmPal, a health intelligence assistant. You have access to the user's health data and help them understand patterns, answer health questions, and provide actionable insights.
+const SYSTEM_PROMPT = `You are RhythmPal, a personal health intelligence assistant. You have real data about this user — their profile, daily targets, today's food log, and weekly trends.
 
-Your style:
-- Be specific, evidence-based, and proactive
-- Give concrete, actionable advice — not generic platitudes
-- Reference patterns you notice across their data when available
-- Be warm but direct — health matters, don't sugarcoat
-- Keep responses concise — 2-4 sentences unless a complex explanation is needed
-- Use plain language — no jargon unless you explain it
+Your job is to give them daily actionable coaching based on THEIR actual numbers — not generic advice. Reference their specific data every time.
 
-When users log food, celebrate small wins and note nutritional patterns.
-When they ask about sleep or HRV, connect it to energy, recovery, and performance.
-When data is missing (wearable not connected), acknowledge it and suggest they connect.`;
+Rules:
+- Always reference their actual numbers: "You've hit 82g protein — you need 58g more to reach your 140g target"
+- Point out patterns: "Your protein has been low 4 of the last 7 days — this is limiting your recovery"
+- Give specific food suggestions when they're short on a macro: "Add a chicken breast or Greek yogurt to close that protein gap"
+- If they're on track, acknowledge it specifically and suggest what to focus on next
+- Keep replies to 3-5 sentences max — dense with value, zero filler
+- Never give canned advice like "drink more water" without connecting it to their actual data
+- Celebrate wins when they hit targets: make it feel earned
+- Be direct, warm, and smart — like a coach who actually looked at their data`;
 
 // POST /api/chat
 router.post('/', requireAuth, async (req, res) => {
@@ -49,18 +49,67 @@ router.post('/', requireAuth, async (req, res) => {
     const user = userResult.rows[0];
     const foodEntries = foodResult.rows;
 
+    // Get profile + goals
+    const profileResult = await query(
+      'SELECT * FROM user_profiles WHERE user_id = $1',
+      [userId]
+    );
+    const profile = profileResult.rows[0] || {};
+
+    // Get 7-day food history for trend context
+    const weekStart = new Date();
+    weekStart.setDate(weekStart.getDate() - 7);
+    const weekFoodResult = await query(
+      `SELECT DATE(logged_at) as day,
+              SUM(calories) as calories, SUM(protein) as protein,
+              SUM(carbs) as carbs, SUM(fat) as fat
+       FROM food_logs WHERE user_id = $1 AND logged_at >= $2
+       GROUP BY DATE(logged_at) ORDER BY day DESC`,
+      [userId, weekStart.toISOString()]
+    );
+
     let contextBlock = '';
-    if (user) {
-      contextBlock += `User: ${user.name || 'Unknown'} (${user.tier} tier)\n`;
+    if (user) contextBlock += `User: ${user.name || 'Unknown'} (${user.tier} tier)\n`;
+
+    if (profile.weight_kg) {
+      contextBlock += `Profile: ${profile.sex || '?'}, age ${profile.age || '?'}, `;
+      contextBlock += `${profile.weight_kg}kg, goal: ${profile.goal || 'maintain'}\n`;
+      contextBlock += `Daily targets: ${profile.target_calories || '?'} kcal, `;
+      contextBlock += `${profile.target_protein || '?'}g protein, ${profile.target_carbs || '?'}g carbs, `;
+      contextBlock += `${profile.target_fat || '?'}g fat\n`;
     }
+
     if (foodEntries.length > 0) {
       const totalCals = foodEntries.reduce((sum, e) => sum + (e.calories || 0), 0);
-      contextBlock += `Today's food (${foodEntries.length} entries, ~${totalCals} kcal):\n`;
+      const totalProtein = foodEntries.reduce((sum, e) => sum + (parseFloat(e.protein) || 0), 0);
+      const totalCarbs = foodEntries.reduce((sum, e) => sum + (parseFloat(e.carbs) || 0), 0);
+      const totalFat = foodEntries.reduce((sum, e) => sum + (parseFloat(e.fat) || 0), 0);
+
+      contextBlock += `Today's intake: ${totalCals} kcal, ${totalProtein.toFixed(0)}g protein, `;
+      contextBlock += `${totalCarbs.toFixed(0)}g carbs, ${totalFat.toFixed(0)}g fat\n`;
+
+      if (profile.target_calories) {
+        const remaining = profile.target_calories - totalCals;
+        contextBlock += `Remaining today: ${remaining > 0 ? remaining + ' kcal to goal' : Math.abs(remaining) + ' kcal over goal'}\n`;
+      }
+      if (profile.target_protein) {
+        const proteinLeft = profile.target_protein - totalProtein;
+        contextBlock += `Protein: ${proteinLeft > 0 ? proteinLeft.toFixed(0) + 'g to target' : 'target hit'}\n`;
+      }
+
+      contextBlock += `Food today (${foodEntries.length} entries):\n`;
       foodEntries.forEach(e => {
         contextBlock += `- ${e.description}${e.calories ? ` (${e.calories} kcal)` : ''}\n`;
       });
     } else {
       contextBlock += 'No food logged today.\n';
+    }
+
+    if (weekFoodResult.rows.length > 1) {
+      contextBlock += `7-day food trend:\n`;
+      weekFoodResult.rows.forEach(d => {
+        contextBlock += `- ${d.day}: ${d.calories || 0} kcal, ${parseFloat(d.protein||0).toFixed(0)}g protein\n`;
+      });
     }
 
     const userMessageWithContext = contextBlock

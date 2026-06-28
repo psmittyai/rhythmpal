@@ -25,6 +25,12 @@ router.get('/summary', requireAuth, async (req, res) => {
 
     const food = foodResult.rows[0];
 
+    const profileResult = await query(
+      'SELECT * FROM user_profiles WHERE user_id = $1',
+      [userId]
+    );
+    const profile = profileResult.rows[0] || {};
+
     // Stub wearable data (replace with real wearable integrations)
     const snapshot = {
       date: new Date().toISOString().split('T')[0],
@@ -50,6 +56,18 @@ router.get('/summary', requireAuth, async (req, res) => {
         carbs: parseFloat(food.total_carbs) || 0,
         fat: parseFloat(food.total_fat) || 0,
       },
+      targets: {
+        calories: profile.target_calories || null,
+        protein: profile.target_protein || null,
+        carbs: profile.target_carbs || null,
+        fat: profile.target_fat || null,
+        fiber: profile.target_fiber || null,
+        water: profile.target_water || 8,
+        steps: profile.target_steps || 10000,
+        sleep_hours: profile.target_sleep_hours || 8,
+        active_minutes: profile.target_active_minutes || 30,
+      },
+      profile_set: !!profile.weight_kg,
       wearables_connected: false,
     };
 
