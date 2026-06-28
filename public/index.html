@@ -966,6 +966,49 @@
       .land-nav { padding: 14px 16px; }
       .modal { padding: 24px 18px; }
     }
+    .pal-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, rgba(10,186,181,0.04) 0%, rgba(255,255,255,0) 60%);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .pal-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 48px;
+    }
+    @media (max-width: 768px) {
+      .pal-pillars { grid-template-columns: 1fr; gap: 24px; }
+    }
+    .pal-pillar {
+      background: #ffffff;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 16px;
+      padding: 36px 28px;
+      box-shadow: 0 4px 24px rgba(10,186,181,0.07);
+      text-align: center;
+    }
+    .pal-letter {
+      font-size: 4rem;
+      font-weight: 900;
+      color: #0abab5;
+      line-height: 1;
+      margin-bottom: 16px;
+      font-family: Georgia, serif;
+      letter-spacing: -2px;
+    }
+    .pal-pillar h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1a3332;
+      margin-bottom: 12px;
+    }
+    .pal-pillar p {
+      font-size: 0.95rem;
+      color: #4a7a78;
+      line-height: 1.7;
+    }
   </style>
 </head>
 <body>
@@ -1216,9 +1259,9 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-badge">HEALTH INTELLIGENCE PLATFORM</div>
-    <h1>Your biology has a rhythm.<br>Most apps can't read it.</h1>
-    <p style="font-size:clamp(1.1rem,2.5vw,1.35rem);font-weight:700;color:var(--tiffany);margin-bottom:16px;">RhythmPal can.</p>
-    <p class="hero-sub">RhythmPal synthesizes your wearable biomarkers, nutritional intake, and sleep architecture into a continuous health intelligence layer — surfacing the correlations your body is already telling you, before they become problems.</p>
+    <h1>Your body's rhythm creates data.</h1>
+    <p style="font-size:clamp(1.1rem,2.5vw,1.35rem);font-weight:700;color:var(--tiffany);margin-bottom:16px;">PAL analyzes and optimizes your energy, habits, and performance.</p>
+    <p class="hero-sub">RhythmPal synthesizes your wearable biomarkers, nutritional intake, and sleep data into a continuous intelligence layer — so you always know where your energy, recovery, and performance actually stand.</p>
     <div class="hero-cta">
       <button class="btn-coral" onclick="openModal('signup')">Start Free →</button>
       <button class="btn-ghost" onclick="openModal('login')">Already have an account</button>
@@ -1245,6 +1288,31 @@
       </div>
     </div>
   </div>
+
+  <section class="pal-section">
+    <div class="container">
+      <div class="section-label">WHAT IS PAL?</div>
+      <h2 class="section-title">Persistent Asset Logic.</h2>
+      <p class="section-sub">Three principles that make RhythmPal fundamentally different.</p>
+      <div class="pal-pillars">
+        <div class="pal-pillar">
+          <div class="pal-letter">P</div>
+          <h3>Persistent</h3>
+          <p>Your health data never resets. Every biomarker reading, every meal logged, every night of sleep builds a continuous, compounding model of your unique physiology.</p>
+        </div>
+        <div class="pal-pillar">
+          <div class="pal-letter">A</div>
+          <h3>Asset</h3>
+          <p>Your body's data becomes actionable intelligence. Trends, recovery reports, performance insights — a growing library of knowledge about you, built automatically over time.</p>
+        </div>
+        <div class="pal-pillar">
+          <div class="pal-letter">L</div>
+          <h3>Logic</h3>
+          <p>Cross-domain pattern detection that connects sleep architecture, nutritional timing, HRV trends, and activity load into a single coherent picture of your health.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Features -->
   <section class="section">
