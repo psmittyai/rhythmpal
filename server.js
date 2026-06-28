@@ -6,11 +6,10 @@ const { Pool } = require('pg');
 
 // Run schema on startup
 async function initSchema() {
+  const isInternal = process.env.DATABASE_URL && process.env.DATABASE_URL.includes('.railway.internal');
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DATABASE_URL && process.env.DATABASE_URL.includes('railway.internal')
-      ? false
-      : { rejectUnauthorized: false }
+    ssl: isInternal ? false : { rejectUnauthorized: false },
   });
   try {
     await pool.query(`
