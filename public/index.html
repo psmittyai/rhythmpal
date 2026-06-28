@@ -1215,35 +1215,107 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-badge">⚡ AI-powered health intelligence</div>
-    <h1>Health intelligence that gets<br><em>smarter with you.</em></h1>
-    <p class="hero-sub">RhythmPal connects your wearables, food, sleep, and habits — then finds the patterns you'd never see yourself.</p>
+    <div class="hero-badge">HEALTH INTELLIGENCE PLATFORM</div>
+    <h1>Your biology has a rhythm.<br>Most apps can't read it.</h1>
+    <p style="font-size:clamp(1.1rem,2.5vw,1.35rem);font-weight:700;color:var(--tiffany);margin-bottom:16px;">RhythmPal can.</p>
+    <p class="hero-sub">RhythmPal synthesizes your wearable biomarkers, nutritional intake, and sleep architecture into a continuous health intelligence layer — surfacing the correlations your body is already telling you, before they become problems.</p>
     <div class="hero-cta">
       <button class="btn-coral" onclick="openModal('signup')">Start Free →</button>
       <button class="btn-ghost" onclick="openModal('login')">Already have an account</button>
     </div>
-    <p class="hero-note">Free forever for basic use · No credit card required</p>
+    <p class="hero-note">No credit card · HIPAA-grade data handling · Cancel anytime</p>
   </section>
+
+  <!-- Stats Bar -->
+  <div style="background:#ffffff;border-top:1.5px solid rgba(201,168,76,0.35);border-bottom:1.5px solid rgba(201,168,76,0.35);padding:24px 24px;">
+    <div style="max-width:800px;margin:0 auto;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;">
+      <div style="flex:1;min-width:180px;text-align:center;padding:12px 24px;">
+        <div style="font-size:1.7rem;font-weight:800;color:var(--tiffany);">47+</div>
+        <div style="font-size:0.85rem;color:var(--text);font-weight:600;margin-top:4px;">Biomarkers Tracked</div>
+      </div>
+      <div style="width:1px;height:48px;background:rgba(201,168,76,0.35);"></div>
+      <div style="flex:1;min-width:180px;text-align:center;padding:12px 24px;">
+        <div style="font-size:1.7rem;font-weight:800;color:var(--tiffany);">&lt;8ms</div>
+        <div style="font-size:0.85rem;color:var(--text);font-weight:600;margin-top:4px;">Insight Latency</div>
+      </div>
+      <div style="width:1px;height:48px;background:rgba(201,168,76,0.35);"></div>
+      <div style="flex:1;min-width:180px;text-align:center;padding:12px 24px;">
+        <div style="font-size:1.7rem;font-weight:800;color:var(--tiffany);">12-Week</div>
+        <div style="font-size:0.85rem;color:var(--text);font-weight:600;margin-top:4px;">Trend Modeling</div>
+      </div>
+    </div>
+  </div>
 
   <!-- Features -->
   <section class="section">
     <div class="section-label">How it works</div>
-    <div class="section-title">Everything in one place,<br>patterns you'd miss on your own</div>
+    <div class="section-title">Longitudinal intelligence,<br>not daily snapshots.</div>
+    <p style="text-align:center;color:#4a7a78;font-size:1rem;max-width:620px;margin:-24px auto 48px;line-height:1.7;">Single-day health data is noise. RhythmPal builds a longitudinal model of your physiology — tracking how your HRV, glucose response, sleep stages, and recovery evolve over weeks and months to reveal meaningful signal.</p>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">🔗</div>
-        <h3>Connect Everything</h3>
-        <p>Wearables, food photos, sleep data — all in one place. One tap to connect Apple Health, Fitbit, Garmin, and more.</p>
+        <div class="feature-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 20h6l4-12 6 24 4-16 4 8 4-4h8" stroke="#0abab5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Biomarker Integration</h3>
+        <p>Connects to Oura, Apple Health, Garmin, Whoop, and Fitbit via OAuth 2.0. Ingests HRV, resting heart rate, SpO&#x2082;, sleep stages, respiratory rate, and activity load into a unified physiological timeline.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🧠</div>
-        <h3>AI That Remembers</h3>
-        <p>Learns your patterns over time. Gets smarter every day. The longer you use it, the more useful it becomes.</p>
+        <div class="feature-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="4" fill="#0abab5"/>
+            <circle cx="8" cy="12" r="3" fill="#0abab5" opacity="0.7"/>
+            <circle cx="32" cy="12" r="3" fill="#0abab5" opacity="0.7"/>
+            <circle cx="8" cy="28" r="3" fill="#0abab5" opacity="0.7"/>
+            <circle cx="32" cy="28" r="3" fill="#0abab5" opacity="0.7"/>
+            <line x1="20" y1="16" x2="8" y2="12" stroke="#0abab5" stroke-width="1.5" opacity="0.5"/>
+            <line x1="20" y1="16" x2="32" y2="12" stroke="#0abab5" stroke-width="1.5" opacity="0.5"/>
+            <line x1="20" y1="24" x2="8" y2="28" stroke="#0abab5" stroke-width="1.5" opacity="0.5"/>
+            <line x1="20" y1="24" x2="32" y2="28" stroke="#0abab5" stroke-width="1.5" opacity="0.5"/>
+          </svg>
+        </div>
+        <h3>Adaptive Memory Model</h3>
+        <p>RhythmPal doesn't reset daily. It builds a running model of your baseline physiology and learns how your body responds to sleep, nutrition, stress, and training over time. The longer you use it, the more precise it becomes.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h3>Proactive Insights</h3>
-        <p>Finds connections across your data before you notice them yourself. Low HRV after a late meal? It'll tell you.</p>
+        <div class="feature-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="4" fill="#ff6b6b"/>
+            <circle cx="20" cy="20" r="9" stroke="#ff6b6b" stroke-width="1.5" opacity="0.5"/>
+            <circle cx="20" cy="20" r="15" stroke="#ff6b6b" stroke-width="1" opacity="0.25"/>
+            <line x1="20" y1="4" x2="20" y2="8" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="20" y1="32" x2="20" y2="36" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="4" y1="20" x2="8" y2="20" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round"/>
+            <line x1="32" y1="20" x2="36" y2="20" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Cross-Domain Pattern Detection</h3>
+        <p>Identifies statistically significant correlations across your data streams. Elevated cortisol proxy from HRV suppression following late-night eating. Training load accumulation preceding immune response. Connections a single-metric app will never surface.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Science Section -->
+  <section style="background:rgba(10,186,181,0.06);padding:72px 24px;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div class="section-label" style="display:inline-block;margin-bottom:12px;">The Science</div>
+        <h2 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--text);">Built on peer-reviewed health science.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+        <div style="background:#ffffff;border:1px solid rgba(201,168,76,0.3);border-radius:16px;padding:28px 24px;">
+          <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--tiffany);margin-bottom:10px;">HRV as a Health Proxy</div>
+          <p style="color:#2d5554;font-size:0.92rem;line-height:1.7;">Heart rate variability is the most validated non-invasive marker of autonomic nervous system function, correlating with recovery, stress resilience, and cardiovascular health. <em style="color:var(--text-muted);">(Shaffer &amp; Ginsberg, 2017)</em></p>
+        </div>
+        <div style="background:#ffffff;border:1px solid rgba(201,168,76,0.3);border-radius:16px;padding:28px 24px;">
+          <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--tiffany);margin-bottom:10px;">Chrono-Nutrition</div>
+          <p style="color:#2d5554;font-size:0.92rem;line-height:1.7;">Meal timing relative to circadian phase significantly impacts metabolic outcomes independent of caloric intake. Late-night eating suppresses melatonin and elevates fasting glucose. <em style="color:var(--text-muted);">(Sutton et al., Cell Metabolism, 2018)</em></p>
+        </div>
+        <div style="background:#ffffff;border:1px solid rgba(201,168,76,0.3);border-radius:16px;padding:28px 24px;">
+          <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--tiffany);margin-bottom:10px;">Sleep Architecture &amp; Recovery</div>
+          <p style="color:#2d5554;font-size:0.92rem;line-height:1.7;">Slow-wave sleep is the primary window for physical repair and memory consolidation. REM duration predicts emotional regulation and cognitive performance the following day. <em style="color:var(--text-muted);">(Walker, 2017)</em></p>
+        </div>
       </div>
     </div>
   </section>
@@ -1251,17 +1323,18 @@
   <!-- Pricing -->
   <section class="section">
     <div class="section-label">Pricing</div>
-    <div class="section-title">Simple, transparent pricing</div>
+    <div class="section-title">Built for people serious<br>about their health.</div>
+    <p style="text-align:center;color:#4a7a78;font-size:1rem;margin:-24px auto 48px;max-width:480px;">Free to start. No data sold. Ever.</p>
     <div class="pricing-grid">
       <div class="pricing-card">
         <div class="pricing-tier">Free</div>
         <div class="pricing-price">$0 <span>/ forever</span></div>
-        <div class="pricing-desc">Get started, no strings attached.</div>
+        <div class="pricing-desc">Core biomarker sync · 7-day trend history · Daily health snapshot · Community insights</div>
         <ul class="pricing-features">
-          <li>Manual food &amp; water logging</li>
-          <li>Basic daily summary</li>
-          <li>3 AI questions per day</li>
-          <li>7-day data history</li>
+          <li>Core biomarker sync</li>
+          <li>7-day trend history</li>
+          <li>Daily health snapshot</li>
+          <li>Community insights</li>
         </ul>
         <button class="btn-pricing btn-pricing-free" onclick="openModal('signup')">Start Free</button>
       </div>
@@ -1269,13 +1342,14 @@
         <div class="pricing-badge">Most popular</div>
         <div class="pricing-tier">Premium</div>
         <div class="pricing-price">$15 <span>/ month</span></div>
-        <div class="pricing-desc">Full AI power, all integrations.</div>
+        <div class="pricing-desc">Full longitudinal modeling · Cross-domain pattern detection · Predictive trend alerts</div>
         <ul class="pricing-features">
-          <li>Unlimited AI conversations</li>
+          <li>Full longitudinal modeling</li>
+          <li>Cross-domain pattern detection</li>
+          <li>Predictive trend alerts</li>
+          <li>Journey reports &amp; health exports</li>
+          <li>Priority AI analysis</li>
           <li>All wearable integrations</li>
-          <li>Proactive pattern insights</li>
-          <li>Monthly journey reports</li>
-          <li>Unlimited data history</li>
         </ul>
         <button class="btn-pricing btn-pricing-premium" onclick="openModal('signup')">Get Premium</button>
       </div>
