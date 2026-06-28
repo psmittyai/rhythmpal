@@ -197,21 +197,22 @@
     }
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
+    @media (max-width: 768px) { .features-grid { grid-template-columns: 1fr; gap: 10px; } }
     .feature-card {
       background: #ffffff;
       border: 1px solid rgba(201,168,76,0.3) !important;
-      box-shadow: 0 4px 32px rgba(10,186,181,0.08), 0 1px 4px rgba(201,168,76,0.12);
-      border-radius: 16px;
-      padding: 32px 28px;
+      box-shadow: 0 2px 12px rgba(10,186,181,0.06);
+      border-radius: 12px;
+      padding: 18px 16px;
       transition: border-color 0.2s, transform 0.2s;
     }
     .feature-card:hover { border-color: rgba(201,168,76,0.6) !important; transform: translateY(-2px); }
-    .feature-icon { font-size: 2.2rem; margin-bottom: 16px; }
-    .feature-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-    .feature-card p { color: #2d5554; font-size: 0.95rem; line-height: 1.6; }
+    .feature-icon { font-size: 1.6rem; margin-bottom: 8px; }
+    .feature-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+    .feature-card p { color: #2d5554; font-size: 0.8rem; line-height: 1.5; }
 
     /* Pricing */
     .pricing-grid {
@@ -1324,7 +1325,7 @@
           </svg>
         </div>
         <h3>Biomarker Integration</h3>
-        <p>Connects to Oura, Apple Health, Garmin, Whoop, and Fitbit via OAuth 2.0. Ingests HRV, resting heart rate, SpO&#x2082;, sleep stages, respiratory rate, and activity load into a unified physiological timeline.</p>
+        <p>Oura, Apple Health, Garmin, Whoop, Fitbit. HRV, SpO&#x2082;, sleep stages — unified physiological timeline.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
@@ -1341,7 +1342,7 @@
           </svg>
         </div>
         <h3>Adaptive Memory Model</h3>
-        <p>RhythmPal doesn't reset daily. It builds a running model of your baseline physiology and learns how your body responds to sleep, nutrition, stress, and training over time. The longer you use it, the more precise it becomes.</p>
+        <p>Builds a continuous baseline model. Learns how your body responds to sleep, food, and stress over time.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
@@ -1356,7 +1357,7 @@
           </svg>
         </div>
         <h3>Cross-Domain Pattern Detection</h3>
-        <p>Identifies statistically significant correlations across your data streams. Elevated cortisol proxy from HRV suppression following late-night eating. Training load accumulation preceding immune response. Connections a single-metric app will never surface.</p>
+        <p>HRV suppression after late meals. Load accumulation before illness. Cross-domain signal no single metric reveals.</p>
       </div>
     </div>
   </section>
