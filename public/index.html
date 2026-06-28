@@ -1613,22 +1613,7 @@
       </div>
     </div>
 
-    <!-- Connected Wearables section -->
-    <div class="settings-section">
-      <div class="settings-section-title">Connected Wearables</div>
-      <ul class="wearable-list">
-        <li class="wearable-item">
-          <div class="wearable-info">
-            <span class="wearable-icon">💍</span>
-            <div>
-              <div class="wearable-name">Oura Ring</div>
-              <div class="wearable-status">Not connected</div>
-            </div>
-          </div>
-          <button class="btn-connect" onclick="showToast('Oura integration coming soon!','info')">Connect</button>
-        </li>
-      </ul>
-    </div>
+
 
     <!-- Apple Health / Android Health Connect Integration Card -->
     <div class="settings-section">
@@ -2545,41 +2530,31 @@
             <div class="wearable-info">
               <span class="wearable-icon">🍎</span>
               <div>
-                <div class="wearable-name">Apple Health / Oura</div>
+                <div class="wearable-name">Apple Health / Oura Ring</div>
                 <div class="wearable-status" id="dashAhStatus">Not connected</div>
               </div>
             </div>
-            <button class="btn-connect" onclick="openSettingsModal()">Setup</button>
+            <button class="btn-connect" onclick="openSettingsToWearables()">Setup</button>
           </li>
           <li class="wearable-item">
             <div class="wearable-info">
               <span class="wearable-icon">⌚</span>
               <div>
                 <div class="wearable-name">Fitbit</div>
-                <div class="wearable-status">Not connected</div>
+                <div class="wearable-status">Coming soon</div>
               </div>
             </div>
-            <button class="btn-connect" onclick="showToast('Fitbit integration coming soon!','info')">Connect</button>
+            <button class="btn-connect" onclick="showToast('Fitbit integration coming soon!','info')">Soon</button>
           </li>
           <li class="wearable-item">
             <div class="wearable-info">
               <span class="wearable-icon">🏃</span>
               <div>
                 <div class="wearable-name">Garmin</div>
-                <div class="wearable-status">Not connected</div>
+                <div class="wearable-status">Coming soon</div>
               </div>
             </div>
-            <button class="btn-connect" onclick="showToast('Garmin integration coming soon!','info')">Connect</button>
-          </li>
-          <li class="wearable-item">
-            <div class="wearable-info">
-              <span class="wearable-icon">💍</span>
-              <div>
-                <div class="wearable-name">Oura Ring</div>
-                <div class="wearable-status">Not connected</div>
-              </div>
-            </div>
-            <button class="btn-connect" onclick="showToast('Oura integration coming soon!','info')">Connect</button>
+            <button class="btn-connect" onclick="showToast('Garmin integration coming soon!','info')">Soon</button>
           </li>
         </ul>
       </div>
@@ -3314,6 +3289,14 @@ async function loadAppleHealthSetup() {
   } catch (e) {
     console.warn('Apple Health setup load failed:', e);
   }
+}
+
+function openSettingsToWearables() {
+  openSettingsModal();
+  setTimeout(() => {
+    const el = document.getElementById('appleHealthCard');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 300);
 }
 
 function showPlatformTab(platform, btn) {
