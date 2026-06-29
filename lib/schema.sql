@@ -144,3 +144,8 @@ CREATE TABLE IF NOT EXISTS apple_health_logs (
 
 CREATE INDEX IF NOT EXISTS idx_apple_health_logs_user_type_date
   ON apple_health_logs(user_id, data_type, start_date DESC);
+
+-- Google Fit / Health Connect OAuth tokens
+ALTER TABLE user_profiles ADD COLUMN IF NOT EXISTS google_access_token TEXT;
+ALTER TABLE user_profiles ADD COLUMN IF NOT EXISTS google_refresh_token TEXT;
+ALTER TABLE user_profiles ADD COLUMN IF NOT EXISTS google_token_expiry TIMESTAMPTZ;

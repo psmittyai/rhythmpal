@@ -1663,6 +1663,13 @@
             </ol>
             <div class="ah-note">💍 <strong>Oura users:</strong> Make sure the Oura app is installed and Health Connect sync is enabled in Oura app → Settings → Connections → Health Connect.</div>
             <div class="ah-note" style="margin-top:8px;">📌 <strong>Health Connect</strong> must be installed on your Android device. Most Android 14+ devices have it built in. Search "Health Connect" on the Play Store if needed.</div>
+            <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
+              <div style="font-size:0.82rem;font-weight:600;color:var(--text);margin-bottom:8px;">⚡ Or connect directly — no app needed:</div>
+              <button id="googleFitBtn" class="btn-tiffany" style="width:100%;padding:12px;font-size:0.92rem;font-weight:700;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:8px;" onclick="connectGoogleFit()">
+                <span>🤖</span> Connect Google Fit / Health Connect
+              </button>
+              <div id="googleFitStatus" style="font-size:0.78rem;color:var(--text-muted);margin-top:6px;text-align:center;"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -3252,6 +3259,7 @@ function openSettingsModal() {
   }
   document.getElementById('settingsModal').classList.add('open');
   loadAppleHealthSetup();
+  checkGoogleFitStatus();
 }
 
 // ===== APPLE HEALTH INTEGRATION =====
@@ -3290,6 +3298,37 @@ async function loadAppleHealthSetup() {
     console.warn('Apple Health setup load failed:', e);
   }
 }
+
+function connectGoogleFit() {
+  window.location.href = '/api/health/google/connect';
+}
+
+async function checkGoogleFitStatus() {
+  try {
+    const token = localStorage.getItem('rp_token');
+    if (!token) return;
+    const res = await fetch('/api/health/google/status', { headers: { Authorization: `Bearer ${token}` } });
+    const data = await res.json();
+    const btn = document.getElementById('googleFitBtn');
+    const status = document.getElementById('googleFitStatus');
+    if (data.connected) {
+      if (btn) { btn.textContent = '✓ Google Fit Connected'; btn.style.opacity = '0.7'; btn.disabled = true; }
+      if (status) status.textContent = 'Syncing hourly — steps, sleep, HRV from Health Connect';
+    }
+  } catch (e) {}
+}
+
+// Handle OAuth callback params
+(function handleOAuthReturn() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('google_health') === 'connected') {
+    showToast('Google Fit connected! ✓ Data syncing now.', 'success');
+    history.replaceState({}, '', '/');
+  } else if (params.get('google_health') === 'error') {
+    showToast('Google Fit connection failed. Try again.', 'error');
+    history.replaceState({}, '', '/');
+  }
+})();
 
 function openSettingsToWearables() {
   openSettingsModal();

@@ -84,6 +84,8 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', require('./routes/auth'));
 const appleHealthRoutes = require('./routes/apple-health');
 app.use('/api/health/apple-health', appleHealthRoutes);
+const googleHealthRoutes = require('./routes/google-health');
+app.use('/api/health/google', googleHealthRoutes);
 app.use('/api/health', require('./routes/health'));
 app.use('/api/food', require('./routes/food-photo'));
 app.use('/api/chat', require('./routes/chat'));
