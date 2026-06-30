@@ -2406,6 +2406,7 @@
         <!-- AI Chat at top -->
         <div class="chat-panel">
           <div class="chat-panel-title">💬 Ask RhythmPal</div>
+          <div id="skill-pills-row" style="display:flex;gap:8px;overflow-x:auto;padding:8px 16px 0;scrollbar-width:none;flex-shrink:0;"></div>
           <div class="chat-messages" id="chatMessages">
             <div class="chat-empty" id="chatEmpty">Ask me anything about your health — patterns, food, sleep, recovery.</div>
           </div>
@@ -2648,6 +2649,8 @@ async function loadApp() {
     loadHealthSummary();
     loadProfile();
     setWaterCount(getWaterCount());
+    loadSkillPills();
+    loadProactiveMessages();
   } catch (e) {
     handleLogout();
   }
@@ -2737,6 +2740,8 @@ async function handleSignup(e) {
     showApp();
     loadFoodLog();
     loadHealthSummary();
+    loadSkillPills();
+    loadProactiveMessages();
     showToast('Welcome to RhythmPal! 🎉', 'success');
   } catch (err) {
     errEl.textContent = 'Something went wrong. Please try again.';
@@ -2774,6 +2779,8 @@ async function handleLogin(e) {
     showApp();
     loadFoodLog();
     loadHealthSummary();
+    loadSkillPills();
+    loadProactiveMessages();
     showToast('Welcome back! 👋', 'success');
   } catch (err) {
     errEl.textContent = 'Something went wrong. Please try again.';
@@ -3223,7 +3230,7 @@ async function sendChat() {
   try {
     var res = await apiFetch('/api/chat', {
       method: 'POST',
-      body: JSON.stringify({ message: message }),
+      body: JSON.stringify({ message: message, skill: activeSkill }),
     });
     var data = await res.json();
     var loadingEl = document.getElementById(loadingId);
@@ -3596,6 +3603,62 @@ function setGoalBar(prefix, current, target, unit) {
     remainEl.textContent = 'Goal hit! ' + Math.abs(remaining) + ' ' + unit + ' over';
     remainEl.style.color = '#10b981';
   }
+}
+
+/* ===== SKILL SYSTEM ===== */
+var activeSkill = localStorage.getItem('rp_active_skill') || 'nutrition';
+
+async function loadSkillPills() {
+  try {
+    var res = await apiFetch('/api/proactive/skills');
+    if (!res.ok) return;
+    var data = await res.json();
+    var skills = data.skills;
+    var row = document.getElementById('skill-pills-row');
+    if (!row) return;
+    row.innerHTML = skills.map(function(s) {
+      var isActive = activeSkill === s.key;
+      return '<button onclick="setActiveSkill(\'' + s.key + '\')" id="skill-pill-' + s.key + '"' +
+        ' style="flex-shrink:0;padding:6px 14px;border-radius:20px;border:1.5px solid ' + (isActive ? 'var(--tiffany,#0abcde)' : 'var(--border,#e5e7eb)') + ';' +
+        'background:' + (isActive ? 'var(--tiffany,#0abcde)' : 'transparent') + ';' +
+        'color:' + (isActive ? '#fff' : 'var(--text-muted,#6b7280)') + ';' +
+        'font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.15s;white-space:nowrap;">' +
+        s.emoji + ' ' + s.name + '</button>';
+    }).join('');
+  } catch(e) { console.warn('loadSkillPills:', e); }
+}
+
+function setActiveSkill(key) {
+  activeSkill = key;
+  localStorage.setItem('rp_active_skill', key);
+  loadSkillPills();
+  var skillNames = { nutrition:'🥗 Nutrition Coach', sleep:'😴 Sleep Optimizer', workout:'🏋️ Workout Coach',
+    hydration:'💧 Hydration Coach', recovery:'🧠 Stress & Recovery', fasting:'⏱️ IF Coach', supplements:'💊 Supplement Stack' };
+  var empty = document.getElementById('chatEmpty');
+  if (empty) empty.textContent = (skillNames[key] || 'Coach') + ' active — ask anything or wait for your proactive brief.';
+}
+
+async function loadProactiveMessages() {
+  try {
+    var res = await apiFetch('/api/proactive/pending');
+    if (!res.ok) return;
+    var data = await res.json();
+    var messages = data.messages;
+    if (!messages || !messages.length) return;
+    var chatDiv = document.getElementById('chatMessages');
+    if (!chatDiv) return;
+    var empty = document.getElementById('chatEmpty');
+    if (empty) empty.style.display = 'none';
+    var skillEmoji = { nutrition:'🥗', sleep:'😴', workout:'🏋️', hydration:'💧', recovery:'🧠', fasting:'⏱️', supplements:'💊' };
+    messages.forEach(function(msg) {
+      var emoji = skillEmoji[msg.skill_key] || '🤖';
+      var bubble = document.createElement('div');
+      bubble.className = 'chat-msg assistant';
+      bubble.innerHTML = '<div class="chat-bubble"><span style="font-size:0.72rem;opacity:0.6;display:block;margin-bottom:4px;">' + emoji + ' Proactive brief</span>' + escHtml(msg.content) + '</div>';
+      chatDiv.appendChild(bubble);
+    });
+    chatDiv.scrollTop = chatDiv.scrollHeight;
+  } catch(e) { console.warn('loadProactiveMessages:', e); }
 }
 
 /* ===== COLLAPSIBLE SECTIONS ===== */

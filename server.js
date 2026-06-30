@@ -80,6 +80,40 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', app: 'rhythmpal' });
 });
 
+// Run skills schema migration on startup
+const { query: dbQuery } = require('./lib/db');
+dbQuery(`
+CREATE TABLE IF NOT EXISTS user_skills (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  skill_key VARCHAR(50) NOT NULL,
+  enabled BOOLEAN DEFAULT true,
+  settings JSONB DEFAULT '{}',
+  updated_at TIMESTAMP DEFAULT NOW(),
+  UNIQUE(user_id, skill_key)
+);
+CREATE TABLE IF NOT EXISTS skill_triggers_fired (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  skill_key VARCHAR(50) NOT NULL,
+  trigger_key VARCHAR(100) NOT NULL,
+  fired_at TIMESTAMP DEFAULT NOW(),
+  fired_date DATE DEFAULT CURRENT_DATE
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_skill_triggers_daily 
+  ON skill_triggers_fired(user_id, skill_key, trigger_key, fired_date);
+CREATE TABLE IF NOT EXISTS proactive_messages (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  skill_key VARCHAR(50) NOT NULL,
+  content TEXT NOT NULL,
+  shown BOOLEAN DEFAULT false,
+  created_at TIMESTAMP DEFAULT NOW()
+);
+CREATE INDEX IF NOT EXISTS idx_proactive_unshown 
+  ON proactive_messages(user_id, shown) WHERE shown = false;
+`).catch(err => console.error('Skills migration error (non-fatal):', err.message));
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 const appleHealthRoutes = require('./routes/apple-health');
@@ -89,6 +123,7 @@ app.use('/api/health/google', googleHealthRoutes);
 app.use('/api/health', require('./routes/health'));
 app.use('/api/food', require('./routes/food-photo'));
 app.use('/api/chat', require('./routes/chat'));
+app.use('/api/proactive', require('./routes/proactive'));
 
 // Legal pages
 app.get('/tos', (req, res) => {

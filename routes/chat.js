@@ -3,12 +3,13 @@ const router = express.Router();
 const Anthropic = require('@anthropic-ai/sdk');
 const { query } = require('../lib/db');
 const { requireAuth } = require('../lib/auth');
+const { SKILLS } = require('../lib/skills');
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const SYSTEM_PROMPT = `You are RhythmPal, a personal health intelligence assistant. You have real data about this user — their profile, daily targets, today's food log, and weekly trends.
+const DEFAULT_SYSTEM_PROMPT = `You are RhythmPal, a personal health intelligence assistant. You have real data about this user — their profile, daily targets, today's food log, and weekly trends.
 
 Your job is to give them daily actionable coaching based on THEIR actual numbers — not generic advice. Reference their specific data every time.
 
@@ -26,7 +27,8 @@ Rules:
 router.post('/', requireAuth, async (req, res) => {
   try {
     const userId = req.user.id;
-    const { message } = req.body;
+    const { message, skill } = req.body;
+    const SYSTEM_PROMPT = SKILLS[skill]?.systemPrompt || DEFAULT_SYSTEM_PROMPT;
 
     if (!message || !message.trim()) {
       return res.status(400).json({ error: 'Message is required' });
