@@ -1486,6 +1486,21 @@
     .target-chip-label { display: block; font-size: 0.65rem; font-weight: 700; color: var(--coral); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
     .target-chip-val { font-size: 1rem; font-weight: 700; color: #1a3332; }
     .profile-calc-note { background: #f0fffe; border: 1.5px solid rgba(10,186,181,0.3); border-radius: 8px; padding: 10px 12px; margin: 8px 0; font-size: 0.82rem; color: #1a3332; }
+    .targets-faq-link { display: block; text-align: center; margin-top: 10px; font-size: 0.8rem; color: #0abab5; cursor: pointer; text-decoration: none; }
+    .targets-faq-link:hover { text-decoration: underline; }
+    /* FAQ Modal */
+    .faq-modal { max-width: 480px; width: 92%; max-height: 80vh; overflow-y: auto; border-radius: 16px; background: #fff; padding: 24px 20px 20px; position: relative; }
+    .faq-modal-title { font-size: 1.05rem; font-weight: 700; color: #1a3332; margin-bottom: 4px; }
+    .faq-modal-sub { font-size: 0.8rem; color: #6b8f8e; margin-bottom: 16px; }
+    .faq-item { border: 1.5px solid rgba(10,186,181,0.3); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; cursor: pointer; font-size: 0.88rem; font-weight: 600; color: #1a3332; background: #f0fffe; user-select: none; }
+    .faq-q .faq-arrow { font-size: 0.75rem; color: #0abab5; transition: transform 0.2s; }
+    .faq-q.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a { display: none; padding: 12px 14px; font-size: 0.82rem; color: #1a3332; line-height: 1.55; border-top: 1px solid rgba(10,186,181,0.2); }
+    .faq-a.open { display: block; }
+    .faq-source { margin-top: 8px; font-size: 0.75rem; color: #6b8f8e; }
+    .faq-source a { color: #0abab5; text-decoration: none; }
+    .faq-source a:hover { text-decoration: underline; }
 
     /* ===== WATER IN FOOD TAB ===== */
     .water-count-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 0.9rem; color: #1a3332; }
@@ -1731,6 +1746,72 @@
     <div class="delete-modal-btns">
       <button class="btn-cancel-action" onclick="closeDeleteModal()">Cancel</button>
       <button class="btn-delete-confirm" id="deleteConfirmBtn" onclick="handleDeleteAccount()">Delete Account</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TARGETS FAQ MODAL ===== -->
+<div class="modal-overlay" id="faqModal">
+  <div class="faq-modal">
+    <button class="modal-close" onclick="closeFaqModal()">✕</button>
+    <div class="faq-modal-title">📊 How Your Targets Are Calculated</div>
+    <div class="faq-modal-sub">Based on peer-reviewed research — tap any question to expand.</div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">🔥 Why <span id="faqCalDisplay">these</span> calories? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        Your calorie target is calculated using the <strong>Mifflin-St Jeor equation</strong> — the most accurate BMR formula for most adults — then multiplied by your activity factor (TDEE), and adjusted for your goal (lose/maintain/gain).<br><br>
+        <strong>Formula:</strong><br>
+        BMR (male) = (10 × kg) + (6.25 × cm) − (5 × age) + 5<br>
+        BMR (female) = (10 × kg) + (6.25 × cm) − (5 × age) − 161<br><br>
+        <strong>Activity multipliers:</strong><br>
+        Sedentary × 1.2 · Light × 1.375 · Moderate × 1.55 · Active × 1.725 · Very Active × 1.9<br><br>
+        <strong>Goal adjustments:</strong> Lose = −500 kcal/day · Gain = +300 kcal/day · Maintain = 0
+        <div class="faq-source">Source: <a href="https://pubmed.ncbi.nlm.nih.gov/2305711/" target="_blank">Mifflin MD et al., JADA 1990</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/15765047/" target="_blank">Frankenfield D et al., JADA 2005</a></div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">💪 Why <span id="faqProtDisplay">this much</span> protein?
+        <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        Protein is set at <strong>0.73g per pound of bodyweight</strong> (≈ 1.6 g/kg) — the evidence-based minimum for muscle retention and recovery. Active individuals and those over 50 benefit from the higher end of this range.<br><br>
+        This aligns with ISSN (International Society of Sports Nutrition) guidelines for active adults.
+        <div class="faq-source">Source: <a href="https://pubmed.ncbi.nlm.nih.gov/28642676/" target="_blank">Morton RW et al., BJSM 2018</a> · <a href="https://jissn.biomedcentral.com/articles/10.1186/s12970-017-0177-8" target="_blank">ISSN Position Stand: Protein &amp; Exercise 2017</a></div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">🍞 How are carbs and fat set? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        After protein is accounted for, remaining calories are split:<br><br>
+        <strong>Carbs: ~52% of total calories</strong> (4 kcal/g) — primary fuel for brain and exercise performance.<br>
+        <strong>Fat: ~25% of total calories</strong> (9 kcal/g) — essential for hormones, joints, and fat-soluble vitamins (A, D, E, K).<br><br>
+        This follows the <strong>AMDR</strong> (Acceptable Macronutrient Distribution Range): Carbs 45–65%, Fat 20–35%, Protein 10–35% of calories.
+        <div class="faq-source">Source: <a href="https://www.ncbi.nlm.nih.gov/books/NBK56068/" target="_blank">Institute of Medicine, Dietary Reference Intakes 2005</a></div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">👟 Why 10,000 steps? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        10,000 steps/day is a widely used population target associated with reduced cardiovascular risk, improved metabolic health, and lower all-cause mortality. Recent research shows meaningful benefits starting at 7,000–8,000 steps, with diminishing returns above 12,000.<br><br>
+        Your target can be adjusted in Settings if your doctor or trainer recommends otherwise.
+        <div class="faq-source">Source: <a href="https://pubmed.ncbi.nlm.nih.gov/34431109/" target="_blank">Paluch AE et al., JAMA Network Open 2021</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/31688442/" target="_blank">Saint-Maurice PF et al., JAMA Internal Medicine 2020</a></div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">😴 Why 8 hours of sleep? <span class="faq-arrow">▼</span></div>
+      <div class="faq-a">
+        The <strong>American Academy of Sleep Medicine</strong> and <strong>Sleep Research Society</strong> recommend 7–9 hours for adults. 8 hours is set as the default target — the midpoint of optimal range for most people.<br><br>
+        Chronic sleep under 7 hours is linked to impaired metabolism, weight gain, elevated cortisol, and reduced muscle recovery. Your Oura Ring data helps RhythmPal track actual vs. target sleep quality.
+        <div class="faq-source">Source: <a href="https://pubmed.ncbi.nlm.nih.gov/26039963/" target="_blank">Watson NF et al., SLEEP 2015 (AASM/SRS Consensus)</a></div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px; padding: 10px 12px; background:#f8f8f8; border-radius:8px; font-size:0.75rem; color:#888; text-align:center;">
+      These targets are population-based estimates. Always consult your physician or registered dietitian for personalized medical nutrition advice.
     </div>
   </div>
 </div>
@@ -2528,6 +2609,7 @@
             <div class="target-chip"><span class="target-chip-label">Steps</span><span class="target-chip-val" id="tSteps">—</span></div>
             <div class="target-chip"><span class="target-chip-label">Sleep</span><span class="target-chip-val" id="tSleep">—h</span></div>
           </div>
+          <span class="targets-faq-link" onclick="openFaqModal()">ℹ️ How are these calculated?</span>
         </div>
       </div>
 
@@ -3424,6 +3506,39 @@ function closeDeleteModal() {
 
 document.getElementById('deleteModal').addEventListener('click', function(e) {
   if (e.target === document.getElementById('deleteModal')) closeDeleteModal();
+});
+
+// ===== FAQ MODAL =====
+function openFaqModal() {
+  // Populate dynamic values from current targets
+  var cal = document.getElementById('tCalories').textContent;
+  var prot = document.getElementById('tProtein').textContent;
+  if (cal && cal !== '—') document.getElementById('faqCalDisplay').textContent = cal + ' calories';
+  if (prot && prot !== '—g') document.getElementById('faqProtDisplay').textContent = prot;
+  document.getElementById('faqModal').classList.add('open');
+}
+
+function closeFaqModal() {
+  document.getElementById('faqModal').classList.remove('open');
+}
+
+function toggleFaq(el) {
+  var answer = el.nextElementSibling;
+  var isOpen = el.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-q.open').forEach(function(q) {
+    q.classList.remove('open');
+    q.nextElementSibling.classList.remove('open');
+  });
+  // Open clicked if it was closed
+  if (!isOpen) {
+    el.classList.add('open');
+    answer.classList.add('open');
+  }
+}
+
+document.getElementById('faqModal').addEventListener('click', function(e) {
+  if (e.target === document.getElementById('faqModal')) closeFaqModal();
 });
 
 async function handleDeleteAccount() {
