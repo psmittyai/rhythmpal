@@ -1635,56 +1635,62 @@
       <div class="settings-section-title">📱 Connect Your Wearable</div>
       <div class="apple-health-card" id="appleHealthCard">
         <div class="apple-health-header">
-          <div class="apple-health-title">Oura Ring &amp; Wearable Sync</div>
+          <div class="apple-health-title">Connect Your Wearable</div>
           <span class="badge-pending" id="ahConnectionBadge">⏳ Not Connected</span>
         </div>
-        <div id="ahWebhookSection">
-          <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:12px;">Your personal webhook URL — paste this into Health Auto Export on your phone:</div>
-          <div class="webhook-url-row">
-            <input type="text" class="webhook-url-input" id="ahWebhookUrl" readonly placeholder="Loading..." />
-            <button class="btn-copy-url" onclick="copyWebhookUrl()">Copy</button>
+
+        <!-- Connected state (hidden by default) -->
+        <div id="ahConnectedState" style="display:none;">
+          <div style="text-align:center;padding:16px 0 8px;">
+            <div style="font-size:2rem;margin-bottom:8px;">✅</div>
+            <div style="font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:4px;">Wearable Connected</div>
+            <div id="ahConnectedSource" style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px;">Syncing your health data automatically</div>
+            <button onclick="disconnectWearable()" style="background:transparent;border:1px solid var(--border);color:var(--text-muted);font-size:0.8rem;padding:6px 14px;border-radius:6px;cursor:pointer;">Disconnect</button>
+          </div>
+        </div>
+
+        <!-- Connect state -->
+        <div id="ahConnectState">
+          <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:18px;line-height:1.5;">
+            Connect your wearable in one tap. Works with Oura Ring, Samsung, Garmin, Pixel Watch, Apple Watch, Fitbit — any device that syncs to Health Connect or Apple Health.
           </div>
 
-          <!-- Platform tabs -->
-          <div class="ah-platform-tabs">
-            <button class="ah-tab active" onclick="showPlatformTab('ios', this)">🍎 iPhone / iOS</button>
-            <button class="ah-tab" onclick="showPlatformTab('android', this)">🤖 Android</button>
+          <!-- Android / Google Fit -->
+          <button id="googleFitBtn" onclick="connectGoogleFit()" style="width:100%;padding:14px;background:var(--primary,#0d9488);color:#fff;border:none;border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;">
+            <span style="font-size:1.2rem;">🤖</span>
+            <span>Connect Health Connect (Android)</span>
+          </button>
+          <div style="font-size:0.75rem;color:var(--text-muted);text-align:center;margin-bottom:16px;">Oura · Samsung · Garmin · Pixel Watch · Fitbit</div>
+
+          <!-- Divider -->
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <div style="flex:1;height:1px;background:var(--border);"></div>
+            <div style="font-size:0.75rem;color:var(--text-muted);">or</div>
+            <div style="flex:1;height:1px;background:var(--border);"></div>
           </div>
 
-          <!-- iOS Instructions -->
-          <div id="ah-tab-ios">
-            <div class="ah-steps-title">Setup (2 minutes)</div>
-            <ol class="ah-steps">
-              <li><span class="ah-step-num">1</span><span>Download <strong>Health Auto Export</strong> from the App Store (free)</span></li>
-              <li><span class="ah-step-num">2</span><span>Open the app → tap <strong>+</strong> → select <strong>REST API</strong></span></li>
-              <li><span class="ah-step-num">3</span><span>Paste your personal webhook URL above</span></li>
-              <li><span class="ah-step-num">4</span><span>Select metrics: <strong>Steps, Sleep Analysis, HRV, Resting Heart Rate, Active Energy</strong></span></li>
-              <li><span class="ah-step-num">5</span><span>Set export frequency: <strong>Hourly</strong></span></li>
-              <li><span class="ah-step-num">6</span><span>Tap Save — your Oura &amp; Apple Watch data syncs automatically 🎉</span></li>
+          <!-- iOS / Apple Health -->
+          <button id="appleHealthBtn" onclick="showAppleHealthSetup()" style="width:100%;padding:14px;background:transparent;color:var(--text);border:2px solid var(--border);border-radius:10px;font-size:0.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px;">
+            <span style="font-size:1.2rem;">🍎</span>
+            <span>Connect Apple Health (iOS)</span>
+          </button>
+          <div style="font-size:0.75rem;color:var(--text-muted);text-align:center;">Oura · Apple Watch · Any Apple Health device</div>
+
+          <!-- iOS setup (collapsed by default) -->
+          <div id="appleHealthSetup" style="display:none;margin-top:18px;padding-top:18px;border-top:1px solid var(--border);">
+            <div style="font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:10px;">iOS Setup (2 min)</div>
+            <ol style="font-size:0.82rem;color:var(--text-muted);padding-left:20px;line-height:2;margin:0 0 12px;">
+              <li>Download <strong style="color:var(--text);">Health Auto Export</strong> from the App Store (free)</li>
+              <li>Tap <strong style="color:var(--text);">+</strong> → <strong style="color:var(--text);">REST API</strong></li>
+              <li>Paste your webhook URL below</li>
+              <li>Select: <strong style="color:var(--text);">Steps, Sleep, HRV, Heart Rate, Active Energy</strong></li>
+              <li>Set frequency: <strong style="color:var(--text);">Hourly</strong> → Save</li>
             </ol>
-            <div class="ah-note">💍 <strong>Oura users:</strong> Make sure the Oura app is installed and Apple Health sync is enabled in Oura app → Settings → Connections → Apple Health.</div>
-          </div>
-
-          <!-- Android Instructions -->
-          <div id="ah-tab-android" style="display:none;">
-            <div class="ah-steps-title">Setup (2 minutes)</div>
-            <ol class="ah-steps">
-              <li><span class="ah-step-num">1</span><span>Download <strong>Health Auto Export - FHIR</strong> from the Google Play Store (free)</span></li>
-              <li><span class="ah-step-num">2</span><span>Open the app → tap <strong>+</strong> → select <strong>REST API</strong></span></li>
-              <li><span class="ah-step-num">3</span><span>Paste your personal webhook URL above</span></li>
-              <li><span class="ah-step-num">4</span><span>Select metrics: <strong>Steps, Sleep, HRV, Resting Heart Rate, Active Calories</strong></span></li>
-              <li><span class="ah-step-num">5</span><span>Set export frequency: <strong>Hourly</strong></span></li>
-              <li><span class="ah-step-num">6</span><span>Tap Save — your Oura &amp; Samsung/Pixel data syncs automatically 🎉</span></li>
-            </ol>
-            <div class="ah-note">💍 <strong>Oura users:</strong> Make sure the Oura app is installed and Health Connect sync is enabled in Oura app → Settings → Connections → Health Connect.</div>
-            <div class="ah-note" style="margin-top:8px;">📌 <strong>Health Connect</strong> must be installed on your Android device. Most Android 14+ devices have it built in. Search "Health Connect" on the Play Store if needed.</div>
-            <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);">
-              <div style="font-size:0.82rem;font-weight:600;color:var(--text);margin-bottom:8px;">⚡ Or connect directly — no app needed:</div>
-              <button id="googleFitBtn" class="btn-tiffany" style="width:100%;padding:12px;font-size:0.92rem;font-weight:700;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:8px;" onclick="connectGoogleFit()">
-                <span>🤖</span> Connect Google Fit / Health Connect
-              </button>
-              <div id="googleFitStatus" style="font-size:0.78rem;color:var(--text-muted);margin-top:6px;text-align:center;"></div>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <input type="text" id="ahWebhookUrl" readonly placeholder="Loading..." style="flex:1;padding:9px 12px;background:var(--surface,#1e293b);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:0.8rem;font-family:monospace;" />
+              <button onclick="copyWebhookUrl()" style="padding:9px 14px;background:var(--primary,#0d9488);color:#fff;border:none;border-radius:8px;font-size:0.82rem;font-weight:600;cursor:pointer;white-space:nowrap;">Copy</button>
             </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);margin-top:8px;">💍 Oura users: Enable Apple Health sync in Oura app → Settings → Connections → Apple Health</div>
           </div>
         </div>
       </div>
@@ -3398,13 +3404,45 @@ async function checkGoogleFitStatus() {
     if (!token) return;
     const res = await fetch('/api/health/google/status', { headers: { Authorization: `Bearer ${token}` } });
     const data = await res.json();
-    const btn = document.getElementById('googleFitBtn');
-    const status = document.getElementById('googleFitStatus');
+    const badge = document.getElementById('ahConnectionBadge');
+    const connectedState = document.getElementById('ahConnectedState');
+    const connectState = document.getElementById('ahConnectState');
     if (data.connected) {
-      if (btn) { btn.textContent = '✓ Google Fit Connected'; btn.style.opacity = '0.7'; btn.disabled = true; }
-      if (status) status.textContent = 'Syncing hourly — steps, sleep, HRV from Health Connect';
+      if (connectedState) connectedState.style.display = 'block';
+      if (connectState) connectState.style.display = 'none';
+      if (badge) { badge.textContent = '\u2705 Connected'; badge.className = 'badge-connected'; }
+      const src = document.getElementById('ahConnectedSource');
+      if (src) src.textContent = 'Syncing your health data automatically';
+    } else {
+      if (connectedState) connectedState.style.display = 'none';
+      if (connectState) connectState.style.display = 'block';
+      if (badge) { badge.textContent = '\u23f3 Not Connected'; badge.className = 'badge-pending'; }
     }
   } catch (e) {}
+}
+
+function showAppleHealthSetup() {
+  const setup = document.getElementById('appleHealthSetup');
+  if (setup) {
+    setup.style.display = setup.style.display === 'none' ? 'block' : 'none';
+    if (setup.style.display === 'block' && !document.getElementById('ahWebhookUrl').value) {
+      loadAppleHealthSetup();
+    }
+  }
+}
+
+async function disconnectWearable() {
+  if (!confirm('Disconnect your wearable? Health data will stop syncing.')) return;
+  try {
+    const token = localStorage.getItem('rp_token');
+    await fetch('/api/health/google/disconnect', { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+  } catch(e) {}
+  const connectedState = document.getElementById('ahConnectedState');
+  const connectState = document.getElementById('ahConnectState');
+  if (connectedState) connectedState.style.display = 'none';
+  if (connectState) connectState.style.display = 'block';
+  const badge = document.getElementById('ahConnectionBadge');
+  if (badge) { badge.textContent = '\u23f3 Not Connected'; badge.className = 'badge-pending'; }
 }
 
 // Handle OAuth callback params
