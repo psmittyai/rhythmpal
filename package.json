@@ -1,1 +1,27 @@
-{"name":"rhythmpal","version":"0.1.0","description":"RhythmPal — Health intelligence that gets smarter with you","main":"server.js","scripts":{"start":"node server.js","predeploy":"node --check server.js && echo ✅ All clear"},"dependencies":{"express":"^4.18.2","pg":"^8.11.3","bcrypt":"^5.1.1","jsonwebtoken":"^9.0.2","stripe":"^14.0.0","multer":"^1.4.5-lts.1","cors":"^2.8.5","dotenv":"^16.3.1","node-fetch":"^3.3.2","@anthropic-ai/sdk":"^0.24.3"}}
+{
+  "name": "rhythmpal",
+  "version": "0.1.0",
+  "description": "RhythmPal — Health intelligence that gets smarter with you",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "predeploy": "node --check server.js && echo ✅ All clear",
+    "test": "jest tests/",
+    "migrate": "node -e \"require('./lib/migrate').runMigrations()\""
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.3",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.11.3",
+    "stripe": "^14.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

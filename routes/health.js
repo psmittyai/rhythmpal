@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
 const { query } = require('../lib/db');
@@ -31,21 +33,60 @@ router.get('/summary', requireAuth, async (req, res) => {
     );
     const profile = profileResult.rows[0] || {};
 
-    // Pull latest Apple Health data (last 24 hours)
-    const appleHealthResult = await query(
-      `SELECT DISTINCT ON (data_type) data_type, value, unit, start_date
-       FROM apple_health_logs
-       WHERE user_id = $1 AND start_date >= NOW() - INTERVAL '24 hours'
-       ORDER BY data_type, start_date DESC`,
-      [userId]
-    );
+    // --- Health data: read from health_measurements first, fall back to apple_health_logs ---
+    let appleData = {};
+    let dataSource = 'none';
 
-    const appleData = {};
-    for (const row of appleHealthResult.rows) {
-      appleData[row.data_type] = { value: parseFloat(row.value), unit: row.unit, date: row.start_date };
+    // Try health_measurements (new canonical table)
+    let healthMeasurementsRows = [];
+    try {
+      const hmResult = await query(
+        `SELECT DISTINCT ON (metric_type) metric_type, value, unit, start_at
+         FROM health_measurements
+         WHERE user_id = $1 AND start_at >= NOW() - INTERVAL '24 hours'
+         ORDER BY metric_type, start_at DESC`,
+        [userId]
+      );
+      healthMeasurementsRows = hmResult.rows;
+    } catch (err) {
+      // Table may not exist yet — non-fatal
+      if (process.env.NODE_ENV !== 'production') {
+        console.debug('health_measurements read error (falling back):', err.message);
+      }
     }
 
-    // Helper to get apple health value by common name variants
+    if (healthMeasurementsRows.length > 0) {
+      dataSource = 'health_measurements';
+      for (const row of healthMeasurementsRows) {
+        appleData[row.metric_type] = {
+          value: parseFloat(row.value),
+          unit: row.unit,
+          date: row.start_at,
+        };
+      }
+    } else {
+      // Fall back to apple_health_logs (migration window safety)
+      if (process.env.NODE_ENV !== 'production') {
+        console.debug('health_measurements: zero results, falling back to apple_health_logs');
+      }
+      dataSource = 'apple_health_logs';
+      const appleHealthResult = await query(
+        `SELECT DISTINCT ON (data_type) data_type, value, unit, start_date
+         FROM apple_health_logs
+         WHERE user_id = $1 AND start_date >= NOW() - INTERVAL '24 hours'
+         ORDER BY data_type, start_date DESC`,
+        [userId]
+      );
+      for (const row of appleHealthResult.rows) {
+        appleData[row.data_type] = {
+          value: parseFloat(row.value),
+          unit: row.unit,
+          date: row.start_date,
+        };
+      }
+    }
+
+    // Helper to get health value by common name variants
     const ah = (names) => {
       for (const n of names) {
         if (appleData[n]) return appleData[n].value;
@@ -57,7 +98,7 @@ router.get('/summary', requireAuth, async (req, res) => {
     const hrvValue = ah(['HKQuantityTypeIdentifierHeartRateVariabilitySDNN', 'heartRateVariabilitySDNN', 'hrv']);
     const stepCount = ah(['HKQuantityTypeIdentifierStepCount', 'stepCount', 'steps']);
 
-    // Build health snapshot with real Apple Health data where available
+    // Build health snapshot with real health data where available
     const snapshot = {
       date: new Date().toISOString().split('T')[0],
       sleep: {
@@ -96,12 +137,12 @@ router.get('/summary', requireAuth, async (req, res) => {
         active_minutes: profile.target_active_minutes || 30,
       },
       profile_set: !!profile.weight_kg,
-      wearables_connected: appleHealthResult.rows.length > 0,
+      wearables_connected: Object.keys(appleData).length > 0,
     };
 
     res.json({ snapshot });
   } catch (err) {
-    console.error('Health summary error:', err);
+    console.error('Health summary error:', err.message);
     res.status(500).json({ error: 'Failed to fetch health summary' });
   }
 });
@@ -125,7 +166,7 @@ router.post('/food-log', requireAuth, async (req, res) => {
 
     res.status(201).json({ entry: result.rows[0] });
   } catch (err) {
-    console.error('Food log error:', err);
+    console.error('Food log error:', err.message);
     res.status(500).json({ error: 'Failed to save food entry' });
   }
 });
@@ -146,7 +187,7 @@ router.get('/food-log', requireAuth, async (req, res) => {
 
     res.json({ entries: result.rows });
   } catch (err) {
-    console.error('Food log fetch error:', err);
+    console.error('Food log fetch error:', err.message);
     res.status(500).json({ error: 'Failed to fetch food log' });
   }
 });

@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
@@ -42,7 +44,7 @@ router.get('/setup', requireAuth, async (req, res) => {
 
     res.json({ token, webhookUrl, connected: wasConnected, hasData });
   } catch (err) {
-    console.error('Apple Health setup error:', err);
+    console.error('Apple Health setup error:', err.message);
     res.status(500).json({ error: 'Failed to get setup info' });
   }
 });
@@ -86,20 +88,32 @@ router.post('/:token', async (req, res) => {
 
         if (value === undefined || value === null) continue;
 
-        // Upsert — avoid duplicate entries for same user/type/date
+        // Primary write: apple_health_logs (existing source of truth — do not fail)
         await query(
           `INSERT INTO apple_health_logs (user_id, data_type, value, unit, source, start_date, end_date)
            VALUES ($1, $2, $3, $4, $5, $6, $7)
            ON CONFLICT DO NOTHING`,
           [userId, dataType, value, unit, source, startDate, endDate]
         );
+
+        // Dual-write to health_measurements (new table) — non-fatal on error
+        await query(
+          `INSERT INTO health_measurements (user_id, provider, metric_type, value, unit, start_at, end_at)
+           VALUES ($1, 'apple_health', $2, $3, $4, $5, $6)
+           ON CONFLICT DO NOTHING`,
+          [userId, dataType, value, unit, startDate, endDate]
+        ).catch(err => {
+          // health_measurements may not exist yet during initial migration window
+          console.error('health_measurements dual-write error (non-fatal):', err.message);
+        });
+
         inserted++;
       }
     }
 
     res.json({ ok: true, inserted });
   } catch (err) {
-    console.error('Apple Health webhook error:', err);
+    console.error('Apple Health webhook error:', err.message);
     res.status(500).json({ error: 'Failed to process health data' });
   }
 });
