@@ -29,6 +29,7 @@ app.use('/api/health', require('./routes/health'));
 app.use('/api/food', require('./routes/food-photo'));
 app.use('/api/chat', require('./routes/chat'));
 app.use('/api/proactive', require('./routes/proactive'));
+app.use('/api/wearables/oura', require('./routes/wearables/oura'));
 
 // Legal pages
 app.get('/tos', (req, res) => {
