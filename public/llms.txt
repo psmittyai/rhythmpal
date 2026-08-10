@@ -1,0 +1,41 @@
+# RhythmPal — llms.txt
+# Agent-readable product brief for AI crawlers, LLMs, and agent-based discovery
+# Last updated: 2026-08-10
+
+## Product
+Name: RhythmPal
+URL: https://rhythmpal.com
+Category: AI SaaS / Health Technology
+Description: Health intelligence platform that connects wearables, food logging, sleep, and habits — then finds the patterns you'd never see yourself. Powered by AI, built for people who want to understand their body, not just track it.
+
+## Who It's For
+Primary users: Health-conscious individuals, biohackers, athletes, and anyone using wearable devices who want actionable insights — not just raw data.
+Use cases: Wearable data aggregation (Oura, Apple Watch, Garmin, Samsung, Fitbit), food photo logging with AI macro analysis, sleep pattern analysis, habit tracking, personalized health insights, daily PAL score.
+
+## Pricing
+- Free: Core tracking, basic insights
+- Premium: Advanced pattern detection, unlimited history, priority AI analysis
+- No credit card required to start
+
+## Key Features
+- PAL Score: Daily composite health score (sleep + activity + nutrition + HRV)
+- Photo Food Logging: Snap a photo → instant macro breakdown via AI vision
+- Wearable Integration: Oura Ring, Apple Health, Health Connect (Android), Garmin, Samsung, Fitbit
+- AI Health Chat: Ask questions about your own health data
+- Pattern Detection: Cross-signal insights (e.g., "your HRV drops when you eat late")
+- Sleep Analysis: Stages, HRV, recovery scoring
+- Activity Tracking: Steps, active calories, HR zones
+- Proactive Insights: AI surfaces patterns before you ask
+
+## Integration
+RhythmPal integrates with wearables via:
+- Android: Health Connect (Google)
+- iOS: Apple Health via webhook (Health Auto Export app)
+- Direct API: Oura Ring OAuth
+
+## Key URLs
+- Homepage: https://rhythmpal.com
+- Privacy: https://rhythmpal.com/privacy
+- Terms: https://rhythmpal.com/tos
+- Sitemap: https://rhythmpal.com/sitemap.xml
+- Agents: https://rhythmpal.com/agents

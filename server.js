@@ -39,6 +39,23 @@ app.get('/privacy', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'privacy.html'));
 });
 
+// SEO/AEO static files — serve before SPA fallback
+app.get('/sitemap.xml', (req, res) => {
+  res.setHeader('Content-Type', 'application/xml');
+  res.sendFile(path.join(__dirname, 'public', 'sitemap.xml'));
+});
+app.get('/llms.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  res.sendFile(path.join(__dirname, 'public', 'llms.txt'));
+});
+app.get('/robots.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  res.sendFile(path.join(__dirname, 'public', 'robots.txt'));
+});
+app.get('/agents', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'agents.html'));
+});
+
 // SPA fallback — all unmatched routes serve index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
